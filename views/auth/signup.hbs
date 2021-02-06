@@ -1,0 +1,64 @@
+<style>
+@media (max-width: 1500px) {
+  .col-4{
+    width: 50%;
+  }
+  .col-8{
+    width: 50%;
+  }
+}
+@media (max-width: 1300px) {
+  .c-2{
+    display: none;
+  }
+}
+</style>
+
+<div class="container-fluid position-absolute h-100 w-100">
+    <div class="row h-100">
+    <div class="c-2 col col-1 bg-primary">
+      <div class="container">
+        
+        
+      </div>
+    </div>
+    <div class="col col-4">
+      <div class="container">
+        <div class="container mt-5">
+          <h1 class="fw-light"> Bingo</h1>
+          </div>
+          <div class="container mt-5">
+            <h1 class="fs-2 fw-bold"> Crea tu cuenta</h1>
+          </div>
+          <div class="container">
+            <form action="/auth/signin?redirect={{redirect}}" method="POST">
+              <label class="fs-3 fw-light text-danger">{{#each error}}{{obj message}}{{/each}}</label>
+
+              <label class="fs-3 fw-light">Nombre</label>
+              <input type="text" name="nombre" autocomplete="off" id="inputEmail" class="form-control" required="" autofocus="">
+              <label for="inputEmail" class="fs-3 fw-light">Apellido</label>
+              <input type="text" name="apellido" autocomplete="off" id="inputEmail" class="form-control" required="" >
+              <label for="inputEmail" class="fs-3 fw-light">Email address</label>
+              <input type="email" name="correo" autocomplete="off" id="inputEmail" class="form-control" required="" >
+              <label for="inputPassword" class="fs-3 fw-light">Contraseña</label>
+              <input type="password" name="password" id="inputPassword" class="form-control" required="">
+              
+
+
+              <label class="d-inline-block mt-3">Ya tienes una cuenta? <a href="/auth/signin" class="d-inline">Ingrasa</a></label>
+              <button type="submit" class="d-inline btn btn-primary mt-3 w-50">Entrar</button>          
+            </form>
+          </div>
+          <div class="container position-absolute bottom-0 mb-5">
+            <h5 class="fw-light"> nesesitas ayuda? <a href="/help">Obtenla aquí</a></h5>
+          </div>
+      </div>
+    </div>
+  </div>
+
+{{#each error}}
+<script redirect="{{obj redirect}}">
+  //console.log(document.querySelector('script').attributes['redirect'].value)
+  document.querySelector('form').action = document.location.href + '?redirect='+document.querySelector('script').attributes['redirect'].value.slice(1, document.querySelector('script').attributes['redirect'].value.length-1)
+</script>
+{{/each}}

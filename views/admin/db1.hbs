@@ -1,0 +1,61 @@
+<div class="bg-dark h-50 w-100 position-absolute">
+  <div class="container  text-center" style="margin-top : 25px">
+    <form action="/admin/db/post/{{model}}" method="post">
+      {{#each obj}}
+        <div class="d-inline-block p-2 bg-primary text-white">
+          <p class="text-light">{{nombre}} &nbsp &nbsp &nbsp &nbsp &nbsp &nbsp &nbsp &nbsp {{type}}</p>
+          <input name="{{nombre}}" type="{{ifa type}}" required>
+        </div>
+      {{/each}}
+    <div class="container position-absolute top-50 text-center">
+      <button class="btn btn-primary w-25 start-50">Crear</button>
+    </div>
+    </form>
+  </div>
+</div>
+<div class="bg-light h-100 top-50 w-100 position-absolute">
+  <div class="container" style="">
+    {{#each c}}
+    <div class="d-inline-block p-3 ">
+      <ul class="list-group">
+        {{list this}}
+        <li class="list-group-item">
+          <form action="/admin/db/delete/{{../model}}/{{this.id}}" style="display: inline;" method="post">
+            <button class="btn btn-outline-danger">Eliminar</button>
+          </form>
+          {{!-- <button class="btn btn-outline-secondary" onclick="editar({{this}})">Editar</button> --}}
+          <button type="button" class="btn btn-secondary" data-bs-toggle="modal" data-bs-target="#a{{this.id}}">
+            Editar
+          </button>
+
+          <!-- Modal -->
+          <div class="modal fade " id="a{{this.id}}" tabindex="-1" aria-labelledby="a{{this.id}}Label" aria-hidden="true">
+            <div class="modal-dialog modal-xl">
+              <div class="modal-content">
+                <form action="/admin/db/put/{{../model}}/{{this.id}}" method="post">
+                  <div class="modal-header">
+                    <h5 class="modal-title" id="a{{this.id}}Label">Editar</h5>
+                    <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
+                  </div>
+                  <div class="modal-body">
+                    {{#each ../obj}}
+                      <div class="d-inline-block p-2 bg-primary text-white w-25" style="margin-top: 1%;">
+                        <p class="text-light">{{nombre}} &nbsp &nbsp &nbsp &nbsp &nbsp &nbsp &nbsp &nbsp {{type}}</p>
+                        <input class="w-100" name="{{nombre}}" type="{{ifa type}}" value="{{objinobj ../this this.nombre}}" required>
+                      </div>
+                    {{/each}}
+                  </div>
+                  <div class="modal-footer">
+                    <button type="button" class="btn btn-secondary" data-bs-dismiss="modal">Close</button>
+                    <button type="submit" class="btn btn-primary">Save changes</button>
+                  </div>
+                </form>
+              </div>
+            </div>
+          </div>
+        </li>
+      </ul>
+    </div>
+    {{/each}}
+  </div>
+</div>

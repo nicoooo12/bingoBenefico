@@ -1,0 +1,218 @@
+{{>nav}}
+
+  <style>
+    nav {
+       margin: 0 0 2rem 0; /* Space out the Bootstrap <hr> more */
+    }
+  </style>
+
+<div class="container item-center align-middle" style="">
+  
+  <div class="" style="position:relative; height:500px; width: 500px">
+    <table  class="table table-bordered border-primary" style="height: 100%;">
+    <tbody class="align-middle" style="text-align: center; font-size:24px">
+    <tr>
+      <td scope="col" style="background-color: #6f42c1; color:white; font-weight:bold">B</td>
+      <td scope="col" style="background-color: #6f42c1; color:white; font-weight:bold">I</td>
+      <td scope="col" style="background-color: #6f42c1; color:white; font-weight:bold">N</td>
+      <td scope="col" style="background-color: #6f42c1; color:white; font-weight:bold">G</td>
+      <td scope="col" style="background-color: #6f42c1; color:white; font-weight:bold">O</td>
+    </tr>
+    <tr>
+      <td scope="col" class="num">1</td>
+      <td scope="col" class="num">2</td>
+      <td scope="col" class="num">3</td>
+      <td scope="col" class="num">4</td>
+      <td scope="col" class="num">5</td>
+    </tr>
+    <tr>
+      <td class="num">6</td>
+      <td class="num">7</td>
+      <td class="num">8</td>
+      <td class="num">9</td>
+      <td class="num">10</td>
+    </tr>
+    <tr>
+      <td class="num">11</td>
+      <td class="num">12</td>
+      <td >X</td>
+      <td class="num">13</td>
+      <td class="num">14</td>
+    </tr>
+    <tr>
+      <td class="num">15</td>
+      <td class="num">16</td>
+      <td class="num">17</td>
+      <td class="num">18</td>
+      <td class="num">19</td>
+    </tr>
+    <tr>
+      <td class="num">20</td>
+      <td class="num">21</td>
+      <td class="num">22</td>
+      <td class="num">23</td>
+      <td class="num">24</td>
+    </tr>
+    </tbody>
+    </table>
+  </div>
+</div>
+
+{{>footer}}
+
+<script>
+document.querySelectorAll('.num').forEach((e)=>{
+    e.addEventListener('click', (a)=>{
+        //console.log(a.path[0].style.background)
+        if(a.path[0].style.background === 'red'){
+          //console.log('blnco')
+        a.path[0].style.background = 'white'
+        }else{
+        a.path[0].style.background = 'red'
+        }
+            
+    })
+})
+
+  let o = {{obj in}}
+  let corrida1 = [1,2,3,4,5]
+  let n=15,m=5;
+  function combinacion(n){
+    for(let i = 0; i <= n; i++){
+      if(i !== 0){
+       hash()  
+      }
+    }
+    console.log(corrida1)
+  }
+  function destructuracion(n1,n2,n3,n4,n5){
+    let f = false
+    for(let i = 0; i <= 3003; i++){
+      if(corrida1[0] == n1 && corrida1[1] == n2 && corrida1[2] == n3, corrida1[3] == n4 && corrida1[4] == n5){
+       console.log(i)
+       break;
+      }else{
+        hash()
+      }
+    }
+    console.log(corrida1)
+  }
+  function hash(){
+    if(corrida1[4] < n-m+(m)){
+      corrida1[4] = corrida1[4] + 1
+      //console.log('i=5 (+1)', corrida1)
+    }else if(corrida1[3] < n-m+(m-1)){
+      corrida1[3] = corrida1[3] + 1
+      corrida1[4] = corrida1[3] + 1
+      //console.log('i=4 (+1)', corrida1)
+    }else if(corrida1[2] < n-m+(m-2)){
+      corrida1[2] = corrida1[2] + 1
+      corrida1[3] = corrida1[2] + 1
+      corrida1[4] = corrida1[3] + 1
+      //console.log('i=3 (+1)', corrida1)
+    }else if(corrida1[1] < n-m+(m-3)){
+      corrida1[1] = corrida1[1] + 1
+      corrida1[2] = corrida1[1] + 1
+      corrida1[3] = corrida1[2] + 1
+      corrida1[4] = corrida1[3] + 1
+      //console.log('i=2 (+1)', corrida1)
+    }else if(corrida1[0] < n-m+(m-4)){
+      corrida1[0] = corrida1[0] + 1
+      corrida1[1] = corrida1[0] + 1
+      corrida1[2] = corrida1[1] + 1
+      corrida1[3] = corrida1[2] + 1
+      corrida1[4] = corrida1[3] + 1
+      //console.log('i=1 (+1)', corrida1)
+    }
+  }
+
+  function generar(){
+    let devolver = [[0,0,0,0,0],[0,0,0,0,0],[0,0,76,0,0],[0,0,0,0,0],[0,0,0,0,0]]
+    for(let i = 0; i <= 4; i++){
+      for(let e = 0; e <= 4; e++){
+        if(devolver[i][e] === 76){
+          devolver[i][e] = 'X'
+        }else{
+          let wi = true
+          let o
+          let p
+          while(wi){
+            switch(i){
+              case 0 :
+                o = (Math.round((Math.random()*15)/1))
+                p = compare(devolver, o)
+                if(!p){
+                  devolver[i][e] = o
+                  wi = false
+                }
+                break;
+              case 1 :
+                o = (Math.round((Math.random()*15)/1) + 15)
+                p = compare(devolver, o)
+                if(!p){
+                  devolver[i][e] = o
+                  wi = false
+                }
+                break;
+              case 2 :
+                o = (Math.round((Math.random()*15)/1) +30)
+                p = compare(devolver, o)
+                if(!p){
+                  devolver[i][e] = o
+                  wi = false
+                }
+                break;
+              case 3 :
+                o = (Math.round((Math.random()*15)/1) + 45)
+                p = compare(devolver, o)
+                if(!p){
+                  devolver[i][e] = o
+                  wi = false
+                }
+                break;
+              case 4 :
+                o = (Math.round((Math.random()*15)/1) + 60)
+                p = compare(devolver, o)
+                if(!p){
+                  devolver[i][e] = o
+                  wi = false
+                }
+                break;
+            }
+          }
+        }
+
+      }
+    }
+    return devolver
+    //return [[Math.round((Math.random()*75)/1),Math.round((Math.random()*75)/1),Math.round((Math.random()*75)/1),Math.round((Math.random()*75)/1),Math.round((Math.random()*75)/1)],[Math.round((Math.random()*75)/1),Math.round((Math.random()*75)/1),Math.round((Math.random()*75)/1),Math.round((Math.random()*75)/1),Math.round((Math.random()*75)/1)],[Math.round((Math.random()*75)/1),Math.round((Math.random()*75)/1),'X',Math.round((Math.random()*75)/1),Math.round((Math.random()*75)/1)],[Math.round((Math.random()*75)/1),Math.round((Math.random()*75)/1),Math.round((Math.random()*75)/1),Math.round((Math.random()*75)/1),Math.round((Math.random()*75)/1)],[Math.round((Math.random()*75)/1),Math.round((Math.random()*75)/1),Math.round((Math.random()*75)/1),Math.round((Math.random()*75)/1),Math.round((Math.random()*75)/1)]]
+  }
+  function compare(arrayDe, num){
+    let o = false
+    for(let i = 0; i <= 4; i++){
+      if (o === true) { break; }
+      for(let e = 0; e <= 4; e++){
+        if(arrayDe[i][e] === num){
+          console.log(arrayDe[i][e] === num)
+          console.log('numero repetido')
+          o = true
+        }
+      }
+    }
+    return o
+  }
+  function print(o){
+    for(let i = 1; i<=5; i++){
+      for(let e = 0; e<=4; e++){
+        if(o[e][i-1] == 0){
+          document.querySelectorAll('tr')[i].children[e].innerText = 'X'
+        }else{
+        document.querySelectorAll('tr')[i].children[e].innerText = o[e][i-1] 
+        }
+        //console.log(o[i][e]) 
+      } 
+    }
+  }
+
+  o ? print(o) : false
+</script>

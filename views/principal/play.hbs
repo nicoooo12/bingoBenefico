@@ -1,0 +1,119 @@
+{{>nav}}
+
+<section class="py-5 text-center container">
+    <div class="row py-lg-5">
+      <div class="col-lg-6 col-md-8 mx-auto">
+        <h1 class="fw-light">A jugar!</h1>
+
+        {{#if user}}
+          <p class="lead text-muted">Something short and leading about the collection below—its contents, the creator, etc. Make it short and sweet, but not too short so folks don’t simply skip over it entirely.</p>
+          <p>
+            <a href="/catalogo" class="btn btn-primary my-2">Comprar</a>
+            <a href="#" class="btn btn-secondary my-2">apoyar </a>
+          </p>
+        {{else}}
+          <p class="lead text-muted">Something short and leading about the collection below—its contents, the creator, etc. Make it short and sweet, but not too short so folks don’t simply skip over it entirely.</p>
+          <p>
+            <a href="/auth/signin?redirect=/play" class="btn btn-primary my-2">Ingresar</a>
+            <a href="/auth/signup?redirect=/play" class="btn btn-secondary my-2">Registrarme</a>
+          </p>
+        {{/if}}
+
+      </div>
+    </div>
+  </section>
+
+<div class="album py-5 bg-light">
+    <div class="container">
+
+      <div class="row">
+
+        {{#if cartones}}
+        {{#each cartones}}
+        
+          <div class="col-md-4">
+            <div class="card mb-4 shadow-sm">
+              <div>
+                <div class="" style="position:relative; height:500px; width: 100%">
+                  <table  class="table table-bordered" style="border-color:{{objinobj2 ../catalogos 'serie' this.serial 'color'}} ;height: 98%; top:2%; position:relative; width:96%; left:2%;">
+                    <tbody class="align-middle" style="text-align: center; font-size:24px">
+                    <tr>
+                      <td scope="col" style="background-color: {{objinobj2 ../catalogos 'serie' this.serial 'color'}}; color:white; font-weight:bold">B</td>
+                      <td scope="col" style="background-color: {{objinobj2 ../catalogos 'serie' this.serial 'color'}}; color:white; font-weight:bold">I</td>
+                      <td scope="col" style="background-color: {{objinobj2 ../catalogos 'serie' this.serial 'color'}}; color:white; font-weight:bold">N</td>
+                      <td scope="col" style="background-color: {{objinobj2 ../catalogos 'serie' this.serial 'color'}}; color:white; font-weight:bold">G</td>
+                      <td scope="col" style="background-color: {{objinobj2 ../catalogos 'serie' this.serial 'color'}}; color:white; font-weight:bold">O</td>
+                    </tr>
+                    <tr>
+                      <td scope="col" class="num">{{array (array data 0) 0}}</td>
+                      <td scope="col" class="num">{{array (array data 1) 0}}</td>
+                      <td scope="col" class="num">{{array (array data 2) 0}}</td>
+                      <td scope="col" class="num">{{array (array data 3) 0}}</td>
+                      <td scope="col" class="num">{{array (array data 4) 0}}</td>
+                    </tr>
+                    <tr>
+                      <td scope="col" class="num">{{array (array data 0) 1}}</td>
+                      <td scope="col" class="num">{{array (array data 1) 1}}</td>
+                      <td scope="col" class="num">{{array (array data 2) 1}}</td>
+                      <td scope="col" class="num">{{array (array data 3) 1}}</td>
+                      <td scope="col" class="num">{{array (array data 4) 1}}</td>
+                    </tr>
+                    <tr>
+                      <td scope="col" class="num">{{array (array data 0) 2}}</td>
+                      <td scope="col" class="num">{{array (array data 1) 2}}</td>
+                      <td >X</td>
+                      <td scope="col" class="num">{{array (array data 3) 2}}</td>
+                      <td scope="col" class="num">{{array (array data 4) 2}}</td>
+                    </tr>
+                    <tr>
+                      <td scope="col" class="num">{{array (array data 0) 3}}</td>
+                      <td scope="col" class="num">{{array (array data 1) 3}}</td>
+                      <td scope="col" class="num">{{array (array data 2) 3}}</td>
+                      <td scope="col" class="num">{{array (array data 3) 3}}</td>
+                      <td scope="col" class="num">{{array (array data 4) 3}}</td>
+                    </tr>
+                    <tr>
+                      <td scope="col" class="num">{{array (array data 0) 4}}</td>
+                      <td scope="col" class="num">{{array (array data 1) 4}}</td>
+                      <td scope="col" class="num">{{array (array data 2) 4}}</td>
+                      <td scope="col" class="num">{{array (array data 3) 4}}</td>
+                      <td scope="col" class="num">{{array (array data 4) 4}}</td>
+                    </tr>
+                    </tbody>
+                  </table>
+                </div>
+                <script>
+
+                </script>
+                {{!-- <img src="{{img}}" class="bd-placeholder-img card-img-top d-block w-100"> --}}
+              </div>
+              <div class="card-body">
+                <p class="card-text mb-1" style="font-size: 30px; font-weight: 100; ">{{titulo}}</p>
+                <p class="card-text h4 mb-10">{{descripcion}}</p>
+                <p class="card-text"><small class="text-muted"></small></p>
+                <div class="d-flex justify-content-between align-items-center">
+                  <div class="btn-group">
+                    <button type="button" class="btn btn-sm btn-outline-secondary">ver</button>
+                    {{!-- <button type="button" class="btn btn-sm btn-success " >Jugar!</button> --}}
+                    <a href="/carton/{{id}}" type="button" class="btn btn-sm btn-success " >Jugar!</a>
+                  </div>
+                  <small class="text-muted" style="font-size: 16px;">{{objinobj2 ../catalogos 'serie' serial 'titulo'}}</small>
+                </div>
+              </div>
+            </div>
+          </div>
+        {{/each}}
+        {{else}}
+        {{/if}}
+
+
+      </div {{!-- fuera --}}>
+    </div>
+  </div>
+
+
+{{>footer}}
+
+<script>
+    document.querySelectorAll('a')[3].classList.add('active')
+  </script>

@@ -1,0 +1,68 @@
+<style>
+@media (max-width: 1500px) {
+  .col-4{
+    width: 50%;
+  }
+  .col-8{
+    width: 50%;
+  }
+}
+@media (max-width: 1300px) {
+  .c-2{
+    display: none;
+  }
+  .col-4{
+    flex:1 0 0%;
+  }
+}
+
+</style>
+
+<div class="container-fluid position-absolute h-100 w-100">
+    <div class="row h-100">
+    <div class="col col-4">
+      <div class="container">
+        
+        <div class="container mt-5">
+          <h1 class="fw-light"> Bingo</h1>
+        </div>
+        <div class="container mt-5">
+          <h1 class="fs-2 fw-bold"> Ingresa a tu cuenta</h1>
+        </div>
+        <div class="container">
+          <form action="/auth/signin?redirect={{redirect}}" method="POST">
+            <label class="fs-3 fw-light text-danger">{{#each error}}{{obj message}}{{/each}}</label>
+            <label class="fs-3 fw-light">Correo Electronico</label>
+            <input type="email" name="correo" id="inputEmail" class="form-control" placeholder="" required="" autofocus="" autocomplete="address-level1">
+            <label class="fs-3 fw-light">Contraseña</label>
+            <input type="password" name="password" id="inputPassword" class="form-control" required="" autocomplete="current-password">
+            <button type="submit" class="d-inline-block btn btn-primary mt-3 w-25">Entrar</button>          
+            <label class="d-inline-block mt-3 ms-3 top-10">No tienes una cuenta? <a href="/auth/signup" class="d-inline-block">Regístrate</a></label>
+          </form>
+        </div>
+        <div class="container position-absolute bottom-0 mb-5">
+          <h5 class="fw-light"> nesesitas ayuda? <a href="/help">Obtenla aquí</a></h5>
+        </div>
+      </div>
+    </div>
+    <div class="c-2 col bg-primary col-8">
+      <div class="container">
+        <section class="py-5 text-center container">
+    <div class="row py-lg-5">
+      <div class="col-lg-6 col-md-8 mx-auto">
+        <h1 class="fw-light text-white">Bingo benefico</h1>
+        <p class="lead text-white">Something short and leading about the collection below—its contents, the creator, etc. Make it short and sweet, but not too short so folks don’t simply skip over it entirely.</p>
+        
+      </div>
+    </div>
+  </section>
+      </div>
+    </div>
+  </div>
+
+{{#each error}}
+<script redirect="{{obj redirect}}">
+  //console.log(document.querySelector('script').attributes['redirect'].value)
+  document.querySelector('form').action = document.location.href + '?redirect='+document.querySelector('script').attributes['redirect'].value.slice(1, document.querySelector('script').attributes['redirect'].value.length-1)
+</script>
+{{/each}}
