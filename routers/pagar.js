@@ -24,8 +24,8 @@ router.get('/',isAuthenticate, async(req,res)=>{
       }
     }
   }
-  console.log(req._parsedOriginalUrl);
-  const response = await WebpayPlus.WebpayPlus.Transaction.create(JSON.stringify(req.query).replaceAll('"',''), req.user._id, io, (config.host + '/pagar/end/'));
+  // console.log(JSON.stringify(req.query).replaceAll('"',''));
+  const response = await WebpayPlus.WebpayPlus.Transaction.create(JSON.stringify(req.query).toString().replaceAll('"',''), req.user._id, io, (config.host + '/pagar/end/'));
   res.render('compras/index',{
     compra : req.query,
     io: io,
