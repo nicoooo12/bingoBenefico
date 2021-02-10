@@ -11,28 +11,33 @@ WebpayPlus.apiKey = config.dev ? '579B532A7440BB0C9079DED94D31EA1615BACEB5661033
 WebpayPlus.environment = config.dev ? Environment.Integration : Environment.Production;
 
 router.get('/',isAuthenticate, async(req,res)=>{
-  let io = 0,
-      productos=[],
-      o = Object.keys(req.query)
- 
-      for (i=1; i<= o.length; i++){
-    if(+o[i-1]){
-      let prs = await store.get('catalogos', {serie:o[i-1]})
-      if(prs[0]){
-        io += ( prs[0].precio *  +req.query[o[i-1]] )
-        productos.push({producto: prs[0].titulo, precio: prs[0].precio, catidad: req.query[o[i-1]], total: ( prs[0].precio *  +req.query[o[i-1]] )})
-      }
+  try{
+    let io = 0,
+    productos=[],
+    o = Object.keys(req.query)
+
+    for (i=1; i<= o.length; i++){
+  if(+o[i-1]){
+    let prs = await store.get('catalogos', {serie:o[i-1]})
+    if(prs[0]){
+      io += ( prs[0].precio *  +req.query[o[i-1]] )
+      productos.push({producto: prs[0].titulo, precio: prs[0].precio, catidad: req.query[o[i-1]], total: ( prs[0].precio *  +req.query[o[i-1]] )})
     }
   }
-  // console.log(JSON.stringify(req.query).replaceAll('"',''));
-  const response = await WebpayPlus.WebpayPlus.Transaction.create(JSON.stringify(req.query).toString().replaceAll('"',''), req.user._id, io, (config.host + '/pagar/end/'));
-  res.render('compras/index',{
-    compra : req.query,
-    io: io,
-    productos,
-    payurl: response.url,
-    paytoken: response.token,
-  })
+}
+// console.log(JSON.stringify(req.query).replaceAll('"',''));
+const response = await WebpayPlus.WebpayPlus.Transaction.create(JSON.stringify(req.query).toString().replaceAll('"',''), req.user._id, io, (config.host + '/pagar/end/'));
+res.render('compras/index',{
+  compra : req.query,
+  io: io,
+  productos,
+  payurl: response.url,
+  paytoken: response.token,
+})
+  }catch(err){
+    console.log(err);
+  }
+
 })
 
 router.get('/otros', isAuthenticate,async(req,res)=>{
