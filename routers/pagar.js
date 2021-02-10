@@ -94,8 +94,9 @@ router.post('/end', async(req,res, next)=>{
   }
 })
 
-router.get('gen/:user/:serial',(req,res)=>{
+router.get('/gen/:user/:serial',(req,res)=>{
   carton.createCarton(req.params.user, req.params.serial)
+  res.send('ok')
 })
 
 function isAuthenticate(req,res,next){
