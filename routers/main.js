@@ -14,25 +14,6 @@ router.get('/inicio',isAuthenticate, (req,res)=>{
   res.render('principal/')
 })
 
-router.get('/play',isAuthenticate, async(req,res)=>{
-  try {
-    if(req.user){
-      // console.log(req.user._id);
-      let cartones = await store.get('cartones',{propietario_correo: req.user._id})
-      let catalogos = await store.get('catalogos',{})
-      res.render('principal/play',{
-        cartones,
-        catalogos
-      })
-    }
-    else{
-      res.render('principal/play')
-    }
-  } catch (error) {
-    res.send(error)
-  }
-})
-
 router.get('/about',isAuthenticate, (req,res)=>{
   res.render('principal/about')
 })
@@ -63,7 +44,7 @@ function isAuthenticate(req,res,next){
   if(req.isAuthenticated()){
       next()
   }else{
-      res.redirect('/')
+    res.redirect('/auth/signin?redirect='+req._parsedOriginalUrl.href)
   }
 }
 

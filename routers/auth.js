@@ -24,30 +24,6 @@ router.post('/signin', passport.authenticate('local-signin',{
   }
 })
 
-router.post('/signin2', passport.authenticate('local-signin',{
-  failureRedirect: '/',
-  failureFlash: true  
-}), (req,res)=>{
-  // console.log(8);
-  // console.log(req.query.redirect);
-  if(!req.query.redirect){
-    res.redirect('/inicio') 
-  }else{
-    res.redirect(req._parsedOriginalUrl.search.replace('?redirect=', ''))
-  }
-})
-
-router.post('/signin3', passport.authenticate('admin-local-signin',{
-  failureRedirect: './signin',
-  failureFlash: true  
-}), (req,res)=>{
-  // console.log(1);
-  if(req.query.redirect === ''){
-    res.redirect('/') 
-  }else{
-    res.redirect(req._parsedOriginalUrl.search.replace('?redirect=', ''))
-  }
-})
 
 router.get('/signup', (req,res)=>{
   res.render('auth/signup',{

@@ -34,13 +34,3 @@ passport.use('local-signin', new localStrategy({
   }
   
 }));
-
-passport.use('admin-local-signin', new localStrategy({
-  usernameField : 'password',
-  passReqToCallback : true
-},async (req, username,o, done) => {
-  const user = await store.get('users', {_id:username})
-  console.log(user);
-  return done(null, user[0]);
-
-}));

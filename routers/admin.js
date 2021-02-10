@@ -3,17 +3,47 @@ const router = express.Router()
 const models = require('../libs/mongoose/models')
 const store = require('../libs/mongoose')
 
+function isAdmin(req,res,next){
+  
+  if(req.isAuthenticated()){
+    if(req.user.isAdmin){
+      next()
+    }else{
+      res.redirect('/')
+    }
+  }else{
+    res.redirect('/auth/signin?redirect='+req._parsedOriginalUrl.href)
+  }
 
-router.get('/', (req,res)=>{
-  // console.log(models);
-  // console.log(Object.keys(models[req.params.model].base.models));
-  // console.log(Object.keys(models[req.params.model].base.modelSchemas[req.params.model].tree));
-  // console.log((models[req.params.model].base.modelSchemas[req.params.model].paths));
+}
 
-  res.render('admin/db2')
+router.get('/',isAdmin, async(req,res)=>{
+  
+  // console.log(Object.keys(models));
+  // console.log(Object.keys(models['users'].base.modelSchemas['users'].tree));
+  // console.log((models['users'].base.modelSchemas['users'].paths));
+
+  try {
+    res.render('admin/db2', {
+      models: Object.keys(models)
+    })
+  } catch (error) {
+    res.render('admin/db2')
+  }
 })
 
-router.get('/:model', async(req,res)=>{
+router.get('/bingo',isAdmin, (req,res)=>{
+  res.render('bingo/visual')
+})
+
+router.get('/control',isAdmin, async(req,res)=>{
+  let s = await store.get('catalogos', {})
+  res.render('bingo/control',{
+    s,
+  })
+})
+
+router.get('/:model',isAdmin, async(req,res)=>{
   let obj = []
   try {
     let c = await store.get(req.params.model, {})
@@ -34,19 +64,19 @@ router.get('/:model', async(req,res)=>{
   // console.log((models[req.params.model].base.modelSchemas[req.params.model].paths));
 })
 
-router.post('/db/post/:model', async(req,res)=>{
+router.post('/db/post/:model',isAdmin, async(req,res)=>{
   try {
-    await store.post(req.params.model, req.body)
+    await store.post(req.params.model, JSON.parse(JSON.stringify(req.body).replaceAll('on', 'true')))
     // res.send('SUCCESS')
     res.redirect('/admin/' + req.params.model)
   } catch (error) {
     if(error){
-      res.status(500).send( 'AA::ERROR:: ' , error)
+      res.status(500).send( 'AA::ERROR:: ' + error)
     }
   }
 })
 
-router.post('/db/put/:model/:id/', async(req,res)=>{
+router.post('/db/put/:model/:id/',isAdmin, async(req,res)=>{
   try {
     await store.put(req.params.model,{_id:req.params.id}, req.body)
     // res.send('SUCCESS')
@@ -58,7 +88,7 @@ router.post('/db/put/:model/:id/', async(req,res)=>{
   }
 })
 
-router.post('/db/delete/:model/:id', async(req,res)=>{
+router.post('/db/delete/:model/:id',isAdmin, async(req,res)=>{
   try {
     await store.delt(req.params.model, {_id:req.params.id})
     // res.send('SUCCESS')

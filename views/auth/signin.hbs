@@ -24,7 +24,7 @@
       <div class="container">
         
         <div class="container mt-5">
-          <h1 class="fw-light"> Bingo</h1>
+          <h1 class="fw-light"> Bingoloteando</h1>
         </div>
         <div class="container mt-5">
           <h1 class="fs-2 fw-bold"> Ingresa a tu cuenta</h1>
@@ -34,14 +34,15 @@
             <label class="fs-3 fw-light text-danger">{{#each error}}{{obj message}}{{/each}}</label>
             <label class="fs-3 fw-light">Correo Electronico</label>
             <input type="email" name="correo" id="inputEmail" class="form-control" placeholder="" required="" autofocus="" autocomplete="address-level1">
-            <label class="fs-3 fw-light">Contraseña</label>
+            <label class="fs-3 fw-light">Contraseña </label>
             <input type="password" name="password" id="inputPassword" class="form-control" required="" autocomplete="current-password">
+             <a href="" class="fs-6 align-middle d-block pb-3 pt-1">Has olvidado tu contraseña?</a>
             <button type="submit" class="d-inline-block btn btn-primary mt-3 w-25">Entrar</button>          
-            <label class="d-inline-block mt-3 ms-3 top-10">No tienes una cuenta? <a href="/auth/signup" class="d-inline-block">Regístrate</a></label>
+            <label class="d-inline-block mt-3 ms-3 top-10 align-middle">No tienes una cuenta? <a href="/auth/signup" class="d-inline-block">Regístrate</a></label>
           </form>
         </div>
         <div class="container position-absolute bottom-0 mb-5">
-          <h5 class="fw-light"> nesesitas ayuda? <a href="/help">Obtenla aquí</a></h5>
+          <h5 class="fw-light "> nesesitas ayuda? <a href="/help">Obtenla aquí</a></h5>
         </div>
       </div>
     </div>

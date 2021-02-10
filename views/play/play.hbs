@@ -6,11 +6,16 @@
         <h1 class="fw-light">A jugar!</h1>
 
         {{#if user}}
-          <p class="lead text-muted">Something short and leading about the collection below—its contents, the creator, etc. Make it short and sweet, but not too short so folks don’t simply skip over it entirely.</p>
+          {{!-- <p class="lead text-muted">Something short and leading about the collection below—its contents, the creator, etc. Make it short and sweet, but not too short so folks don’t simply skip over it entirely.</p> --}}
           <p>
-            <a href="/catalogo" class="btn btn-primary my-2">Comprar</a>
-            <a href="#" class="btn btn-secondary my-2">apoyar </a>
+            <a href="/play/play" class="btn btn-primary my-2 {{#if es}}{{else}}disabled{{/if}}">JUGAR</a>
+            <a href="/catalogo" class="btn btn-secondary my-2">comprar</a>
           </p>
+          {{#if es}}
+            <p class="lead text-muted">Ya empezamos!! entra a jugar dando click en juagar</p>
+          {{else}}
+            <p class="lead text-muted">Aun no iniciamos. Cuando empesemos podras juagar dando al boton que dice jugar. <br> no te quedes sin tu carton!! por ahora ve a comprar tu carton si no tienes uno</p>
+          {{/if}}
         {{else}}
           <p class="lead text-muted">Something short and leading about the collection below—its contents, the creator, etc. Make it short and sweet, but not too short so folks don’t simply skip over it entirely.</p>
           <p>
@@ -93,9 +98,10 @@
                 <p class="card-text"><small class="text-muted"></small></p>
                 <div class="d-flex justify-content-between align-items-center">
                   <div class="btn-group">
-                    <button type="button" class="btn btn-sm btn-outline-secondary">ver</button>
+                    {{!-- <button type="button" class="btn btn-sm btn-outline-secondary">ver</button> --}}
                     {{!-- <button type="button" class="btn btn-sm btn-success " >Jugar!</button> --}}
-                    <a href="/carton/{{id}}" type="button" class="btn btn-sm btn-success " >Jugar!</a>
+                    {{!-- <a href="/play/{{id}}" type="button" class="btn btn-sm btn-outline-secondary " >ver!</a> --}}
+                    {{!-- <button type="button" class="btn btn-sm btn-outline-secondary " onclick="verCarton([[{{array data 0}}],[{{array data 1}}],[{{array data 2}}],[{{array data 3}}],[{{array data 4}}]])">ver mi carton!</button> --}}
                   </div>
                   <small class="text-muted" style="font-size: 16px;">{{objinobj2 ../catalogos 'serie' serial 'titulo'}}</small>
                 </div>
@@ -115,5 +121,5 @@
 {{>footer}}
 
 <script>
-    document.querySelectorAll('a')[3].classList.add('active')
-  </script>
+  document.querySelectorAll('a')[3].classList.add('active')
+</script>

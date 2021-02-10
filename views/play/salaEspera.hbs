@@ -1,0 +1,18 @@
+{{>nav}}
+
+<div class="container text-center">
+  <h1 class="mt-5">{{message}}</h1>
+  <h3>Espera un poco ;)</h3>
+  <a href="/play" class="btn mt-5 btn-outline-primary">volver</a>
+</div>
+
+<script src="/socket.io/socket.io.js"></script>
+<script>
+  const socket = io()
+  socket.emit('soyUser')
+
+  socket.on('init', (o,e,a)=>{
+    document.location.href = document.location.href
+  })
+
+</script>

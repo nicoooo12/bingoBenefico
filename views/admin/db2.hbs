@@ -1,0 +1,18 @@
+<div class="bg-dark h-25 w-100 position-absolute">
+  <div class="container  text-center text-white" style="margin-top : 25px">
+    <h1>Hola admin xd</h1>
+    <a href="/admin/control" class="btn btn-primary mt-4">control</a>
+    <a href="/admin/bingo" class="btn btn-primary mt-4">bingo</a>
+    <a href="/" class="btn btn-secondary mt-4">volver al inicio</a>
+  </div>
+</div>
+<div class="bg-light w-100 position-absolute" style="top: 30%;">
+  <h1 style="text-align: center;">Base De Datos</h1>
+  <div class="container d-flex justify-content-center" style="">
+    {{#each models}}
+    <div class="d-inline-block p-2 mt-3 ms-3 bg-primary">
+      <a href="/admin/{{this}}" class="fs-1 link-light">{{this}}</a>
+    </div>
+    {{/each}}
+  </div>
+</div>

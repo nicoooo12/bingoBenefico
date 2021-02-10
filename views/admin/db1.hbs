@@ -2,13 +2,14 @@
   <div class="container  text-center" style="margin-top : 25px">
     <form action="/admin/db/post/{{model}}" method="post">
       {{#each obj}}
-        <div class="d-inline-block p-2 bg-primary text-white">
+        <div class="d-inline-block p-2 bg-primary mt-3 text-white">
           <p class="text-light">{{nombre}} &nbsp &nbsp &nbsp &nbsp &nbsp &nbsp &nbsp &nbsp {{type}}</p>
-          <input name="{{nombre}}" type="{{ifa type}}" required>
+          <input name="{{nombre}}" type="{{ifa type}}">
         </div>
       {{/each}}
-    <div class="container position-absolute top-50 text-center">
+    <div class="container mt-3 text-center">
       <button class="btn btn-primary w-25 start-50">Crear</button>
+      <a href="/admin" class="btn btn-secondary start-50">atrás</a href="/admin">
     </div>
     </form>
   </div>

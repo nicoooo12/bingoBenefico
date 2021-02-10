@@ -3,10 +3,10 @@
 
   <div class="position-relative m-4">
   <div class="progress" style="height: 1px;">
-    <div class="progress-bar" role="progressbar" style="width: 50%;" aria-valuenow="25" aria-valuemin="0" aria-valuemax="100"></div>
+    <div class="progress-bar" role="progressbar" style="width: 0%;" aria-valuenow="25" aria-valuemin="0" aria-valuemax="100"></div>
   </div>
-  <button type="button" class="position-absolute top-0 start-0 translate-middle btn btn-sm btn-primary rounded-pill" style="width: 3rem; height:3rem; font-size:25px">1</button>
-  <button type="button" class="position-absolute top-0 start-50 translate-middle btn btn-sm btn-primary rounded-pill" style="width: 3rem; height:3rem; font-size:25px">2</button>
+  <button type="button" class="position-absolute top-0 start-0 translate-middle btn btn-sm btn-primary rounded-pill" style="width: 3rem; height:3rem; font-size:25px"  data-bs-container="body" data-bs-toggle="popover" data-bs-placement="bottom" data-bs-content="Vivamus sagittis lacus vel augue laoreet rutrum faucibus.">1</button>
+  <button type="button" class="position-absolute top-0 start-50 translate-middle btn btn-sm btn-secondary rounded-pill" style="width: 3rem; height:3rem; font-size:25px">2</button>
   <button type="button" class="position-absolute top-0 start-100 translate-middle btn btn-sm btn-secondary rounded-pill" style="width: 3rem; height:3rem; font-size:25px">3</button>
   </div>
 
@@ -18,13 +18,72 @@
     <div class="row py-lg-5">
       <div class="col-lg-6 col-md-8 mx-auto">
         <h1 class="fw-light">1. Seleccion de pago</h1>
-        <p class="lead text-muted">Something short and leading about the collection below—its contents, the creator, etc. Make it short and sweet, but not too short so folks don’t simply skip over it entirely.</p>
+        <p class="lead text-muted">seleccione el metodo de pago que más le acomode. el metodo de pago online es inmediato y podra realisar la trasacion en menor tiempo.</p>
+        <table class="table text-start">
+          <thead>
+            <td>
+              Producto
+            </td>
+            <td>
+              Precio
+            </td>
+            <td>
+              Catidad
+            </td>
+            <td>
+              Total
+            </td>
+          </thead> 
+          {{#each productos}}
+            <tr>
+              <td>
+                {{producto}}
+              </td>
+              <td>
+                ${{nume precio}}
+              </td>
+              <td class="text-center">
+                {{catidad}} unid.
+              </td>
+              <td>
+                ${{nume total}}
+              </td>
+            </tr> 
+          {{/each}}
+          <tr style="border-bottom: transparent;">
+              <td>
+                Total: 
+              </td>
+              <td>
+                
+              </td>
+              <td>
+                
+              </td>
+              <td>
+                ${{nume io}}
+              </td>
+            </tr> 
+        </table>        
         <p>
-          <a href="#" class="btn btn-outline-primary my-2">Pagar online</a>
-          <a href="#" class="btn btn-outline-primary my-2">Otro</a>
+          <form method="post" action="{{payurl}}" style="display: inline;">
+            <input type="hidden" name="token_ws" value="{{paytoken}}" />
+            <input type="submit" class="btn btn-outline-primary my-2" value="Pagar online" />
+          </form>
+          {{!-- <a href="/pagar/initpay" class="btn btn-outline-primary my-2">Pagar online</a> --}}
+          <a href="/pagar/otros" class="btn btn-outline-primary my-2">Otro</a>
         </p>
       </div>
     </div>
   </section>
   </div>
 </div>
+
+
+
+<hr class="featurette-divider" style="margin: 0 0 2rem 0;">
+
+<footer class="container" style="">
+    <p class="float-end"><a href="/catalogo">volver</a></p>
+    <p>Moviemento de los Focolares - Chile · <a href="/contact">Contacto</a> · <a href="/info">Info</a></p>
+  </footer>

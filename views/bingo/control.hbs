@@ -1,0 +1,249 @@
+<div class="modal fade" id="staticBackdrop" data-bs-backdrop="static" data-bs-keyboard="false" tabindex="-1" aria-labelledby="staticBackdropLabel" aria-hidden="true">
+  <div class="modal-dialog">
+    <div class="modal-content">
+      <div class="modal-header">
+        <h5 class="modal-title" id="staticBackdropLabel">Modal title</h5>
+        <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
+      </div>
+      <div class="modal-body">
+        <table  class="table table-bordered border-primary" style="height: 100%; border:red !important;">
+    <tbody class="align-middle" style="text-align: center; font-size:24px; ">
+    <tr>
+      <td scope="col" style="background-color: red; color:white; font-weight:bold">B</td>
+      <td scope="col" style="background-color: red; color:white; font-weight:bold">I</td>
+      <td scope="col" style="background-color: red; color:white; font-weight:bold">N</td>
+      <td scope="col" style="background-color: red; color:white; font-weight:bold">G</td>
+      <td scope="col" style="background-color: red; color:white; font-weight:bold">O</td>
+    </tr>
+    <tr>
+      <td scope="col" class="num">1</td>
+      <td scope="col" class="num">2</td>
+      <td scope="col" class="num">3</td>
+      <td scope="col" class="num">4</td>
+      <td scope="col" class="num">5</td>
+    </tr>
+    <tr>
+      <td class="num">6</td>
+      <td class="num">7</td>
+      <td class="num">8</td>
+      <td class="num">9</td>
+      <td class="num">10</td>
+    </tr>
+    <tr>
+      <td class="num">11</td>
+      <td class="num">12</td>
+      <td >X</td>
+      <td class="num">13</td>
+      <td class="num">14</td>
+    </tr>
+    <tr>
+      <td class="num">15</td>
+      <td class="num">16</td>
+      <td class="num">17</td>
+      <td class="num">18</td>
+      <td class="num">19</td>
+    </tr>
+    <tr>
+      <td class="num">20</td>
+      <td class="num">21</td>
+      <td class="num">22</td>
+      <td class="num">23</td>
+      <td class="num">24</td>
+    </tr>
+    
+    </tbody>
+    </table>
+      </div>
+      <div class="modal-footer">
+        <button type="button" class="btn btn-secondary" data-bs-dismiss="modal" id="mentira">cerrar</button>
+      </div>
+    </div>
+  </div>
+</div>
+
+<div class="bg-dark h-25 w-100 position-absolute">
+  <div class="container  text-center text-white" style="margin-top : 25px">
+    <h1>Control</h1>
+    <a href="/admin" class="btn btn-primary mt-4">volver</a>
+  </div>
+</div>
+
+
+<div class="container  position-relative p-2 border-1 border border-primary" style="top: 30%;" >
+  <div class="form-check form-switch">
+    <input class="form-check-input" type="checkbox" id="flexSwitchCheckChecked">
+    <label class="form-check-label" for="flexSwitchCheckChecked">Estamos juagando</label>
+  </div>  
+  <label for="" class="mt-4">messajeEspera</label>
+  <div class="input-group mb-3">
+    <input type="text" class="form-control" id="texEspera" aria-label="Recipient's username" aria-describedby="button-addon2">
+    <button class="btn btn-outline-secondary" type="button" id="actu">Actualizar</button>
+  </div>
+  <label for="" class="mt-4">serie</label>
+  <select class="form-select d-inline-block mt-3" id="serie" aria-label="Default select example">
+    <option selected>serie</option>
+    {{#each s}}
+    <option value="{{serie}}" color="{{color}}">{{serie}}</option>
+    {{/each}}
+  </select>
+       
+  <label for="" class="mt-4">premio</label>
+   <select class="form-select mt-3" id="premio" aria-label="Default select example">
+      <option selected>Premio</option>
+      {{#each s}}
+      <option value="{{premioBingito}}" serie="{{serie}}">{{serie}}-{{premioBingito}}</option>
+      <option value="{{premioCompleto}}" serie="{{serie}}">{{serie}}-{{premioCompleto}}</option>
+      {{/each}} 
+    </select>
+
+  <label for="" class="mt-4">data</label>
+  <button class="btn btn-danger ms-4" id="generar">generar</button>
+  <button class="btn btn-outline-primary mx-1">ver</button>
+  <br> 
+  <button class="btn btn-success btn-lg mt-3 ms-1" id="iniciar">Iniciar</button> 
+  <button class="btn btn-outline-danger btn-lg mt-3 ms-1" id="terminar">terminar</button> 
+</div>
+
+<div class="container my-4 position-relative p-2 border-1 border border-primary" style="top: 30%;" >
+  <h1>bingo</h1>
+  <div class="row">
+    <div class="col-6 mb-5">
+      <button class="btn btn-outline-primary mt-3" id="lanzar">lanzar</button> 
+    </div>
+    <div class="col-6">
+      <ul class="list-group">
+      </ul>
+    </div>
+  </div>
+</div>
+
+
+<script src="/socket.io/socket.io.js"></script>
+<script>
+  const socket = io()
+  socket.emit('soyAdmin')
+  var numerosAzar = []
+  var numeres = [0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0]
+  var myModal = new bootstrap.Modal(document.getElementById('staticBackdrop'), {
+    keyboard: false
+  })
+//-//-//-//-//-//-//-//-//-//-//-//-//-//-//-//-//-//-
+  $('#flexSwitchCheckChecked').click(()=>{
+    $.post(document.location.origin + '/api/db/put/estados/602328f52da1de24ac1e38e6', { data : JSON.stringify({
+        'estamosJuegando' : $('#flexSwitchCheckChecked')[0].checked,
+      })},'json')
+  })
+  $('#actu').click(()=>{
+    $.post(document.location.origin + '/api/db/put/estados/602328f52da1de24ac1e38e6', { data : JSON.stringify({
+        messajeEspera: $('#texEspera')[0].value !=='' ? $('#texEspera')[0].value : ''
+      })},'json')
+      socket.emit('iniciarJuego')
+  })
+  $('#generar').click(()=>{
+    for(i=0; i <= 74; i++){
+      numerosAzar.push(lansar())
+    }
+  })
+  $('#iniciar').click(()=>{
+    if($('#serie')[0].value == 'serie' || $('#premio')[0].value == 'Premio' || !numerosAzar[0]){
+      console.log('nop')
+    }else{
+      $.post(document.location.origin + '/api/db/put/estados/602328f52da1de24ac1e38e6', { data : JSON.stringify({
+        'dataJuego' : numerosAzar,
+        'initJuego': true,
+        'serieJuego' : +$('#serie')[0].value,
+        'premioJuego' : $('#premio')[0].value,
+        'tiradas' : 0,
+      })},'json')
+      socket.emit('iniciarJuego', +$('#serie')[0].value, $('#premio')[0].value, $('#serie')[0].children[$('#serie')[0].options.selectedIndex].attributes['color'].value)
+    }
+  })
+  $('#terminar').click(()=>{
+    $.post(document.location.origin + '/api/db/put/estados/602328f52da1de24ac1e38e6', { data : JSON.stringify({
+        'dataJuego' : [],
+        'initJuego': false,
+        'serieJuego' : 0,
+        'premioJuego' : '-',
+        'tiradas' : 0,
+      })},(e)=>{
+        console.log(e)
+      },'json')
+    socket.emit('end')
+  })
+  $('#lanzar').click(()=>{
+    $('#lanzar')[0].disabled = true
+    socket.emit('lanzar')
+  })
+//-//-//-//-//-//-//-//-//-//-//-//-//-//-//-//-//-//-
+
+  socket.on('lando', (o)=>{
+    $('#lanzar')[0].disabled = false
+    $('#numere')[0].innerText = o 
+  })
+  socket.on('gano',(data1,data2 , idsocket, user)=>{
+    console.log(data1)
+    $('ul')[0].innerHTML += `
+    <li class="list-group-item">
+      ${user}
+      <button class="btn btn-outline-success btn-sm ms-1" onclick="cof('${idsocket}', '${user}', this)">confirmar</button>
+      <button class="btn btn-outline-danger btn-sm ms-1" onclick="res('${idsocket}', '${user}', this)">rechasar</button>
+      <button class="btn btn-outline-secondary btn-sm ms-1" onclick="lap([[${data1[0]}],[${data1[1]}],[${data1[2]}],[${data1[3]}],[${data1[4]}]], [${data2}])">ver</button>
+    </li>`
+  })
+//-//-//-//-//-//-//-//-//-//-//-//-//-//-//-//-//-//-
+  
+  function lap(d1, d2){
+    console.log(d1,d2)
+    print(d1,d2)
+    myModal.show()
+  }
+  function cof(id, user,t){
+    socket.emit('ganos', id, user)
+    t.parentElement.remove()
+  }
+  function res(id, user,t){
+    socket.emit('nop', id, user)
+    t.parentElement.remove()
+  }
+
+
+  function print(o,data2){
+    console.log(o[0])
+    for(let i = 1; i<=5; i++){
+      for(let e = 0; e<=4; e++){
+        if(o[e][i-1] == 0){
+          document.querySelectorAll('tr')[i].children[e].innerText = 'X'
+        }else{
+          document.querySelectorAll('tr')[i].children[e].innerText = o[e][i-1]
+          if(data2[document.querySelectorAll('tr')[i].children[e].innerText-1] == '1'){
+            document.querySelectorAll('tr')[i].children[e].style.background = 'red';
+          }
+        }
+        //console.log(o[i][e]) 
+      } 
+    }
+  }
+  function lansar(){
+    let tu = true
+    let numeroNuevo
+    while(tu){
+      if(numeres.filter(e=>{return e === 1}).length == 75){
+        tu = false
+      }
+      let v = Math.round((Math.random()*75)/1)
+      //console.log(v, numeres[v], numeres[v] === 0)
+      if(numeres[v-1] === 0){
+        numeroNuevo = v
+        tu = false
+      }
+    }
+    numeres[numeroNuevo-1] = 1
+    return numeroNuevo
+    //colorear(numeroNuevo)
+  }
+//-//-//-//-//-//-//-//-//-//-//-//-//-//-//-//-//-//-
+
+  window.onbeforeunload = ()=>{
+    socket.emit('disconectAdmin')
+  }
+</script>

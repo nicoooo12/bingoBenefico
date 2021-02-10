@@ -8,6 +8,8 @@ const exsession = require('express-session')
 const flash = require('connect-flash')
 
 const app = express()
+const server = require('http').createServer(app)
+const io = require('socket.io')(server)
 const config = require('./config')
 require('./libs/passport')
 
@@ -50,24 +52,24 @@ app.use((req, res, next) => {
 });
 
 //routers
+require('./sockets')(io)
 app.use('/',require('./routers/main'))
 app.use('/auth',require('./routers/auth'))
 app.use('/admin',require('./routers/admin'))
-app.use('/carton',require('./routers/cartones'))
+app.use('/play',require('./routers/play'))
 app.use('/pagar',require('./routers/pagar'))
-app.use('/bingo',require('./routers/bingo'))
+app.use('/api',require('./routers/api'))
 app.use('/public',express.static(path.join(__dirname, 'public')))
-// app.use('/control',require('./routers/cartones'))
 
 //404
 app.use((req,res)=>{
-  res.send('404')
+  res.status(404).send('404')
 })
 //errors
 app.use((err,req,res,next)=>{
   res.send('::ERROR::'+ err)
 })
 
-app.listen(config.port, ()=>{
+server.listen(config.port, ()=>{
   console.log(`server listening on port ${config.port} in ${config.dev ? 'development':'production'} mode`);
 })

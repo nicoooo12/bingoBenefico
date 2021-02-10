@@ -51,3 +51,9 @@ Handlebars.registerHelper('objinobj2', function(obj, parametro, valor, parametro
     return e[parametro] == valor
   })[0][parametro2]
 });
+
+Handlebars.registerHelper('deCartones', function(array, serie) {
+  return array.filter((e)=>{
+    return e['serial'] == serie
+  })
+});

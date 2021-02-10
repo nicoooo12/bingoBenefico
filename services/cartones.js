@@ -5,7 +5,7 @@ async function createCarton(propietario_correo,serial){
   let res
   while(u){
     let o = generar()
-    let carton = await store.get('cartones', {data: o})
+    let carton = await store.get('cartones', {data: o, serial})
     if(!carton[0]){
       u=false
       let uwu = await store.post('cartones', {

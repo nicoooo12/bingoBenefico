@@ -22,19 +22,34 @@ const mySchemacatalogos = new Schema({
   img: String,
   titulo: String,
   descripcion: String,
+  premioBingito: String, 
+  premioCompleto: String, 
   serie: Number,
   precio: Number,
   color:String,
+})
+
+const mySchemaEstados = new Schema({
+  estamosJuegando: Boolean,
+  initJuego: Boolean,
+  premioJuego: String,
+  serieJuego: Number,
+  dataJuego: Array,
+  tiradas: Number,
+  bingos: Array,
+  messajeEspera: String,
 })
 
 const users = mongoose.model('users', mySchemaUsers)
 const auths = mongoose.model('auths', mySchemaAuth)
 const cartones = mongoose.model('cartones', mySchemaCartones)
 const catalogos = mongoose.model('catalogos', mySchemacatalogos)
+const estados = mongoose.model('estados', mySchemaEstados)
 
 module.exports = {
   users,
   auths,
   catalogos,
   cartones,
+  estados,
 }
