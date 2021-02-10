@@ -50,6 +50,7 @@ router.post('/signup', async (req, res) => {
           password: await bcrypt.hash(password, 10)
       }
       await store.post('auths', newUserAuth)
+      console.log('new users');
       res.redirect('/auth/signin?redirect=' + req._parsedOriginalUrl.search ? req._parsedOriginalUrl.search.replace('?redirect=', ''):'')
   }
 })

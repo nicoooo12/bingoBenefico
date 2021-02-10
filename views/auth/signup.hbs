@@ -31,7 +31,7 @@
             <h1 class="fs-2 fw-bold"> Crea tu cuenta</h1>
           </div>
           <div class="container">
-            <form action="/auth/signin?redirect={{redirect}}" method="POST">
+            <form action="/auth/signup?redirect={{redirect}}" method="POST">
               <label class="fs-3 fw-light text-danger">{{#each error}}{{obj message}}{{/each}}</label>
 
               <label class="fs-3 fw-light">Nombre</label>
