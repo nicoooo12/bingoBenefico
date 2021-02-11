@@ -12,7 +12,7 @@ function isAdmin(req,res,next){
       res.redirect('/')
     }
   }else{
-    res.redirect('/auth/signin?redirect='+req._parsedOriginalUrl.href)
+    res.redirect('/auth/signin?redirect='+req._parsedUrl.href)
   }
 
 }

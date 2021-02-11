@@ -5,10 +5,10 @@ const store = require('../libs/mongoose')
 const bcrypt = require('bcrypt')
 
 router.get('/signin', (req,res)=>{
-  // console.log(req._parsedOriginalUrl.search.replace('?redirect=', ''));
-  // console.log(req._parsedOriginalUrl.search);
+  // console.log(req._parsedUrl.search.replace('?redirect=', ''));
+  // console.log(req._parsedUrl);
   res.render('auth/signin',{   
-    redirect : req._parsedOriginalUrl.search ? req._parsedOriginalUrl.search.replace('?redirect=', '') : '',
+    redirect : req._parsedUrl.search ? req._parsedUrl.search.replace('?redirect=', '') : '',
   })
 })
 
@@ -20,10 +20,9 @@ router.post('/signin', passport.authenticate('local-signin',{
   if(req.query.redirect === ''){
     res.redirect('/') 
   }else{
-    res.redirect(req._parsedOriginalUrl.search.replace('?redirect=', ''))
+    res.redirect(req._parsedUrl.search.replace('?redirect=', ''))
   }
 })
-
 
 router.get('/signup', (req,res)=>{
   res.render('auth/signup',{
@@ -51,15 +50,15 @@ router.post('/signup', async (req, res) => {
       }
       await store.post('auths', newUserAuth)
       console.log('new users');
-      res.redirect('/auth/signin?redirect=' + req._parsedOriginalUrl.search ? req._parsedOriginalUrl.search.replace('?redirect=', ''):'')
+      res.redirect('/auth/signin')
   }
 })
 
 router.get('/logout', (req, res)=> {
   req.logOut()
-  // console.log(req._parsedOriginalUrl);
+  // console.log(req._parsedUrl);
 
-  res.redirect('/auth/signin'+req._parsedOriginalUrl.search)
+  res.redirect('/auth/signin'+req._parsedUrl.search)
 })
 
 module.exports = router

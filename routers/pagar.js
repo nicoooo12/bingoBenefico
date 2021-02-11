@@ -103,8 +103,8 @@ function isAuthenticate(req,res,next){
   if(req.isAuthenticated()){
       next()
   }else{
-    // console.log(req._parsedOriginalUrl.href);
-      res.redirect('/auth/signin?redirect='+req._parsedOriginalUrl.href)
+    // console.log(req._parsedUrl.href);
+      res.redirect('/auth/signin?redirect='+req._parsedUrl.href)
   }
 }
 

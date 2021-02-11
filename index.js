@@ -4,7 +4,7 @@ const exphbs = require('express-handlebars')
 const bodyParser = require('body-parser')
 const cors = require('cors')
 const passport = require('passport')
-const exsession = require('express-session')
+const exsession = require('cookie-session')
 const flash = require('connect-flash')
 
 const app = express()
@@ -36,7 +36,7 @@ app.disable('x-powered-by')
 app.use(bodyParser.urlencoded({ extended: false }))
 app.use(bodyParser.json());
 app.use(exsession({
-  secret : 'hola mundito',
+  secret : config.secret,
   resave : false,
   saveUninitialized : false,
 }))
@@ -67,7 +67,7 @@ app.use((req,res)=>{
 })
 //errors
 app.use((err,req,res,next)=>{
-  res.send('::ERROR::'+ err)
+  res.send('::ERROR::'+ err.stack)
 })
 
 server.listen(config.port, ()=>{
