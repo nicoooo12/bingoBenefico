@@ -31,11 +31,11 @@ router.get('/signup', (req,res)=>{
   })
 })
 
-router.post('/signup', async (req, res) => {
+router.post('/signup', async (req, res, next) => {
   let { nombre, apellido, correo, password } = req.body
   const user = await store.get('users', {correo: correo})
   if (user[0]) {
-      res.render('auth/signup', { error: 'Esta cuenta ya esta ocupada :(' })
+      res.render('auth/signup', { error: [ {message : 'Esta cuenta ya esta ocupada :('}, {redirect : req._parsedUrl.search.replace('?redirect=', '')}] })
       return false
   } else {
       const newUser = {
@@ -49,8 +49,20 @@ router.post('/signup', async (req, res) => {
           password: await bcrypt.hash(password, 10)
       }
       await store.post('auths', newUserAuth)
-      console.log('new users');
-      res.redirect('/auth/signin')
+      console.log('new users', post);
+      
+      req.logIn(post,(err)=>{
+        if(err){
+          next(err)
+        }
+      })
+      
+      if(req.query.redirect === ''){
+        res.redirect('/') 
+      }else{
+        res.redirect(req._parsedUrl.search.replace('?redirect=', ''))
+      }
+      // res.redirect('/auth/signin')
   }
 })
 

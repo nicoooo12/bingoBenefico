@@ -33,7 +33,7 @@
           <div class="container">
             <form action="/auth/signup?redirect={{redirect}}" method="POST">
               <label class="fs-3 fw-light text-danger">{{#each error}}{{obj message}}{{/each}}</label>
-
+              <br>
               <label class="fs-3 fw-light">Nombre</label>
               <input type="text" name="nombre" autocomplete="off" id="inputEmail" class="form-control" required="" autofocus="">
               <label for="inputEmail" class="fs-3 fw-light">Apellido</label>
