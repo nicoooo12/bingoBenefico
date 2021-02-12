@@ -1,199 +1,202 @@
 {{>nav}}
 
-<nav class=" navbar navbar-expand-lg navbar-dark bg-primary py-2 " style="display:none;position:sticky; top: 0; background-color: rgba(255,255,255,0.95); z-index: 1" aria-current="true" aria-label="Secondary navigation">
-  <div class="container d-flex">
-      <div class=" justify-content-end" id="navbarSupportedContent">
-            <ul class="navbar-nav">
-              <li class="nav-item dropdown">
-                <a class="btn nav-link dropdown-toggle text-light" href="#" id="navbarDropdownMenuLink" role="button" data-bs-toggle="dropdown" aria-expanded="false">
-                  <span id="spannum" class="badge bg-light text-dark">1</span>
-                  <svg class="text-light" style="top: -2px;position: relative;" xmlns="http://www.w3.org/2000/svg" width="16" height="16" fill="currentColor" class="bi bi-cart-fill" viewBox="0 0 16 16">
-                    <path d="M0 1.5A.5.5 0 0 1 .5 1H2a.5.5 0 0 1 .485.379L2.89 3H14.5a.5.5 0 0 1 .491.592l-1.5 8A.5.5 0 0 1 13 12H4a.5.5 0 0 1-.491-.408L2.01 3.607 1.61 2H.5a.5.5 0 0 1-.5-.5zM5 12a2 2 0 1 0 0 4 2 2 0 0 0 0-4zm7 0a2 2 0 1 0 0 4 2 2 0 0 0 0-4zm-7 1a1 1 0 1 1 0 2 1 1 0 0 1 0-2zm7 0a1 1 0 1 1 0 2 1 1 0 0 1 0-2z"/>
-                  </svg>
-                  Carrito de compras
-                </a>
-                <ul class="dropdown-menu" aria-labelledby="navbarDropdownMenuLink">
-                  <li>
-                    <table class="table" id="carrito-list" >
-                      {{!-- <tr id="tr">
-                        <td>
-                          owo
-                        </td>
-                        <td>
-                          <ul class="pagination pagination-sm">
-                            <div class="btn-group">
-                              <button type="button" class="btn btn-sm btn-outline-danger">-</button>
-                              <sapn type="button" class="btn" >1</sapn>
-                              <button type="button" class="btn btn-sm btn-success " >-</button>
-                            </div>
-                          </ul>
-                        </td>
-                      </tr> --}}
-                    </table>
-                  </li>
-                </ul>
-              </li>
-              <li class="nav-item">
-                <a class="btn btn-success btn-sm nav-link" style="color: white;" role="button" href="#" id="signin" onclick="pagar()">
-                  Pagar todo!
-                </a>
-              </li>
-            </ul>
-          </div>
-  </div>
-</nav>
+<div>
 
-<script>
-  let cuenta = 0
-  let on = false
-  function addCarrito(e){
-    e.style.display = 'none'
-    cuenta += 1
-    e.parentElement.children[1].style.display = ''
-    e.attributes['total'].value = (+e.attributes['total'].value) + 1
-      e.parentElement.parentElement.children[1].innerText = `añadido(${e.attributes['total'].value})  CLP$${e.parentElement.parentElement.children[1].attributes['precio'].value}c/u` 
-      e.parentElement.children[1].children[1].innerText = `${e.attributes['total'].value}` 
-    document.getElementById('spannum').innerText = cuenta
-
-    if(document.getElementById(`tr-${(e.attributes['serial'].value)}`)){
-      document.getElementById(`tr-${(e.attributes['serial'].value)}`).children[1].children[0].children[0].children[0].innerText = '$' + (e.attributes['total'].value * (+document.getElementById(`tr-${(e.attributes['serial'].value)}`).children[1].children[0].children[0].children[0].attributes['precio'].value))
-    }else{
-      addProductoInList(e.attributes['serial'].value, e.parentElement.parentElement.parentElement.children[0].innerText, e.parentElement.parentElement.children[1].attributes['precio'].value)
-    }
-    if(!on){
-      document.querySelectorAll('nav')[1].style.display = ''
-      on = true
-
-    }
-  }
-  function removeCarrito(e){
-    cuenta -= 1
-    e.attributes['total'].value = (+e.attributes['total'].value) - 1
-    document.getElementById('spannum').innerText = cuenta
-    if((+e.attributes['total'].value) === 0){
-      let o = document.getElementById(`tr-${(e.attributes['serial'].value)}`)
-      o.parentElement.parentElement.deleteRow(o.rowIndex)
-      e.classList.remove('btn-outline-danger')
-      e.classList.add('btn-outline-secondary')
-      e.innerText = 'Agregar al carrito'
-      e.style.display = ''
-      e.parentElement.children[1].style.display = 'none'
-      e.attributes['onclick'].value = 'addCarrito(this)'
-      e.parentElement.parentElement.children[1].innerText = `CLP$` + e.parentElement.parentElement.children[1].attributes['precio'].value 
-    }else{
-      e.parentElement.children[1].children[1].innerText = `${e.attributes['total'].value}` 
-      e.parentElement.parentElement.children[1].innerText = `añadido(${e.attributes['total'].value})  CLP$${e.parentElement.parentElement.children[1].attributes['precio'].value}c/u` 
-      document.getElementById(`tr-${(e.attributes['serial'].value)}`).children[1].children[0].children[0].children[1].innerText = +document.getElementById(`tr-${(e.attributes['serial'].value)}`).children[1].children[0].children[0].children[1].innerText -1
-    }
-  }
-
-  function addProductoInList(id,text,precio){
-    document.getElementById('carrito-list').innerHTML += `
-      <tr id="tr-${id}">
-        <td>
-          ${text}
-        </td>
-        <td>
-          <ul class="pagination pagination-sm">
-            <div class="btn-group">
-              <sapn type="button" class="btn" precio="${precio}">1</sapn>
+  <nav class=" navbar navbar-expand-lg navbar-dark bg-primary py-2 " style="display:none;position:sticky; top: 0; background-color: rgba(255,255,255,0.95); z-index: 1" aria-current="true" aria-label="Secondary navigation">
+    <div class="container d-flex">
+        <div class=" justify-content-end" id="navbarSupportedContent">
+              <ul class="navbar-nav">
+                <li class="nav-item dropdown">
+                  <a class="btn nav-link dropdown-toggle text-light" href="#" id="navbarDropdownMenuLink" role="button" data-bs-toggle="dropdown" aria-expanded="false">
+                    <span id="spannum" class="badge bg-light text-dark">1</span>
+                    <svg class="text-light" style="top: -2px;position: relative;" xmlns="http://www.w3.org/2000/svg" width="16" height="16" fill="currentColor" class="bi bi-cart-fill" viewBox="0 0 16 16">
+                      <path d="M0 1.5A.5.5 0 0 1 .5 1H2a.5.5 0 0 1 .485.379L2.89 3H14.5a.5.5 0 0 1 .491.592l-1.5 8A.5.5 0 0 1 13 12H4a.5.5 0 0 1-.491-.408L2.01 3.607 1.61 2H.5a.5.5 0 0 1-.5-.5zM5 12a2 2 0 1 0 0 4 2 2 0 0 0 0-4zm7 0a2 2 0 1 0 0 4 2 2 0 0 0 0-4zm-7 1a1 1 0 1 1 0 2 1 1 0 0 1 0-2zm7 0a1 1 0 1 1 0 2 1 1 0 0 1 0-2z"/>
+                    </svg>
+                    Carrito de compras
+                  </a>
+                  <ul class="dropdown-menu" aria-labelledby="navbarDropdownMenuLink">
+                    <li>
+                      <table class="table" id="carrito-list" >
+                        {{!-- <tr id="tr">
+                          <td>
+                            owo
+                          </td>
+                          <td>
+                            <ul class="pagination pagination-sm">
+                              <div class="btn-group">
+                                <button type="button" class="btn btn-sm btn-outline-danger">-</button>
+                                <sapn type="button" class="btn" >1</sapn>
+                                <button type="button" class="btn btn-sm btn-success " >-</button>
+                              </div>
+                            </ul>
+                          </td>
+                        </tr> --}}
+                      </table>
+                    </li>
+                  </ul>
+                </li>
+                <li class="nav-item">
+                  <a class="btn btn-success btn-sm nav-link" style="color: white;" role="button" href="#" id="signin" onclick="pagar()">
+                    Pagar todo!
+                  </a>
+                </li>
+              </ul>
             </div>
-          </ul>
-        </td>
-      </tr>
-    `
-  }
+    </div>
+  </nav>
 
-  function pagar(){
-    let o = '/pagar?'
-    for(i=0; i <= document.getElementById('contenedorCentral').children.length - 1; i++){
-      if((+document.getElementById(`contenedorCentral`).children[i].children[0].children[1].children[3].children[0].children[1].children[1].innerText) > 0 ) {
-        o += `${i+1}=${+document.getElementById(`contenedorCentral`).children[i].children[0].children[1].children[3].children[0].children[1].children[1].innerText}&`
+  <script>
+    let cuenta = 0
+    let on = false
+    function addCarrito(e){
+      e.style.display = 'none'
+      cuenta += 1
+      e.parentElement.children[1].style.display = ''
+      e.attributes['total'].value = (+e.attributes['total'].value) + 1
+        e.parentElement.parentElement.children[1].innerText = `añadido(${e.attributes['total'].value})  CLP$${e.parentElement.parentElement.children[1].attributes['precio'].value}c/u` 
+        e.parentElement.children[1].children[1].innerText = `${e.attributes['total'].value}` 
+      document.getElementById('spannum').innerText = cuenta
+
+      if(document.getElementById(`tr-${(e.attributes['serial'].value)}`)){
+        document.getElementById(`tr-${(e.attributes['serial'].value)}`).children[1].children[0].children[0].children[0].innerText = '$' + (e.attributes['total'].value * (+document.getElementById(`tr-${(e.attributes['serial'].value)}`).children[1].children[0].children[0].children[0].attributes['precio'].value))
+      }else{
+        addProductoInList(e.attributes['serial'].value, e.parentElement.parentElement.parentElement.children[0].innerText, e.parentElement.parentElement.children[1].attributes['precio'].value)
+      }
+      if(!on){
+        document.querySelectorAll('nav')[1].style.display = ''
+        on = true
+
       }
     }
-    document.location.href = o
-  }
-
-</script>
-
-<style>
-      .bd-placeholder-img {
-        font-size: 1.125rem;
-        text-anchor: middle;
-        -webkit-user-select: none;
-        -moz-user-select: none;
-        -ms-user-select: none;
-        user-select: none;
+    function removeCarrito(e){
+      cuenta -= 1
+      e.attributes['total'].value = (+e.attributes['total'].value) - 1
+      document.getElementById('spannum').innerText = cuenta
+      if((+e.attributes['total'].value) === 0){
+        let o = document.getElementById(`tr-${(e.attributes['serial'].value)}`)
+        o.parentElement.parentElement.deleteRow(o.rowIndex)
+        e.classList.remove('btn-outline-danger')
+        e.classList.add('btn-outline-secondary')
+        e.innerText = 'Agregar al carrito'
+        e.style.display = ''
+        e.parentElement.children[1].style.display = 'none'
+        e.attributes['onclick'].value = 'addCarrito(this)'
+        e.parentElement.parentElement.children[1].innerText = `CLP$` + e.parentElement.parentElement.children[1].attributes['precio'].value 
+      }else{
+        e.parentElement.children[1].children[1].innerText = `${e.attributes['total'].value}` 
+        e.parentElement.parentElement.children[1].innerText = `añadido(${e.attributes['total'].value})  CLP$${e.parentElement.parentElement.children[1].attributes['precio'].value}c/u` 
+        document.getElementById(`tr-${(e.attributes['serial'].value)}`).children[1].children[0].children[0].children[1].innerText = +document.getElementById(`tr-${(e.attributes['serial'].value)}`).children[1].children[0].children[0].children[1].innerText -1
       }
+    }
 
-      @media (min-width: 768px) {
-        .bd-placeholder-img-lg {
-          font-size: 3.5rem;
+    function addProductoInList(id,text,precio){
+      document.getElementById('carrito-list').innerHTML += `
+        <tr id="tr-${id}">
+          <td>
+            <sapn type="button" class="btn">${text}</sapn>
+          </td>
+          <td>
+            <ul class="pagination pagination-sm">
+              <div class="btn-group">
+                <sapn type="button" class="btn" precio="${precio}">$${precio}</sapn>
+              </div>
+            </ul>
+          </td>
+        </tr>
+      `
+    }
+
+    function pagar(){
+      let o = '/pagar?'
+      for(i=0; i <= document.getElementById('contenedorCentral').children.length - 1; i++){
+        if((+document.getElementById(`contenedorCentral`).children[i].children[0].children[1].children[3].children[0].children[1].children[1].innerText) > 0 ) {
+          o += `${i+1}=${+document.getElementById(`contenedorCentral`).children[i].children[0].children[1].children[3].children[0].children[1].children[1].innerText}&`
         }
       }
-</style>
+      document.location.href = o
+    }
 
-<section class="py-5 text-center container">
-    <div class="row py-lg-5">
-      <div class="col-lg-6 col-md-8 mx-auto">
-        <h1 class="fw-light">Apoya con tu compra para este bingo</h1>
-        <p class="lead text-muted">Something short and leading about the collection below—its contents, the creator, etc. Make it short and sweet, but not too short so folks don’t simply skip over it entirely.</p>
-        <p>
-          {{!-- <a href="/play" class="btn btn-outline-primary my-2">Jugar ahora</a> --}}
-          {{!-- <a href="#" class="btn btn-secondary my-2">Secondary action</a> --}}
-        </p>
+  </script>
+
+  <style>
+    .bd-placeholder-img {
+      font-size: 1.125rem;
+      text-anchor: middle;
+      -webkit-user-select: none;
+      -moz-user-select: none;
+      -ms-user-select: none;
+      user-select: none;
+    }
+
+    @media (min-width: 768px) {
+      .bd-placeholder-img-lg {
+        font-size: 3.5rem;
+      }
+    }
+  </style>
+
+  <section class="py-5 text-center container">
+      <div class="row py-lg-5">
+        <div class="col-lg-6 col-md-8 mx-auto">
+          <h1 class="fw-light">¡Apoya con tu compra para este bingo!</h1>
+          <p class="lead text-muted">Comprando estos bingos estarás apoyando la recaudación de fondos del Centro Mariápolis. Solo añade a tu carrito los cartones de los bingos que quieras jugar y cuando estés list@ para pagar, presiona “¡Pagar todo!”.</p>
+          <p>
+            {{!-- <a href="/play" class="btn btn-outline-primary my-2">Jugar ahora</a> --}}
+            {{!-- <a href="#" class="btn btn-secondary my-2">Secondary action</a> --}}
+          </p>
+        </div>
       </div>
-    </div>
-  </section>
+    </section>
 
-<div class="album py-5 bg-light">
-    <div class="container">
+  <div class="album py-5 bg-light">
+      <div class="container">
 
-      <div class="row" id="contenedorCentral">
+        <div class="row" id="contenedorCentral">
 
-        {{#each catalogos}}
-          <div class="col-md-4" id="producto-{{serie}}">
-            <div class="card mb-4 shadow-sm">
-              <div>
-                <img src="{{img}}" class="bd-placeholder-img card-img-top d-block w-100">
-              </div>
-              <div class="card-body">
-                <p class="card-text mb-1" style="font-size: 30px; font-weight: 100; ">{{titulo}}</p>
-                <p class="card-text h4 mb-10">{{descripcion}}</p>
-                <p class="card-text"><small class="text-muted">Premios : {{premioBingito}} - {{premioCompleto}}</small></p>
-                <div class="d-flex justify-content-between align-items-center">
-                  <div class="btn-group">
-                    <button type="button" class="btn btn-sm btn-outline-success" total="0" serial="{{serie}}" onclick="addCarrito(this)">Agregar al carrito</button>
-                    {{!-- <button type="button" class="btn btn-sm btn-outline-success" style="display:none" onclick="addCarrito(this.parentElement.children[0])">+</button> --}}
-                    <div class="btn-group" style="display:none">
-                      <button type="button" class="btn btn-sm text-primary" onclick="removeCarrito(this.parentElement.parentElement.children[0])">-</button>
-                      <sapn type="button" class="btn" >0</sapn>
-                      <button type="button" class="btn btn-sm text-primary" onclick="addCarrito(this.parentElement.parentElement.children[0])">+</button>
+          {{#each catalogos}}
+            <div class="col-md-4" id="producto-{{serie}}">
+              <div class="card mb-4 shadow-sm">
+                <div>
+                  <img src="{{img}}" class="bd-placeholder-img card-img-top d-block w-100">
+                </div>
+                <div class="card-body">
+                  <p class="card-text mb-1" style="font-size: 30px; font-weight: 100; ">{{titulo}}</p>
+                  <p class="card-text h4 mb-10">{{descripcion}}</p>
+                  <p class="card-text"><small class="text-muted">Premios : {{premioBingito}} - {{premioCompleto}}</small></p>
+                  <div class="d-flex justify-content-between align-items-center">
+                    <div class="btn-group">
+                      <button type="button" class="btn btn-sm btn-outline-success" total="0" serial="{{serie}}" onclick="addCarrito(this)">Agregar al carrito</button>
+                      {{!-- <button type="button" class="btn btn-sm btn-outline-success" style="display:none" onclick="addCarrito(this.parentElement.children[0])">+</button> --}}
+                      <div class="btn-group" style="display:none">
+                        <button type="button" class="btn btn-sm text-primary" onclick="removeCarrito(this.parentElement.parentElement.children[0])">-</button>
+                        <sapn type="button" class="btn" >0</sapn>
+                        <button type="button" class="btn btn-sm text-primary" onclick="addCarrito(this.parentElement.parentElement.children[0])">+</button>
+                      </div>
+                      {{!-- <button type="button" class="btn btn-sm btn-success " >Comprar YA!</button> --}}
                     </div>
-                    {{!-- <button type="button" class="btn btn-sm btn-success " >Comprar YA!</button> --}}
+                    <small class="text-muted" style="font-size: 16px;" precio="{{precio}}">CLP${{precio}}</small>
                   </div>
-                  <small class="text-muted" style="font-size: 16px;" precio="{{precio}}">CLP${{precio}}</small>
                 </div>
               </div>
             </div>
-          </div>
-        {{/each}}
+          {{/each}}
 
 
 
-      </div {{!-- fuera --}}>
+        </div {{!-- fuera --}}>
+      </div>
     </div>
-  </div>
 
-  <script>
-    document.querySelectorAll('a')[2].classList.add('active')
-  </script>
+    <script>
+      document.querySelectorAll('a')[2].classList.add('active')
+    </script>
 
-  {{!-- <footer class="text-muted">
-  <div class="container text-center">
-    <p>Esta aplicacion fue hecha con el fin de abarcar un solo evento y por el momento no esta avierta al publico.</p>
-    <p>si te gusta el concepto y te gustaría ocupar para un evento <a href="/contacto">contacta con el creador</a>.</p>
-  </div>
-</footer> --}}
+    {{!-- <footer class="text-muted">
+    <div class="container text-center">
+      <p>Esta aplicacion fue hecha con el fin de abarcar un solo evento y por el momento no esta avierta al publico.</p>
+      <p>si te gusta el concepto y te gustaría ocupar para un evento <a href="/contacto">contacta con el creador</a>.</p>
+    </div>
+  </footer> --}}
+</div>
 
 {{>footer}}

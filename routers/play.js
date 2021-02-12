@@ -1,7 +1,7 @@
 const express = require('express')
 const router = express.Router()
 const store = require('../libs/mongoose')
-router.get('/',isAuthenticate, async(req,res)=>{
+router.get('/',isAuthenticate, async(req,res,next)=>{
   try {
     if(req.user){
       // console.log(req.user._id);
@@ -18,34 +18,38 @@ router.get('/',isAuthenticate, async(req,res)=>{
       res.render('play/play')
     }
   } catch (error) {
-    res.send(error)
+    next(error)
   }
 })
 
-router.get('/play', isAuthenticate, async (req,res)=>{
+router.get('/play', isAuthenticate, async (req,res,next)=>{
   try{
     let o = await store.get('cartones', {propietario_correo : req.user._id})
     let estado = await store.get('estados',{})
     let car = await store.get('catalogos', {})
     // console.log(o);
-    if(estado[0].initJuego){
-      res.render('play/jugar', {
-        in : o,
-        car,
-        estado: estado[0],
-      })
+    if(estado[0].estamosJuegando){
+      if(estado[0].initJuego){
+        res.render('play/jugar', {
+          in : o,
+          car,
+          estado: estado[0],
+        })
+      }else{
+        res.render('play/salaEspera', {
+          message: estado[0].messajeEspera
+        })
+      }
     }else{
-      res.render('play/salaEspera', {
-        message: estado[0].messajeEspera
-      })
+      res.redirect('/play')
     }
   }
   catch(err){
-    res.send(err)
+    next(err)
   }
 })
 
-router.get('/:id', async (req,res)=>{
+router.get('/:id', async (req,res,next)=>{
   try{
     let o = await store.get('cartones', {_id : req.params.id})
     // console.log(o);
@@ -54,7 +58,7 @@ router.get('/:id', async (req,res)=>{
     })
   }
   catch(err){
-    res.send(err)
+    next(err)
   }
 })
 

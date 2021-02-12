@@ -32,7 +32,8 @@ router.get('/signup', (req,res)=>{
 })
 
 router.post('/signup', async (req, res, next) => {
-  let { nombre, apellido, correo, password } = req.body
+  try {
+    let { nombre, apellido, correo, password } = req.body
   const user = await store.get('users', {correo: correo})
   if (user[0]) {
       res.render('auth/signup', { error: [ {message : 'Esta cuenta ya esta ocupada :('}, {redirect : req._parsedUrl.search.replace('?redirect=', '')}] })
@@ -63,6 +64,9 @@ router.post('/signup', async (req, res, next) => {
         res.redirect(req._parsedUrl.search.replace('?redirect=', ''))
       }
       // res.redirect('/auth/signin')
+  }
+  } catch (error) {
+  next(error) 
   }
 })
 

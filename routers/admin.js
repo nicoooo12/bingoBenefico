@@ -17,7 +17,7 @@ function isAdmin(req,res,next){
 
 }
 
-router.get('/',isAdmin, async(req,res)=>{
+router.get('/',isAdmin, async(req,res,next)=>{
   
   // console.log(Object.keys(models));
   // console.log(Object.keys(models['users'].base.modelSchemas['users'].tree));
@@ -28,6 +28,7 @@ router.get('/',isAdmin, async(req,res)=>{
       models: Object.keys(models)
     })
   } catch (error) {
+
     res.render('admin/db2')
   }
 })
@@ -41,6 +42,11 @@ router.get('/control',isAdmin, async(req,res)=>{
   res.render('bingo/control',{
     s,
   })
+})
+
+router.get('/gen/:user/:serial',isAdmin,(req,res)=>{
+  carton.createCarton(req.params.user, req.params.serial)
+  res.send('ok')
 })
 
 router.get('/:model',isAdmin, async(req,res)=>{
@@ -64,39 +70,33 @@ router.get('/:model',isAdmin, async(req,res)=>{
   // console.log((models[req.params.model].base.modelSchemas[req.params.model].paths));
 })
 
-router.post('/db/post/:model',isAdmin, async(req,res)=>{
+router.post('/db/post/:model',isAdmin, async(req,res,next)=>{
   try {
     await store.post(req.params.model, JSON.parse(JSON.stringify(req.body).replaceAll('on', 'true')))
     // res.send('SUCCESS')
     res.redirect('/admin/' + req.params.model)
   } catch (error) {
-    if(error){
-      res.status(500).send( 'AA::ERROR:: ' + error)
-    }
+    next(error)
   }
 })
 
-router.post('/db/put/:model/:id/',isAdmin, async(req,res)=>{
+router.post('/db/put/:model/:id/',isAdmin, async(req,res,next)=>{
   try {
     await store.put(req.params.model,{_id:req.params.id}, req.body)
     // res.send('SUCCESS')
     res.redirect('/admin/' + req.params.model)
   } catch (error) {
-    if(error){
-      res.status(500).send('CC::ERROR:: ' + error)
-    }
+    next(error)
   }
 })
 
-router.post('/db/delete/:model/:id',isAdmin, async(req,res)=>{
+router.post('/db/delete/:model/:id',isAdmin, async(req,res,next)=>{
   try {
     await store.delt(req.params.model, {_id:req.params.id})
     // res.send('SUCCESS')
     res.redirect('/admin/' + req.params.model)
   } catch (error) {
-    if(error){
-      res.status(500).send('BB::ERROR:: ', error)
-    }
+    next(error)
   }
 })
 

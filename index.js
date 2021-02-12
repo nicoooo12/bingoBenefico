@@ -11,6 +11,9 @@ const app = express()
 const server = require('http').createServer(app)
 const io = require('socket.io')(server)
 const config = require('./config')
+
+const errorsHandler = require('./utils/middlewares/error-handler')
+
 require('./libs/passport')
 
 require('./libs/mongoose/conect')(config.db)
@@ -63,12 +66,11 @@ app.use('/public',express.static(path.join(__dirname, 'public')))
 
 //404
 app.use((req,res)=>{
-  res.status(404).send('404')
+  res.render('errors/404')
 })
 //errors
-app.use((err,req,res,next)=>{
-  res.send('::ERROR::'+ err.stack)
-})
+app.use(errorsHandler.errorReport)
+app.use(errorsHandler.errorPrint)
 
 server.listen(config.port, ()=>{
   console.log(`server listening on port ${config.port} in ${config.dev ? 'development':'production'} mode`);

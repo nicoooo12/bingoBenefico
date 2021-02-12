@@ -3,7 +3,7 @@
 <section class="py-5 text-center container">
     <div class="row py-lg-5">
       <div class="col-lg-6 col-md-8 mx-auto">
-        <h1 class="fw-light">A jugar!</h1>
+        <h1 class="fw-light">¡A jugar!</h1>
 
         {{#if user}}
           {{!-- <p class="lead text-muted">Something short and leading about the collection below—its contents, the creator, etc. Make it short and sweet, but not too short so folks don’t simply skip over it entirely.</p> --}}
@@ -12,12 +12,12 @@
             <a href="/catalogo" class="btn btn-secondary my-2">comprar</a>
           </p>
           {{#if es}}
-            <p class="lead text-muted">Ya empezamos!! entra a jugar dando click en juagar</p>
+            <p class="lead text-muted">¡Todo listo para comenzar! Entra al juego dando click al botón de JUGAR.</p>
           {{else}}
-            <p class="lead text-muted">Aun no iniciamos. Cuando empesemos podras juagar dando al boton que dice jugar. <br> no te quedes sin tu carton!! por ahora ve a comprar tu carton si no tienes uno</p>
+            <p class="lead text-muted">El juego aún no empieza. ¿Ya tienes tu cartón? Si no lo tienes corre a comprarlo haciendo click en el botón de “COMPRAR”. Si ya estás list@ con tu cartón, solo tienes que esperar a que el juego comience y apretar el botón de “JUGAR”. </p>
           {{/if}}
         {{else}}
-          <p class="lead text-muted">Something short and leading about the collection below—its contents, the creator, etc. Make it short and sweet, but not too short so folks don’t simply skip over it entirely.</p>
+          {{!-- <p class="lead text-muted">Something short and leading about the collection below—its contents, the creator, etc. Make it short and sweet, but not too short so folks don’t simply skip over it entirely.</p> --}}
           <p>
             <a href="/auth/signin?redirect=/play" class="btn btn-primary my-2">Ingresar</a>
             <a href="/auth/signup?redirect=/play" class="btn btn-secondary my-2">Registrarme</a>
@@ -31,15 +31,15 @@
 <div class="album py-5 bg-light">
     <div class="container">
 
-      <div class="row">
+      <div class="row" style="justify-content: center;">
 
         {{#if cartones}}
         {{#each cartones}}
         
-          <div class="col-md-4">
-            <div class="card mb-4 shadow-sm">
+          <div class="m-3" style="position: relative; height:390px; width: 340px">
+            <div class="card mb-4 shadow-sm" style="">
               <div>
-                <div class="" style="position:relative; height:500px; width: 100%">
+                <div class="" style="position:relative; height:325px; width: 100%">
                   <table  class="table table-bordered" style="border-color:{{objinobj2 ../catalogos 'serie' this.serial 'color'}} ;height: 98%; top:2%; position:relative; width:96%; left:2%;">
                     <tbody class="align-middle" style="text-align: center; font-size:24px">
                     <tr>

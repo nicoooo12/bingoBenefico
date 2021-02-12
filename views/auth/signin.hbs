@@ -15,7 +15,28 @@
     flex:1 0 0%;
   }
 }
-
+@media (max-width: 460px) {
+  .btn{
+    width: 100%!important;
+  }
+}
+@media (max-width: 375px) {
+  .po-1{
+    margin-left: 0!important;
+    font-size: 14px!important;
+  }
+  .po-2{
+    font-size: 16px;
+  }
+  .mb-5{
+    margin-bottom: 1rem!important;
+  }
+}
+@media (max-width: 296px) {
+  .mt-3 {
+    margin-top: 0!important;
+  }
+}
 </style>
 
 <div class="container-fluid position-absolute h-100 w-100">
@@ -36,13 +57,13 @@
             <input type="email" name="correo" id="inputEmail" class="form-control" placeholder="" required="" autofocus="" autocomplete="address-level1">
             <label class="fs-3 fw-light">Contraseña </label>
             <input type="password" name="password" id="inputPassword" class="form-control" required="" autocomplete="current-password">
-             <a href="" class="fs-6 align-middle d-block pb-3 pt-1">Has olvidado tu contraseña?</a>
+             <a href="" class="fs-6 align-middle d-block pb-3 pt-1 po-1">Has olvidado tu contraseña?</a>
             <button type="submit" class="d-inline-block btn btn-primary mt-3 w-25">Entrar</button>          
-            <label class="d-inline-block mt-3 ms-3 top-10 align-middle">No tienes una cuenta? <a href="/auth/signup" class="d-inline-block">Regístrate</a></label>
+            <label class="d-inline-block mt-3 ms-3 top-10 align-middle po-1">No tienes una cuenta? <a href="/auth/signup" class="d-inline-block">Regístrate</a></label>
           </form>
         </div>
         <div class="container position-absolute bottom-0 mb-5">
-          <h5 class="fw-light "> nesesitas ayuda? <a href="/help">Obtenla aquí</a></h5>
+          <h5 class="fw-light po-2"> nesesitas ayuda? <a href="/help">Obtenla aquí</a></h5>
         </div>
       </div>
     </div>
@@ -51,8 +72,8 @@
         <section class="py-5 text-center container">
     <div class="row py-lg-5">
       <div class="col-lg-6 col-md-8 mx-auto">
-        <h1 class="fw-light text-white">Bingo benefico</h1>
-        <p class="lead text-white">Something short and leading about the collection below—its contents, the creator, etc. Make it short and sweet, but not too short so folks don’t simply skip over it entirely.</p>
+        <h1 class="fw-light text-white">¡Bienvenid@s!</h1>
+        <p class="lead text-white">Para acceder a la página tienes que iniciar sesión o crearte una cuenta. Con eso podrás:  ¡Comprar, acceder y jugar tus cartones!, ¡Enterarte más de este evento, de los Jóvenes por un Mundo Unido y el Centro Mariápolis Cunaco! y ¡Poder ayudar a esta hermosa causa!</p>
         
       </div>
     </div>

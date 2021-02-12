@@ -31,7 +31,7 @@ function generar(){
         while(wi){
           switch(i){
             case 0 :
-              o = (Math.round((Math.random()*15)/1))
+              o = ((Math.round((Math.random()*14)/1)+1))
               p = compare(devolver, o)
               if(!p){
                 devolver[i][e] = o
@@ -39,7 +39,7 @@ function generar(){
               }
               break;
             case 1 :
-              o = (Math.round((Math.random()*15)/1) + 15)
+              o = ((Math.round((Math.random()*14)/1)+1) + 15)
               p = compare(devolver, o)
               if(!p){
                 devolver[i][e] = o
@@ -47,7 +47,7 @@ function generar(){
               }
               break;
             case 2 :
-              o = (Math.round((Math.random()*15)/1) +30)
+              o = ((Math.round((Math.random()*14)/1)+1) +30)
               p = compare(devolver, o)
               if(!p){
                 devolver[i][e] = o
@@ -55,7 +55,7 @@ function generar(){
               }
               break;
             case 3 :
-              o = (Math.round((Math.random()*15)/1) + 45)
+              o = ((Math.round((Math.random()*14)/1)+1) + 45)
               p = compare(devolver, o)
               if(!p){
                 devolver[i][e] = o
@@ -63,7 +63,7 @@ function generar(){
               }
               break;
             case 4 :
-              o = (Math.round((Math.random()*15)/1) + 60)
+              o = ((Math.round((Math.random()*14)/1)+1) + 60)
               p = compare(devolver, o)
               if(!p){
                 devolver[i][e] = o

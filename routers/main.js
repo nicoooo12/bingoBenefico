@@ -17,14 +17,14 @@ router.get('/inicio',isAuthenticate, (req,res)=>{
 router.get('/about',isAuthenticate, (req,res)=>{
   res.render('principal/about')
 })
-router.get('/catalogo',isAuthenticate, async(req,res)=>{
+router.get('/catalogo',isAuthenticate, async(req,res,next)=>{
   try {
     let catalogos = await store.get('catalogos',{})
     res.render('principal/catalogo',{
       catalogos
     })
   } catch (error) {
-    res.send(error)
+    next(error)    
   }
 })
 
