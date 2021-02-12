@@ -27,7 +27,7 @@ try{
       }
     }
   }
-// console.log((config.host + '/pagar/end/'));
+// console.log(typeof(req.query));
   const response = await WebpayPlus.WebpayPlus.Transaction.create(JSON.stringify(req.query).replace(/"/g,''), req.user._id, io, (config.host + 'pagar/end/'));
   res.render('compras/index',{
     compra : req.query,
