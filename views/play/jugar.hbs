@@ -441,6 +441,7 @@ socket.on('fine',()=>{
     for(let i = 1; i<=5; i++){
       for(let e = 0; e<=4; e++){
         document.querySelectorAll('tr')[i].children[e].style.background = 'white'
+        document.querySelectorAll('tr')[i].children[e].style.color = 'black'
         if(o[e][i-1] == 0){
           document.querySelectorAll('tr')[i].children[e].innerText = 'X'
         }else{
@@ -448,6 +449,7 @@ socket.on('fine',()=>{
           //console.log(o[e][i-1], data2[e][i-1])
           if(data2[e][i-1] == '1'){
             document.querySelectorAll('tr')[i].children[e].style.background = '{{objinobj2 car 'serie' estado.serieJuego 'color'}}';
+            document.querySelectorAll('tr')[i].children[e].style.color = 'black';
           }
         }
         //console.log(o[i][e]) 
