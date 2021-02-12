@@ -47,7 +47,7 @@ router.get('/control',isAdmin, async(req,res)=>{
 })
 
 router.get('/gen/:user/:serial',isAdmin,(req,res)=>{
-  carton.createCarton(req.params.user, req.params.serial)
+  carton.createCarton('cartones', {propietario_correo: req.params.user, serial: req.params.serial} )
   res.send('ok')
 })
 
