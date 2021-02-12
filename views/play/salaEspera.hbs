@@ -1,9 +1,20 @@
 {{>nav}}
 
 <div class="container text-center">
-  <h1 class="mt-5">{{message}}</h1>
-  <h3>Espera un poco ;)</h3>
-  <a href="/play" class="btn mt-5 btn-outline-primary">volver</a>
+  <div class="row">
+    <div class="col-12 mt-5">
+      <div class="row">
+        <div class="col-3"><a href="" class="btn bg-dark text-whitd"><</a></div>
+        <div class="col-6"><small class="text-muted fs-4">Salade Espera</small></div>
+        <div class="col-3"></div>
+      </div>
+    </div>
+    <div class="col-12">
+      <h1 class="mt-5">{{message}}</h1>
+      <h3>Espera un poco ;)</h3>
+      {{!-- <a href="/play" class="btn mt-5 btn-outline-primary">volver</a> --}}
+    </div>
+  </div>
 </div>
 
 <script src="/socket.io/socket.io.js"></script>

@@ -38,9 +38,11 @@ router.get('/bingo',isAdmin, (req,res)=>{
 })
 
 router.get('/control',isAdmin, async(req,res)=>{
+  let es = await store.get('estados', {})
   let s = await store.get('catalogos', {})
   res.render('bingo/control',{
     s,
+    es
   })
 })
 

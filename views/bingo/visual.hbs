@@ -187,8 +187,9 @@
           </td>
         </tr>
         <tr>
-          <td class="numTotal" id="numeroLanzar">
-            -
+          <td class="numTotal">
+            <span id="numeroLanzar2"></span>
+            <span id="numeroLanzar">-</span>
           </td>
         </tr>
       </tbody>
@@ -206,6 +207,40 @@
         <tr>
           <td id="pre">
             -
+          </td>
+        </tr>
+      </tbody>
+    </table>
+  </div>
+
+  <div class="item-center align-middle" style="position: absolute;height: 350px;width: 100px; margin-top: 25px; top: 38%; left:14%;">
+    <table class="align-middle text-center table tb-border table-bordered" style="border:#6f42c1 !important; height: 100%; width:100%; font-size:20px ">
+      <tbody>
+        <tr class="color" style="background-color: #6f42c1; color:white; font-weight: bold">
+          {{!-- <td></td> --}}
+          <td style="height: 16%;">
+            Ultimas
+          </td>
+        </tr>
+        <tr>
+          {{!-- <td id="numLan"></td> --}}
+          <td>
+            <span id="numeroLanzadoA"></span>
+            <span id="numeroLanzadoB"></span>
+          </td>
+        </tr>
+        <tr>
+          {{!-- <td id="numLan"></td> --}}
+          <td >
+                        <span id="numeroLanzado2A"></span>
+            <span id="numeroLanzado2B"></span>
+          </td>
+        </tr>
+        <tr>
+          {{!-- <td id="numLan"></td> --}}
+          <td >
+                        <span id="numeroLanzado3A"></span>
+            <span id="numeroLanzado3B"></span>
           </td>
         </tr>
       </tbody>
@@ -235,27 +270,32 @@
   }
 
   function numero(numeroTotoal){
-      let distanciaP1 = 90,
-          distanciaP2 = 70,
-          distanciaP3 = 30
-          distanciaP4 = 15
+      let distanciaP1 = 60,
+          distanciaP2 = 20,
+          distanciaP3 = 10
+          distanciaP4 = 5
           distanciaP5 = 5
 
       let pop=0
       const actualizarNumero = ()=>{
-        console.log(pop , numerosAzar.length-1, numerosAzar[pop], numerosAzar[pop-1])
+        //console.log(pop , numerosAzar.length-1, numerosAzar[pop], numerosAzar[pop-1])
         if(pop==0){
-          document.querySelectorAll('.num')[74].style.background = ''
+          if(!(document.querySelectorAll('.num')[74].style.background == 'rgb(13, 110, 253)')){
+            document.querySelectorAll('.num')[74].style.background = ''
+          }         
         }else{
           document.querySelectorAll('.num')[numerosAzar[pop-1]-1].style.background = ''
         }
         if(pop <= (numerosAzar.length - 2)){
           document.getElementById('numeroLanzar').innerText = numerosAzar[pop]
+          $('#numeroLanzar2')[0].innerText = numerosAzar[pop] <= 15 ? 'B' : numerosAzar[pop] <= 30 ? 'I' : numerosAzar[pop] <= 45 ? 'N' : numerosAzar[pop] <= 60 ? 'G' : numerosAzar[pop] <= 75 ? 'O' : ''
           document.querySelectorAll('.num')[numerosAzar[pop]-1].style.background = 'red'
           pop++
         }else{
           pop = 0
           document.getElementById('numeroLanzar').innerText = numerosAzar[pop]
+          $('#numeroLanzar2')[0].innerText = numerosAzar[pop] <= 15 ? 'B' : numerosAzar[pop] <= 30 ? 'I' : numerosAzar[pop] <= 45 ? 'N' : numerosAzar[pop] <= 60 ? 'G' : numerosAzar[pop] <= 75 ? 'O' : ''
+          document.querySelectorAll('.num')[numerosAzar[pop]-1].style.background = 'red'
         }
       } 
       console.log(distanciaP1+distanciaP2 +distanciaP3)
@@ -295,6 +335,12 @@
           colorear(document.getElementById('numeroLanzar').innerText)
           socket.emit('lanzado', +document.getElementById('numeroLanzar').innerText)
           removeItemFromArr(numerosAzar, +document.getElementById('numeroLanzar').innerText)
+          $('#numeroLanzado3A')[0].innerText = $('#numeroLanzado2A')[0].innerText
+          $('#numeroLanzado3B')[0].innerText = $('#numeroLanzado2B')[0].innerText
+          $('#numeroLanzado2A')[0].innerText = $('#numeroLanzadoA')[0].innerText
+          $('#numeroLanzado2B')[0].innerText = $('#numeroLanzadoB')[0].innerText
+          $('#numeroLanzadoA')[0].innerText = document.getElementById('numeroLanzar').innerText <= 15 ? 'B' : document.getElementById('numeroLanzar').innerText <= 30 ? 'I' : document.getElementById('numeroLanzar').innerText <= 45 ? 'N' : document.getElementById('numeroLanzar').innerText <= 60 ? 'G' : document.getElementById('numeroLanzar').innerText <= 75 ? 'O' : ''
+          $('#numeroLanzadoB')[0].innerText =  document.getElementById('numeroLanzar').innerText
         }
       }
       let noww = 0
@@ -356,22 +402,14 @@ var myModal3 = new bootstrap.Modal(document.getElementById('staticBackdrop3'), {
     if(serial, premio,color){
       $('#pre')[0].innerText = premio
       $('#numeroLanzar')[0].innerText = 0
+      $('#numeroLanzar2')[0].innerText = ''
       $('.numTotal')[0].innerText = 0
       $('.color').css('background', color ? color : 'rgb(111, 66, 193)')
       $('.tb-border').css('border-color', color ? color : 'rgb(111, 66, 193)')
     }
   })
   socket.on('fine', (serial, premio)=>{
-    $('#pre')[0].innerText = '-'
-    $('#numeroLanzar')[0].innerText = '-'
-    $('.numTotal')[0].innerText = '-'
-    numeres = [0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0]
-        numeresAA = [0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0]
-        hacerArray()
-        document.querySelectorAll('.num').forEach((e)=>{
-          e.style.background = 'white'
-          e.style.color = 'black'
-        })
+    document.location.href = document.location.href
   })
   socket.on('lan', ()=>{
     if($('#pre')[0].innerText !== '-'){
