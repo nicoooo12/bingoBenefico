@@ -19,8 +19,8 @@ function isMod(req,res,next){
 
 router.get('/',isMod, async(req,res,next)=>{
   try {
-    let otro = await store.get('metodoOtros', {id: req.user._id})  
-    let trans = await store.get('transferencias', {id: req.user._id}) 
+    let otro = await store.get('metodoOtros', {})  
+    let trans = await store.get('transferencias', {}) 
   
     res.render('mod',{
       otro,
