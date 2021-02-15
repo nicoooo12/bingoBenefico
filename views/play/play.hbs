@@ -8,7 +8,7 @@
         {{#if user}}
           {{!-- <p class="lead text-muted">Something short and leading about the collection below—its contents, the creator, etc. Make it short and sweet, but not too short so folks don’t simply skip over it entirely.</p> --}}
           <p>
-            <a href="/play/play" class="btn btn-primary my-2 {{#if es}}{{else}}disabled{{/if}}">JUGAR</a>
+            <a href="/play/play" class="btn btn-warning my-2 {{#if es}}{{else}}disabled{{/if}}">JUGAR</a>
             <a href="/catalogo" class="btn btn-secondary my-2">comprar</a>
           </p>
           {{#if es}}
@@ -19,7 +19,7 @@
         {{else}}
           {{!-- <p class="lead text-muted">Something short and leading about the collection below—its contents, the creator, etc. Make it short and sweet, but not too short so folks don’t simply skip over it entirely.</p> --}}
           <p>
-            <a href="/auth/signin?redirect=/play" class="btn btn-primary my-2">Ingresar</a>
+            <a href="/auth/signin?redirect=/play" class="btn btn-warning my-2">Ingresar</a>
             <a href="/auth/signup?redirect=/play" class="btn btn-secondary my-2">Registrarme</a>
           </p>
         {{/if}}

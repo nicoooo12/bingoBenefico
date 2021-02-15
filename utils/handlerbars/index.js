@@ -41,19 +41,32 @@ Handlebars.registerHelper('list', function (aString) {
 })
 
 
-Handlebars.registerHelper('objinobj', function(e, o) {
-  return e[o]
+Handlebars.registerHelper('objinobj', function(obj, parametro) {
+  return obj[parametro]
 });
 
 Handlebars.registerHelper('objinobj2', function(obj, parametro, valor, parametro2) {
 
   return obj.filter(e=>{
     return e[parametro] == valor
-  })[0][parametro2]
+  })[0] ? obj.filter(e=>{
+    return e[parametro] == valor
+  })[0][parametro2] : undefined
 });
 
 Handlebars.registerHelper('deCartones', function(array, serie) {
+  
   return array.filter((e)=>{
     return e['serial'] == serie
   })
+});
+
+Handlebars.registerHelper('ifif', function(o,e) {
+  // console.log(o, e);
+  return o !== e
+});
+
+Handlebars.registerHelper('ififnet', function(o,e) {
+  // console.log(o, e);
+  return o == e
 });

@@ -69,40 +69,68 @@
 </div>
 
 
-<div class="container  position-relative p-2 border-1 border border-primary" style="top: 30%;" >
-  <div class="form-check form-switch">
-    <input class="form-check-input" type="checkbox" id="flexSwitchCheckChecked">
-    <label class="form-check-label" for="flexSwitchCheckChecked">Estamos juagando</label>
-  </div>  
-  <label for="" class="mt-4">messajeEspera</label>
-  <div class="input-group mb-3">
-    <input type="text" class="form-control" id="texEspera" aria-label="Recipient's username" aria-describedby="button-addon2">
-    <button class="btn btn-outline-secondary" type="button" id="actu">Actualizar</button>
-  </div>
-  <label for="" class="mt-4">serie</label>
-  <select class="form-select d-inline-block mt-3" id="serie" aria-label="Default select example">
-    <option selected>serie</option>
-    {{#each s}}
-    <option value="{{serie}}" color="{{color}}">{{serie}}</option>
-    {{/each}}
-  </select>
-       
-  <label for="" class="mt-4">premio</label>
-   <select class="form-select mt-3" id="premio" aria-label="Default select example">
-      <option selected>Premio</option>
-      {{#each s}}
-      <option value="{{premioBingito}}" serie="{{serie}}">{{serie}}-{{premioBingito}}</option>
-      <option value="{{premioCompleto}}" serie="{{serie}}">{{serie}}-{{premioCompleto}}</option>
-      {{/each}} 
-    </select>
+<div class="row position-relative py-2 border-1 border border-primary" style="top: 30%;">
+  <div class="col-6">
+    <div class="container" >
+      <div class="form-check form-switch">
+        <input class="form-check-input" type="checkbox" id="flexSwitchCheckChecked">
+        <label class="form-check-label" for="flexSwitchCheckChecked">Estamos juagando</label>
+      </div>  
+      <label for="" class="mt-4">messajeEspera</label>
+      <div class="input-group mb-3">
+        <input type="text" class="form-control" id="texEspera" aria-label="Recipient's username" aria-describedby="button-addon2">
+        <button class="btn btn-outline-secondary" type="button" id="actu">Actualizar</button>
+      </div>
+      <label for="" class="mt-4">serie</label>
+      <select class="form-select d-inline-block mt-3" id="serie" aria-label="Default select example">
+        {{#each s}}
+        <option value="{{serie}}" color="{{color}}">{{serie}}</option>
+        {{/each}}
+      </select>
+          
+      <label for="" class="mt-4">premio</label>
+      <select class="form-select mt-3" id="premio" aria-label="Default select example">
+          {{#each s}}
+          <option value="{{premioBingito}}" serie="{{serie}}">{{serie}}-{{premioBingito}}</option>
+          <option value="{{premioCompleto}}" serie="{{serie}}">{{serie}}-{{premioCompleto}}</option>
+          {{/each}} 
+        </select>
 
-  <label for="" class="mt-4">data</label>
-  <button class="btn btn-danger ms-4" id="generar">generar</button>
-  <button class="btn btn-outline-primary mx-1">ver</button>
-  <br> 
-  <button class="btn btn-success btn-lg mt-3 ms-1" id="iniciar">Iniciar</button> 
-  <button class="btn btn-outline-danger btn-lg mt-3 ms-1" id="terminar">terminar</button> 
+      <label for="" class="mt-4">data</label>
+      <button class="btn btn-danger ms-4" id="generar">generar</button>
+      <button class="btn btn-outline-primary mx-1">ver</button>
+      <br> 
+      <button class="btn btn-success btn-lg mt-3 ms-1" id="iniciar">Iniciar</button> 
+      <button class="btn btn-outline-danger btn-lg mt-3 ms-1" id="terminar">terminar</button> 
+    </div>
+  </div>
+  <div class="col-6">
+    <p class="fs-4">Vista bingo <span class="badge rounded-pill bg-danger"> </span></p>
+    <p class="fs-4">Usuarios conectados: <span>0</span></p>
+    <div class="position-relative" style="height: 60%; overflow-y : scroll;">
+      <ul class="list-group">
+        {{#if es.initJuego}} 
+          {{#each users}}
+            {{#if (ifif (objinobj2 ../cartones 'propietario_correo' id 'serial') ../es.serialJuego)}}
+              <li class="list-group-item">
+                {{nombre}} {{apellido}}
+                <button class="btn btn-sm ms-3 btn-warning">Bingo manual</button>
+                <div class="pagination">
+                  {{#each ../cartones}}
+                    {{#if (ififnet propietario_correo ../id)}}                    
+                      <div class="page-item"><a class="page-link" href="#" onclick="lap([[{{array data 0}}],[{{array data 1}}],[{{array data 2}}],[{{array data 3}}],[{{array data 4}}]])">1</a></div>
+                    {{/if}}
+                  {{/each}}
+                </div>  
+              </li>
+            {{/if}}
+          {{/each}}
+        {{/if}}
+      </ul>
+    </div>
+  </div>
 </div>
+
 
 <div class="container my-4 position-relative p-2 border-1 border border-primary" style="top: 30%;" >
   <h1>bingo</h1>
@@ -117,6 +145,7 @@
   </div>
 </div>
 
+<div class="p-4 position-relative" style="top: 30%;"></div>
 
 <script src="/socket.io/socket.io.js"></script>
 <script>
@@ -127,6 +156,7 @@
   var myModal = new bootstrap.Modal(document.getElementById('staticBackdrop'), {
     keyboard: false
   })
+  var data2 = [0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0]
 //-//-//-//-//-//-//-//-//-//-//-//-//-//-//-//-//-//-
   $('#flexSwitchCheckChecked').click(()=>{
     $.post(document.location.origin + '/api/db/put/estados/602328f52da1de24ac1e38e6', { data : JSON.stringify({
@@ -176,25 +206,27 @@
   })
 //-//-//-//-//-//-//-//-//-//-//-//-//-//-//-//-//-//-
 
-  socket.on('lando', (o)=>{
+  socket.on('lando', (o,data)=>{
+
     $('#lanzar')[0].disabled = false
-    $('#numere')[0].innerText = o 
+    //$('#numere')[0].innerText = o 
+    data2 = data
   })
-  socket.on('gano',(data1,data2 , idsocket, user)=>{
-    console.log(data1)
-    $('ul')[0].innerHTML += `
+  socket.on('gano',(data1, idsocket, user)=>{
+    //console.log(data1)
+    $('ul')[1].innerHTML += `
     <li class="list-group-item">
       ${user}
       <button class="btn btn-outline-success btn-sm ms-1" onclick="cof('${idsocket}', '${user}', this)">confirmar</button>
       <button class="btn btn-outline-danger btn-sm ms-1" onclick="res('${idsocket}', '${user}', this)">rechasar</button>
-      <button class="btn btn-outline-secondary btn-sm ms-1" onclick="lap([[${data1[0]}],[${data1[1]}],[${data1[2]}],[${data1[3]}],[${data1[4]}]], [${data2}])">ver</button>
+      <button class="btn btn-outline-secondary btn-sm ms-1" onclick="lap([[${data1[0]}],[${data1[1]}],[${data1[2]}],[${data1[3]}],[${data1[4]}]])">ver</button>
     </li>`
   })
 //-//-//-//-//-//-//-//-//-//-//-//-//-//-//-//-//-//-
   
-  function lap(d1, d2){
-    console.log(d1,d2)
-    print(d1,d2)
+  function lap(d1){
+    //console.log(d1,d2)
+    print(d1)
     myModal.show()
   }
   function cof(id, user,t){
@@ -207,7 +239,7 @@
   }
 
 
-  function print(o,data2){
+  function print(o){
     console.log(o[0])
     for(let i = 1; i<=5; i++){
       for(let e = 0; e<=4; e++){
@@ -243,7 +275,12 @@
   }
 //-//-//-//-//-//-//-//-//-//-//-//-//-//-//-//-//-//-
 
-  window.onbeforeunload = ()=>{
-    socket.emit('disconectAdmin')
-  }
+//  window.onbeforeunload = ()=>{
+  //  socket.emit('disconectAdmin')
+ // }
+
+$('#flexSwitchCheckChecked')[0].checked = {{es.estamosJuegando}}
+$('#texEspera')[0].value = '{{es.messajeEspera}}'
+$('#serie')[0].value = '{{es.serieJuego}}'
+$('#premio')[0].value = '{{es.premioJuego}}'
 </script>

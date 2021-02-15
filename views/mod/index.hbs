@@ -1,0 +1,72 @@
+<div class="bg-dark h-25 w-100 position-absolute">
+  <div class="container  text-center text-white" style="margin-top : 25px">
+    <h1>Hola Mods xd</h1>
+    {{!-- <a href="/admin/control" class="btn btn-primary mt-4">control</a> --}}
+    {{!-- <a href="/admin/bingo" class="btn btn-primary mt-4">bingo</a> --}}
+    <a href="/" class="btn btn-secondary mt-4">volver al inicio</a>
+  </div>
+</div>
+<div class="bg-light w-100 position-relative" style="top: 30%;">
+  <h1 style="text-align: center;">Otros</h1>
+  <div class="container d-flex justify-content-center" style="">
+      <table class="table">
+        <tr>
+          <td scope="col"></td>
+          <td scope="col">Iniciado</td>
+          <td scope="col">Nombre</td>
+          <td scope="col">Telefono</td>
+          <td scope="col">Monto</td>
+          <td scope="col">Region Ciudad</td>
+          <td scope="col">forma de pago</td>
+        </tr>
+        {{#each otro}}
+        <tr>
+          <td>
+            <button class="btn btn-danger">Fin</button>
+            {{#if iniciado}}
+            {{else}}
+              <button class="btn btn-success">iniciar</button>
+            {{/if}}
+          </td>
+          <td>
+            {{#if iniciado}}
+              <p class="bg-success text-white">Si</p>
+            {{else}}
+              <p class="bg-danger text-white">No</p>
+            {{/if}}
+          </td>
+          <td>{{nombreApellido}}</td>
+          <td>{{telefono}}</td>
+          <td>{{monto}}</td>
+          <td>{{regionCiudad}}</td>
+          <td>{{formaPago}}</td>
+        </tr>
+        {{/each}}
+      </table>
+  </div>
+</div>
+
+<div class="bg-light w-100 position-relative my-5" style="top: 30%;">
+  <h1 style="text-align: center;">Transfrerencia</h1>
+  <div class="container d-flex justify-content-center" style="">
+    <table class="table">
+        <tr>
+          <td scope="col"></td>
+          <td scope="col">Nombre</td>
+          <td scope="col">Monto</td>
+        </tr>
+        {{#each trans}}
+        <tr>
+          <td>
+            {{#if fin}}
+            {{else}}
+              <button class="btn btn-warning">ver</button>
+            {{/if}}
+          </td>            
+          <td>{{nombre}}</td>
+          <td>{{monto}}</td>
+        </tr>
+        {{/each}}
+      </table>
+  </div>
+</div>

@@ -32,26 +32,24 @@
     <section class="py-5 text-center container">
     <div class="row py-lg-5">
       <div class="col-lg-6 col-md-8 mx-auto">
-        <h1 class="fw-light">2. Pago - Otros</h1>
+        <h1 class="fw-light">2. Pago - Transferencia </h1>
+        <h1 class="fw-normal">Monto a transferir: ${{nume monto}}</h1>
         
-        <form action="/pagar/otros/init?m={{monto}}" method="post">
+        <h1>Nuestro datos bancarios</h1>
+        <ul class="list-group" style="-webkit-user-select: text;-moz-user-select: text;-ms-user-select: text;user-select: text; ">
+          <li class="list-group-item">Cuenta Corriente N°: 97-27818-00</li>
+          <li class="list-group-item">Rut 65.085.006-8</li>
+          <li class="list-group-item">Banco Scotiabank</li>
+          <li class="list-group-item">Titular: Fundación Centro de Espiritualidad Mariapolis</li>
+        </ul>
+        
+        <form action="/pagar/transferencia?m={{monto}}" enctype="multipart/form-data" method="post">
           <div class="container mt-5">
-            <label class="fs-3 fw-light">Nombre y Apellido</label>
-            <input type="text" name="nombreApellido" id="inputEmail" class="form-control" placeholder="" required="" autocomplete="address-level1" value="{{user.nombre}} {{user.apellido}}">
-            <label class="fs-3 fw-light">Región y Ciudad</label>
-            <input type="text" name="regionCiudad" id="inputEmail" class="form-control" placeholder="" required="" autocomplete="address-level1">
-            <label for="inputPhone" class="fs-3 fw-light">Numero de telefono</label>
-              <div class="input-group mb-3">
-                <span class="input-group-text" id="basic-addon1">+56 9</span>
-                <input type="tel" name="telefono" pattern="[0-9]{4} [0-9]{4}|[0-9]{8}" autocomplete="off" id="inputPhone" class="form-control" required="" value="{{user.telefono}}">
-              </div>
-            <label class="fs-3 fw-light">Comenta de qué forma te gustaría pagar</label>
-            <textarea class="form-control" name="formaPago" id="exampleFormControlTextarea1" rows="3" required=""></textarea>
-            {{!-- <input type="text" name="correo" id="inputEmail" class="form-control" placeholder="" required="" autocomplete="address-level1"> --}}
+            <label class="fs-3 fw-light">Comprobante (imagen)</label>
+            <input type="file" accept="image/*" name="comprobante" id="inputEmail" class="form-control mt-2" placeholder="" required="" autocomplete="address-level1">
             <button type="submit" class="btn btn-warning mt-4">Enviar</button>
           </div>
         </form>
-        
       </div>
     </div>
   </section>

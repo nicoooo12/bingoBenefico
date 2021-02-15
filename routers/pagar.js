@@ -3,20 +3,24 @@
 const express = require('express')
 const router = express.Router()
 const store = require('../libs/mongoose')
-const WebpayPlus = require('transbank-sdk')
-const Environment = require('transbank-sdk').Environment
 const carton = require('../services/cartones')
-const config = require('../config')
+const multer = require('multer')
+var storage = multer.diskStorage({
+  destination: function (req, file, cb) {
+    cb(null, './public/comprobantes/')
+  },
+  filename: function (req, file, cb) {
+    cb(null, `${req.user._id}(${req.Date}).${file.mimetype.match(/[a-z]{1,}$/)[0]}`) //Appending .jpg
+  }
+})
+const upload = multer({ storage: storage}).single('comprobante')
 
-WebpayPlus.commerceCode = config.dev ? '597055555532' : config.wpCmmerceCode;
-WebpayPlus.apiKey = config.dev ? '579B532A7440BB0C9079DED94D31EA1615BACEB56610332264630D42D0A36B1C' : config.wpApiKey;
-WebpayPlus.environment = config.dev ? Environment.Integration : Environment.Production;
 
 router.get('/',isAuthenticate, async(req,res,next)=>{
 try{
-    let io = 0,
-    productos=[],
-    o = Object.keys(req.query)
+  let io = 0,
+  productos=[],
+  o = Object.keys(req.query)
 
   for (let i=1; i<= o.length; i++){
     if(+o[i-1]){
@@ -24,17 +28,23 @@ try{
       if(prs[0]){
         io += ( prs[0].precio *  +req.query[o[i-1]] )
         productos.push({producto: prs[0].titulo, precio: prs[0].precio, catidad: req.query[o[i-1]], total: ( prs[0].precio *  +req.query[o[i-1]] )})
+      }else if(+o[i-1] >= 100 ){
+        if(+o[i-1]-100 === 1){
+          io += ( 800 *  +req.query[o[i-1]] )
+          productos.push({producto: 'Cafe', precio: 800, catidad: req.query[o[i-1]], total: ( 800 *  +req.query[o[i-1]] )})
+        }else if(+o[i-1]-100 === 2){
+          io += ( 1500 *  +req.query[o[i-1]] )
+          productos.push({producto: 'Comida tobi', precio: 1500, catidad: req.query[o[i-1]], total: ( 1500 *  +req.query[o[i-1]] )})
+        }
       }
     }
   }
-// console.log(typeof(req.query));
-  const response = await WebpayPlus.WebpayPlus.Transaction.create(JSON.stringify(req.query).replace(/"/g,''), req.user._id, io, (config.host + 'pagar/end/'));
+  // console.log(typeof(req.query));
   res.render('compras/index',{
-    compra : req.query,
-    io: io,
-    productos,
-    payurl: response.url,
-    paytoken: response.token,
+    compra : req.query,//productos carrito 
+    io: io,//total
+    productos, //todos los productos
+    que:req._parsedUrl.search ? req._parsedUrl.search.replace('?redirect=', '') : '',
   })
 }catch(err){
   next(err)
@@ -42,63 +52,164 @@ try{
 
 })
 
-router.get('/otros', isAuthenticate,async(req,res)=>{
-  res.render('compras/error',{})
+router.get('/select/otros', isAuthenticate,async(req,res)=>{
+  res.render('compras/selectOtros',{
+    que: req._parsedUrl.search ? req._parsedUrl.search.replace('?redirect=', ''): ''
+  })
 })
 
-router.post('/end', async(req,res, next)=>{
+router.get('/otros', isAuthenticate,async(req,res)=>{
   try {
-    if(!req.isAuthenticated()){
-      if(req.body.TBK_ID_SESION){
-        let user = await store.get('users', {_id: req.body.TBK_ID_SESION})
-          req.logIn(user[0], (err)=>{
-            if(err){
-              next(err)
-            }
-            // console.log('logIn succes TBK_ID_SESION');
-          })
-      }else{
-        let response = await WebpayPlus.WebpayPlus.Transaction.commit(req.body.token_ws)
-        let user = await store.get('users', {_id: response.session_id})
-  
-        req.logIn(user[0], (err)=>{
-          if(err){
-            next(err)
+    let io = 0,
+    o = Object.keys(req.query)
+
+    for (let i=1; i<= o.length; i++){
+      if(+o[i-1]){
+        let prs = await store.get('catalogos', {serie:o[i-1]})
+        if(prs[0]){
+          io += ( prs[0].precio *  +req.query[o[i-1]] )
+        }else if(+o[i-1] >= 100 ){
+          if(+o[i-1]-100 === 1){
+            io += ( 800 *  +req.query[o[i-1]] )
+          }else if(+o[i-1]-100 === 2){
+            io += ( 1500 *  +req.query[o[i-1]] )
           }
-          // console.log('logIn succes session_id');
-        })
+        }
       }
     }
-  
-    if(req.body.TBK_TOKEN){
-  
-      res.render('compras/error',{})
-    
-    }else{
-    
-      const response = await WebpayPlus.WebpayPlus.Transaction.commit(req.body.token_ws);
-      if(response.response_code >= 0){
-        let p = Array.from(response.buy_order)
-        let fini = ''
-        p.map((e,o)=>{+e ? p[o] = `"${+e}"` : false})
-        p.map(e=>{ fini += e })
-        let finili = JSON.parse(fini)
-        Object.keys(finili).map(async e=>{
-          for(i=0; i <= (finili[e]-1); i++){
-            // console.log(e);
-            await carton.createCarton(response.session_id, +e)
-          }
-        })
-        // console.log(finili);
-        res.render('compras/exito',{})
-      }else{
-        res.render('compras/error',{})
-      }
-    }
-    
+    res.render('compras/otros',{
+      monto:io,
+      que: req._parsedUrl.search ? req._parsedUrl.search.replace('?redirect=', ''): ''
+    })
   } catch (error) {
     next(error)
   }
+})
+
+router.post('/otros/init', isAuthenticate,async(req,res,next)=>{
+  try {
+    await store.post('metodoOtros', {...req.body, id: req.user._id, iniciado:false, monto: req.query.m})
+    await store.put('users', {_id : req.user._id}, {compra: true})
+    res.redirect('/pagar/otros/init')
+  } catch (error) {
+    next(error)
+  }
+  
+})
+
+
+
+router.get('/otros/init', isAuthenticate,async(req,res,next)=>{
+  res.render('compras/init',{})
+})
+
+router.get('/select/transferencia', isAuthenticate,async(req,res)=>{
+  res.render('compras/selectTreansferencia',{
+    que: req._parsedUrl.search ? req._parsedUrl.search.replace('?redirect=', ''): ''
+  })
+})
+
+router.get('/transferencia', isAuthenticate,async(req,res,next)=>{
+  try {
+    let io = 0,
+    o = Object.keys(req.query)
+
+    for (let i=1; i<= o.length; i++){
+      if(+o[i-1]){
+        let prs = await store.get('catalogos', {serie:o[i-1]})
+        if(prs[0]){
+          io += ( prs[0].precio *  +req.query[o[i-1]] )
+        }else if(+o[i-1] >= 100 ){
+          if(+o[i-1]-100 === 1){
+            io += ( 800 *  +req.query[o[i-1]] )
+          }else if(+o[i-1]-100 === 2){
+            io += ( 1500 *  +req.query[o[i-1]] )
+          }
+        }
+      }
+    }
+    res.render('compras/transferencia',{
+      monto:io,
+      que: req._parsedUrl.search ? req._parsedUrl.search.replace('?redirect=', ''): ''
+    })
+  } catch (error) {
+    next(error)
+  }
+})
+
+router.post('/transferencia', async(req, res, next)=> {
+  req.Date = Date.now()
+  upload(req, res, (err) => {
+    if (err instanceof multer.MulterError) {
+      next(err)
+    } else if (err) {
+      next(err)
+    }
+  })
+  try {
+  await store.post('transferencias', {id: req.user._id, imgDate: req.Date, monto: req.query.m, nombre: `${req.user.nombre} ${req.user.apellido}`})
+  res.redirect('/pagar/comprobando')
+  } catch (error) {
+    next(error)
+  }
+
+})
+
+router.get('/comprobando',(req,res)=>{
+  res.render('compras/comprobando')
+})
+
+router.get('/estado', isAuthenticate,async(req,res,next)=>{
+  try {
+    let otro = await store.get('metodoOtros', {id: req.user._id})  
+    let trans = await store.get('transferencias', {id: req.user._id})  
+
+    
+
+    if(!otro.filter((e)=>{
+      return e.fin === false
+    })[0] && !trans.filter((e)=>{
+      return e.fin === false
+    })[0]){
+      await store.put('users', {_id: req.user._id}, {compra: false} )
+    }
+
+    res.render('compras/estado',{
+      otro,
+      trans,
+    })
+  } catch (error) {
+    next(error)
+  }
+
+})
+
+router.post('/cancelar/transfrerencia', isAuthenticate,async(req,res,next)=>{
+  try {
+    
+    await store.delt('transferencias', {_id: req.body.id})  
+
+    res.redirect('/pagar/estado')
+  } catch (error) {
+    next(error)
+  }
+
+})
+
+router.post('/cancelar/otro', isAuthenticate,async(req,res,next)=>{
+  try {
+    console.log(req.body);
+    await store.delt('metodoOtros', {_id: req.body.id})  
+
+    res.redirect('/pagar/estado')
+  } catch (error) {
+    next(error)
+  }
+
+})
+
+router.post('/end', async(req,res, next)=>{
+  res.render('compras/exito')
 })
 
 function isAuthenticate(req,res,next){

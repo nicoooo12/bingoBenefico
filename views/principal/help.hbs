@@ -1,17 +1,483 @@
 {{>nav}}
 
+<style>
+  @media(max-width: 800px){
+    .col-8{
+      width: 100%;
+    }
+    .col-4{
+      width: 100%;
+    }
+  }
+</style>
+
 <section class="py-5 text-center container">
     <div class="row py-lg-5">
       <div class="col-lg-6 col-md-8 mx-auto">
-        <h1 class="fw-light">Bingo benefico</h1>
-        <p class="lead text-muted">Something short and leading about the collection below—its contents, the creator, etc. Make it short and sweet, but not too short so folks don’t simply skip over it entirely.</p>
-        <p>
-          <a href="#" class="btn btn-primary my-2">Comprar</a>
+        <h1 class="fw-light">Ayuda!</h1>
+        <p class="lead text-muted">Estamos aquí para ayudarte.</p>
+        {{!-- <p>
+          <a href="#" class="btn btn-warning my-2">Comprar</a>
           <a href="#" class="btn btn-secondary my-2">apoyar </a>
-        </p>
+        </p> --}}
       </div>
     </div>
   </section>
+
+<div class="container">
+  <h1>Preguntas frecuentes</h1>
+  <div class="accordion" id="accordionExample">
+    <div class="accordion-item">
+      <h2 class="accordion-header" id="headingOne">
+        <button class="accordion-button" type="button" data-bs-toggle="collapse" data-bs-target="#collapseOne" aria-expanded="true" aria-controls="collapseOne">
+         <strong> ¿Qué es el Bingoloteando?</strong>
+        </button>
+      </h2>
+      <div id="collapseOne" class="accordion-collapse collapse show" aria-labelledby="headingOne" data-bs-parent="#accordionExample">
+        <div class="accordion-body">
+          <div class="container row">
+            <div class="col-8">
+              <p class="lead featurette-divider fs-3">
+            El Bingoloteando es un evento iniciado por los Jóvenes por un Mundo Unido en beneficio del Centro Mariápolis Cunaco, que se realizará el domingo 21 de Febrero  a las 19.00 horas Chile vía Zoom y Youtube.
+              </p>
+              <p>
+                ¿Quieres saber más? 
+                <a href="/about">
+                  Más información
+                </a>
+              </p>
+            </div>
+            <div class="col-4">
+
+            <div class="continer bd-placeholder-img" style="text-align: center;">
+              <img src="/public/invitacion.jpeg" class="d-inline-block w-100 h-auto featurette-divider" style="max-width: 290px;" alt="...">
+            </div>
+            </div>
+            
+          </div>
+        </div>
+      </div>
+    </div>
+    <div class="accordion-item">
+      <h2 class="accordion-header" id="headingTwo">
+        <button class="accordion-button collapsed" type="button" data-bs-toggle="collapse" data-bs-target="#collapseTwo" aria-expanded="false" aria-controls="collapseTwo">
+         <strong> ¿Cómo entro a la página?</strong>
+        </button>
+      </h2>
+      <div id="collapseTwo" class="accordion-collapse collapse" aria-labelledby="headingTwo" data-bs-parent="#accordionExample">
+        <div class="accordion-body">
+          <div class="container">
+            <h1 class="fw-light">¿Cómo entro a la página?</h1>
+            <ul class="list-group">
+              <li class="list-group-item">
+                Para poder acceder  a la página de Bingoloteando necesitas primero crearte una cuenta.
+              </li>
+              <li class="list-group-item">
+                Para esto solo tienes que apretar “Regístrate”, que te llevará a la página de registro. 
+              </li>
+              <li class="list-group-item">
+                En esta página tendrás que poner tu Nombre, Apellido, Correo Electrónico y crear una Contraseña para tu cuenta. 
+              </li>
+              <li class="list-group-item">
+                Cuando ya hayas ingresado todo eso, solo tienes que apretar el botón de “Entrar” y podrás acceder a la página. 
+              </li>
+              <li class="list-group-item">
+                Ya registrad@, para acceder de nuevo a la página solo debes poner el correo electrónico y contraseña que usaste para registrarte y apretar el botón de “Entrar”. 
+              </li>
+            </ul>
+          </div>
+        </div>
+      </div>
+    </div>
+    <div class="accordion-item">
+      <h2 class="accordion-header" id="headingThree">
+        <button class="accordion-button collapsed" type="button" data-bs-toggle="collapse" data-bs-target="#collapseThree" aria-expanded="false" aria-controls="collapseThree">
+          <strong>No se como hacer una cuenta</strong>
+        </button>
+      </h2>
+      <div id="collapseThree" class="accordion-collapse collapse" aria-labelledby="headingThree" data-bs-parent="#accordionExample">
+        <div class="accordion-body">
+          <div class="container">
+            <h1 class="fw-light">No se como hacer una cuenta</h1>
+            <ul class="list-group">
+              <li class="list-group-item">
+                Para crearte una cuenta, primero debes apretar en “Regístrate”  a la derecha del botón de “Entrar” en la página inicial o en el botón de “Registro” en la parte superior derecha en la página de Ayuda. 
+              </li>
+              <li class="list-group-item">
+                Ya en la página de registro, necesitas poner en cada casilla la información necesaria. En orden son: Nombre, Apellido, Número de Teléfono,  Correo Electrónico, y crear una Contraseña que te parezca (puede ser lo que tu quieras, no hay restricciones. 
+              </li>
+              <li class="list-group-item">
+                Cuando termines de ingresar todos esos datos, solo tienes que apretar el botón de “Entrar” ¡Y listo! No es necesario hacer ningún paso extra.
+              </li>
+              <li class="list-group-item">
+                ¿Por qué necesitas poner estos datos?
+                <ul class="list-group">
+                  <li class="list-group-item">
+                    Tu nombre y apellido se volverán el nombre de la cuenta y como se te identificará al momento de jugar.
+                  </li>
+                  <li class="list-group-item">
+                    Tu correo electrónico va a ser necesario para ingresar de nuevo a la página después de haberla cerrado. Esto es apretando “Iniciar sesión” en la esquina superior derecha de la página de ayuda  o la página inicial. 
+                  </li>
+                  <li class="list-group-item">
+                    La contraseña se necesitará al momento de ingresar de nuevo a la página después de haberla cerrado. Esto es apretando “Iniciar sesión” en la esquina superior derecha de la página de ayuda  o la página inicial.
+                  </li>
+                </ul>
+              </li>
+              <li class="list-group-item">
+                ¡Recuerda! Si ya te hiciste una cuenta una vez, no es necesario volver a hacer otra. Solo tienes que iniciar sesión con tu correo electrónico y la contraseña que creaste y apretar el botón de “Entrar”. Puedes encontrar la página apretando “Iniciar sesión” en la esquina superior derecha de la página de ayuda  o en la página de inicio.
+              </li>
+            </ul>
+          </div>
+        </div>
+      </div>
+    </div>
+    <div class="accordion-item">
+      <h2 class="accordion-header" id="headingFour">
+        <button class="accordion-button collapsed" type="button" data-bs-toggle="collapse" data-bs-target="#collapseFour" aria-expanded="false" aria-controls="collapseFour">
+          <strong>No me funciona mi cuenta </strong>
+        </button>
+      </h2>
+      <div id="collapseFour" class="accordion-collapse collapse" aria-labelledby="headingFour" data-bs-parent="#accordionExample">
+        <div class="accordion-body">
+          <div class="container">
+            <h1 class="fw-light">No me funciona mi cuenta</h1>
+            <ul class="list-group">
+              <li class="list-group-item">
+                Si no puedes acceder a tu cuenta,  asegura antes que nada que:
+                <ul class="list-group">
+                  <li class="list-group-item">
+                    Te hayas creado una cuenta en la página
+                  </li>
+                  <li class="list-group-item">
+                    Has puesto la contraseña y/o el correo electrónico con el cual te registraste correctamente.
+                  </li>
+                </ul>
+              </li>
+              <li class="list-group-item">
+                 Si no es ninguna de estas opciones, contáctate con nosotros con la información proporcionada en la página de “Contacto”.
+              </li>
+              <li class="list-group-item">
+                Esta la encontrarás en la parte inferior izquierda de la página.
+              </li>
+            </ul>
+          </div>
+        </div>
+      </div>
+    </div>
+    <div class="accordion-item">
+      <h2 class="accordion-header" id="headingFive">
+        <button class="accordion-button collapsed" type="button" data-bs-toggle="collapse" data-bs-target="#collapseFive" aria-expanded="false" aria-controls="collapseFive">
+          <strong>¿Cómo puedo ver el bingo?</strong>
+        </button>
+      </h2>
+      <div id="collapseFive" class="accordion-collapse collapse" aria-labelledby="headingFive" data-bs-parent="#accordionExample">
+        <div class="accordion-body">
+        <div class="container">
+            <h1 class="fw-light">¿Cómo puedo ver el bingo?</h1>
+            <ul class="list-group">
+              <li class="list-group-item">
+                El Bingo solo se podrá jugar el domingo 21 de Febrero, partiendo de las 19.00 horas Chile, transmitido vía Zoom y Youtube.
+              </li>
+              <li class="list-group-item">
+                 Es a través de estas plataformas en donde se podrá saber cuando se está jugando un bingo, que bingo se está jugando y qué números se están cantando.
+              </li>
+            </ul>
+          </div>
+        </div>
+      </div>
+    </div>
+    <div class="accordion-item">
+      <h2 class="accordion-header" id="headingSix">
+        <button class="accordion-button collapsed" type="button" data-bs-toggle="collapse" data-bs-target="#collapseSix" aria-expanded="false" aria-controls="collapseSix">
+          <strong>¿Cómo se compra un cartón?</strong>
+        </button>
+      </h2>
+      <div id="collapseSix" class="accordion-collapse collapse" aria-labelledby="headingSix" data-bs-parent="#accordionExample">
+        <div class="accordion-body">
+          <div class="container">
+            <h1 class="fw-light">¿Cómo se compra un cartón?</h1>
+            <ul class="list-group">
+              <li class="list-group-item">
+                Accede a la página registrándote o iniciando sesión
+              </li>
+              <li class="list-group-item">
+                 Ya en la página principal, apreta el botón de “Comprar”. 
+Esto te llevará a la página de compras. 
+
+              </li>
+              <li class="list-group-item">
+                En la página de compras estarán las opciones de cartones para cada bingo con los premios correspondientes. 
+
+              </li>
+              <li class="list-group-item">
+                Para comprar un cartón, apreta el botón “Agregar al carrito”. Si deseas comprar más de un cartón aprieta el símbolo “+” hasta llegar al número deseado. Si quieres sacar un cartón del carrito, aprieta el símbolo “-”. 
+
+              </li>
+              <li class="list-group-item">
+                En la parte superior de la pantalla aparecerá una franja azul que muestra el “Carrito de compras” con la cantidad de cartones que has comprado. 
+
+              </li>
+              <li class="list-group-item">
+                Cuando hayas añadido todos los cartones que quieras jugar, presiona “¡Pagar todo!”. Esto te llevará a la página de “Selección de pago”, en donde podrás proceder a elegir la forma de pago y así poder pagar.
+
+              </li>
+              <li class="list-group-item">
+                Cuando hayas terminado de pagar podrás ver tus cartones apretando “Jugar” en el menú negro en la parte superior de la página o apretando tu nombre en la esquina superior derecha, y después  apretar “Mis cartones”.
+              </li>
+            </ul>
+          </div>
+        </div>
+      </div>
+    </div>
+    <div class="accordion-item">
+      <h2 class="accordion-header" id="headingSeven">
+        <button class="accordion-button collapsed" type="button" data-bs-toggle="collapse" data-bs-target="#collapseSeven" aria-expanded="false" aria-controls="collapseSeven">
+          <strong>¿Cómo puedo pagar?</strong>
+        </button>
+      </h2>
+      <div id="collapseSeven" class="accordion-collapse collapse" aria-labelledby="headingSeven" data-bs-parent="#accordionExample">
+        <div class="accordion-body">
+          <div class="container">
+            <h1 class="fw-light">¿Cómo puedo pagar?</h1>
+            <ul class="list-group">
+              <li class="list-group-item">
+                Para pagar, primero debe estar en la página de compras. Esto se logra apretando el botón “Comprar” en la página principal. 
+
+              </li>
+              <li class="list-group-item">
+                 En esta página podrás comprar tus cartones para los diferentes bingos. 
+              </li>
+              <li class="list-group-item">
+                Solo debes añadir los que quieras a tu carrito. Cuando estés list@ para pagar, aprieta “¡Pagar Todo!”. Esto te llevará a la página de “Selección de pago”.
+
+              </li>
+              <li class="list-group-item">
+                En la página de “Selección de pago” hay dos opciones, “Transferencia” y “Otros”. 
+
+              </li>
+              <li class="list-group-item">
+                Si elige “Transferencia”:
+                <ul class="list-group">
+                  <li class="list-group-item">
+                    Le aparecerán los datos bancarios del Centro Mariápolis para que usted pueda hacer la transferencia.
+                  </li>
+                  <li class="list-group-item">
+                    Además, le aparecerá un botón que dice “Seleccionar archivo”, aquí usted tendrá que adjuntar un comprobante de transferencia para completar la compra.
+
+                  </li>
+                  <li class="list-group-item">
+                    Para hacer esto usted tiene que sacarle una foto o un pantallazo al comprobante de transferencia y guardarlo en su computador/celular. Después, tiene que apretar el botón de “Seleccionar archivo”, elegir la foto correspondiente. 
+
+                  </li>
+                  <li class="list-group-item">
+                    Por último, tiene que apretar “Enviar” para terminar con la compra. 
+                  </li>
+                </ul>
+              </li>
+              <li class="list-group-item">
+                Si elige “Otro”: 
+                <ul class="list-group">
+                  <li class="list-group-item">
+                    Al apretar el botón de “Seleccionar”, le llevará a una encuesta en donde le pedirá rellenar datos personales: Nombre, Número de Teléfono, Ciudad y Región.
+                  </li>
+                  <li class="list-group-item">
+                    Además te pedirá una breve descripción del método de pago que más le acomode.
+                  </li>
+                  <li class="list-group-item">
+                    Al enviar esta encuesta, trataremos de contactarnos con usted lo más pronto posible para completar la transacción y que así consiga sus cartones.
+                  </li>
+                </ul>
+              </li>
+            </ul>
+          </div>
+        </div>
+      </div>
+    </div>
+    <div class="accordion-item">
+      <h2 class="accordion-header" id="headingEight">
+        <button class="accordion-button collapsed" type="button" data-bs-toggle="collapse" data-bs-target="#collapseEight" aria-expanded="false" aria-controls="collapseEight">
+         <strong> ¿Cuantos cartones se pueden comprar? </strong>
+        </button>
+      </h2>
+      <div id="collapseEight" class="accordion-collapse collapse" aria-labelledby="headingEight" data-bs-parent="#accordionExample">
+        <div class="accordion-body">
+          <div class="container">
+            <h1 class="fw-light">¿Cuantos cartones se pueden comprar? </h1>
+            <ul class="list-group">
+              <li class="list-group-item">
+                No hay límites de cuantos cartones puedes comprar.
+
+              </li>
+              <li class="list-group-item">
+                 Para comprar un cartón, apreta el botón “Agregar al carrito”. Si deseas comprar más de un cartón aprieta el símbolo “+” hasta llegar al número deseado. Si quieres sacar un cartón del carrito, aprieta el símbolo “-”. 
+   
+              </li>
+              <li class="list-group-item">
+                En la parte superior de la pantalla aparecerá una franja azul que muestra el “Carrito de compras” con la cantidad de cartones que has comprado. 
+
+              </li>
+              <li class="list-group-item">
+                Cuando hayas añadido todos los cartones que quieras jugar, presiona “¡Pagar todo!”. Esto te llevará a la página de “Selección de pago”, en donde podrás proceder a elegir la forma de pago y así poder pagar.
+
+
+              </li>
+            </ul>
+          </div>
+        </div>
+      </div>
+    </div>
+    <div class="accordion-item">
+      <h2 class="accordion-header" id="headingNine">
+        <button class="accordion-button collapsed" type="button" data-bs-toggle="collapse" data-bs-target="#collapseNine" aria-expanded="false" aria-controls="collapseNine">
+         <strong> ¿Qué pasa si no puedo pagar por transferencia?</strong>
+        </button>
+      </h2>
+      <div id="collapseNine" class="accordion-collapse collapse" aria-labelledby="headingNine" data-bs-parent="#accordionExample">
+        <div class="accordion-body">
+          <div class="container">
+            <h1 class="fw-light">¿Qué pasa si no puedo pagar por transferencia?</h1>
+            <ul class="list-group">
+              <li class="list-group-item">
+                Si no puede pagar con transferencia, deberá escoger la opción de pago “Otro”.
+              </li>
+              <li class="list-group-item">
+                 Aquí deberá apretar apretar el botón de “Seleccionar” que  le llevará a una encuesta en donde le pedirá rellenar datos personales: Nombre, Número de Teléfono, Ciudad y Región.
+              </li>
+              <li class="list-group-item">
+                Además te pedirá una breve descripción del método de pago que más le acomode.
+              </li>
+              <li class="list-group-item">
+                Al enviar esta encuesta, trataremos de contactarnos con usted lo más pronto posible para completar la transacción y que así consiga sus cartones.
+              </li>
+            </ul>
+          </div>
+        </div>
+      </div>
+    </div>
+    <div class="accordion-item">
+      <h2 class="accordion-header" id="headingTen">
+        <button class="accordion-button collapsed" type="button" data-bs-toggle="collapse" data-bs-target="#collapseTen" aria-expanded="false" aria-controls="collapseTen">
+         <strong> ¿Dónde puedo ver mi cartón?</strong>
+        </button>
+      </h2>
+      <div id="collapseTen" class="accordion-collapse collapse" aria-labelledby="headingTen" data-bs-parent="#accordionExample">
+        <div class="accordion-body">
+          <div class="container">
+            <h1 class="fw-light">¿Dónde puedo ver mi cartón?</h1>
+            <ul class="list-group">
+              <li class="list-group-item">
+                Puedes ver tus cartones  de dos maneras: 
+                <ul class="list-group">
+                  <li class="list-group-item">
+                    Apretando “Jugar” en el menú negro en la parte superior de la página
+                  </li>
+                </ul>
+                o
+                <ul class="list-group">
+                  <li class="list-group-item">
+                    Primero apretando tu nombre en la esquina superior derecha, que va a abrir un rectángulo blanco con tu nombre y con diferentes opciones, aquí debes apretar “Mis cartones”.
+                  </li>
+                </ul>
+              </li>
+            </ul>
+          </div>
+        </div>
+      </div>
+    </div>
+    <div class="accordion-item">
+      <h2 class="accordion-header" id="headingEleven">
+        <button class="accordion-button collapsed" type="button" data-bs-toggle="collapse" data-bs-target="#collapseEleven" aria-expanded="false" aria-controls="collapseEleven">
+          <strong>¿Cómo puedo jugar?</strong>
+        </button>
+      </h2>
+      <div id="collapseEleven" class="accordion-collapse collapse" aria-labelledby="headingEleven" data-bs-parent="#accordionExample">
+        <div class="accordion-body">
+          <div class="container">
+            <h1 class="fw-light">¿Cómo puedo jugar?</h1>
+            <ul class="list-group">
+              <li class="list-group-item">
+                El Bingo solo se podrá jugar el domingo 21 de Febrero, partiendo de las 19.00 horas Chile, transmitido vía Zoom y Youtube. 
+              </li>
+              <li class="list-group-item">
+                Es a través de estas plataformas en donde se podrá saber cuando se está jugando un bingo, que bingo se está jugando y qué números se están cantando.
+              </li>
+              <li class="list-group-item">
+                Cuando sea la hora de jugar, uno tiene que estar en la página. 
+
+              </li>
+              <li class="list-group-item">
+                Ya en la página, tiene que apretar “Jugar” en el menú negro en la parte superior de la página, que te llevará a la página de “¡A Jugar!”
+ 
+              </li>
+              <li class="list-group-item">
+                Aquí se mostrarán sus cartones y aparecerán dos botones. Para jugar, se aprieta el botón de “JUGAR”.
+
+              </li>
+              <li class="list-group-item">
+                Después de apretarlo, le llevará a una página en donde su(s) cartón(es) estarán visibles. Ahí es donde podrá jugar sus cartones.
+
+              </li>
+              <li class="list-group-item">
+                Si compró más de un cartón para un bingo podrá jugar con los dos cartones. Para cambiar de un cartón a otro debe presionar los diferentes números que te aparecerán  en la parte inferior izquierda del cartón visible.
+
+              </li>
+              <li class="list-group-item">
+                Para jugar tus cartones, solo debes presionar en los números de la forma en que desees. Y cuando creas que tienes todos los números, aprieta el botón amarillo que dice “BINGO!!”, en ese momento te aparecerá un mensaje que dice: “BINGO!! Estamos revisando tu cartón. Espera un momento.” 
+
+
+              </li>
+              <li class="list-group-item">
+                Nadie podrá ver los números que vas apretando. Sin embargo, si aprietas el botón de “BINGO!!”, se transmitirá en la pantalla del Zoom y Youtube que tú estás diciendo “BINGO!!”.
+
+
+              </li>
+              <li class="list-group-item">
+                Cuando la partida se termine, volverás automáticamente a la página de “¡A Jugar!” a esperar por la próxima partida.
+
+
+              </li>
+            </ul>
+          </div>
+        </div>
+      </div>
+    </div>
+    <div class="accordion-item">
+      <h2 class="accordion-header" id="headingTwelve">
+        <button class="accordion-button collapsed" type="button" data-bs-toggle="collapse" data-bs-target="#collapseTwelve" aria-expanded="false" aria-controls="collapseTwelve">
+          <strong>No puedo estar el día, ¿Cómo puedo apoyar? </strong>
+        </button>
+      </h2>
+      <div id="collapseTwelve" class="accordion-collapse collapse" aria-labelledby="headingTwelve" data-bs-parent="#accordionExample">
+        <div class="accordion-body">
+          <div class="container">
+            <h1 class="fw-light">No puedo estar el día, ¿Cómo puedo apoyar? </h1>
+            <ul class="list-group">
+              <li class="list-group-item">
+                En la página de inicio muestran tres otras maneras de apoyar al Centro Mariápolis:
+                <ul class="list-group">
+                  <li class="list-group-item">
+                    ¡Comprandoles un café! ¿Un café?, se preguntarán, ¡Tranquil@s, es solo una forma de decir! (No tienes que comprar café de verdad). Comprar un café significa donar la cantidad de dinero que usarías en una tienda común para comprar un café. 
+                  </li>
+                  <li class="list-group-item">
+                    ¡Apoya donando dinero para la comida de los perros del Centro, Tobi y Toto!
+
+                  </li>
+                  <li class="list-group-item">
+                    ¡Apoya al Centro Mariápolis haciéndote socio y aportando mensualmente! 
+
+                  </li>
+                </ul>
+              </li>
+              
+            </ul>
+          </div>
+        </div>
+      </div>
+    </div>
+
+  </div>
+</div>
+
 
 {{>footer}}
 

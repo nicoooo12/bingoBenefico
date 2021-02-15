@@ -115,42 +115,71 @@ body {
     <ol class="carousel-indicators">
       <li data-bs-target="#myCarousel" data-bs-slide-to="0" class=""></li>
       <li data-bs-target="#myCarousel" data-bs-slide-to="1" class=""></li>
-      <li data-bs-target="#myCarousel" data-bs-slide-to="2" class="active"></li>
+      <li data-bs-target="#myCarousel" data-bs-slide-to="2" class=""></li>
+      <li data-bs-target="#myCarousel" data-bs-slide-to="3" class="active"></li>
     </ol>
     <div class="carousel-inner">
       <div class="carousel-item">
-        {{!-- <img src="/public/centroMariapolis.jpg" class="position-absolute bd-placeholder-img card-img-top d-block" style="height: auto;"> --}}
-        <svg class="bd-placeholder-img" width="100%" height="100%" xmlns="http://www.w3.org/2000/svg" aria-hidden="true" preserveAspectRatio="xMidYMid slice" focusable="false"><rect width="100%" height="100%" fill="#777"></rect></svg>
+        <div class="bd-placeholder-img bd-placeholder-img-lg featurette-image img-fluid mx-auto" style="width:100%; height:100%;overflow: hidden;text-align: center;text-align: -webkit-center; background: #777" xmlns="http://www.w3.org/2000/svg" role="img" preserveaspectratio="xMidYMid slice">
+            <img src="/public/baner2.png" class="d-block h-100 w-auto" style="left: 50%;margin-left: -100%;position: relative;" alt="...">
+        </div>
+        {{!-- <svg class="bd-placeholder-img" width="auto" height="100%" xmlns="http://www.w3.org/2000/svg" aria-hidden="true" preserveAspectRatio="xMidYMid slice" focusable="false"><rect width="100%" height="100%" fill="#777"></rect></svg> --}}
 
         <div class="container">
           <div class="carousel-caption text-start">
-            <h1>¿A qué causa estoy apoyando ? </h1>
-            <p>El próximo 21 de febrero se realizará una tarde de bingo en beneficio del Centro Mariápolis Cunaco ¿Qué significa esto? ¡Apreta el botón para saber más!</p>
-            <p><a class="btn btn-lg btn-primary" href="/about" role="button">Más información</a></p>
+            <div class="mx-1" style="background: rgba(1,1,1,0.8);">
+              <h1 class="mx-3">¿A qué causa estoy apoyando ? </h1>
+              <p class="mx-3">El próximo 21 de febrero se realizará una tarde de bingo en beneficio del Centro Mariápolis Cunaco ¿Qué significa esto? ¡Apreta el botón para saber más!</p>
+            </div>
+            <p><a class="btn btn-lg btn-warning" href="/about" role="button">Más información</a></p>
           </div>
         </div>
       </div>
       <div class="carousel-item">
-        {{!-- <img src="/public/centroMariapolis.jpg" class="position-absolute bd-placeholder-img card-img-top d-block" style="height: auto;"> --}}
-        <svg class="bd-placeholder-img" width="100%" height="100%" xmlns="http://www.w3.org/2000/svg" aria-hidden="true" preserveAspectRatio="xMidYMid slice" focusable="false"><rect width="100%" height="100%" fill="#777"></rect></svg>
+        <div class="bd-placeholder-img bd-placeholder-img-lg featurette-image img-fluid mx-auto" style="width:100%; height:100%;overflow: hidden;text-align: center;text-align: -webkit-center; background: #777" xmlns="http://www.w3.org/2000/svg" role="img" preserveaspectratio="xMidYMid slice">
+            <img src="/public/baner1.png" class="d-block h-100 w-auto" style="left: 50%;margin-left: -100%;position: relative;" alt="...">
+        </div>
+        {{!-- <svg class="bd-placeholder-img" width="100%" height="100%" xmlns="http://www.w3.org/2000/svg" aria-hidden="true" preserveAspectRatio="xMidYMid slice" focusable="false"><rect width="100%" height="100%" fill="#777"></rect></svg> --}}
 
         <div class="container">
           <div class="carousel-caption">
-            <h1>¿Necesitas ayuda?</h1>
-            <p>Estamos aquí para ayudarte... <br> Si necesita ayuda, haga click en el botón de AYUDA y solucionaremos su problema.</p>
-            <p><a class="btn btn-lg btn-primary" href="/help" role="button">Ayuda!</a></p>
+            <div class="mx-1" style="background: rgba(1,1,1,0.8);">
+              <h1 class="mx-3">¿Necesitas ayuda?</h1>
+              <p class="mx-3">Estamos aquí para ayudarte... <br> Si necesita ayuda, haga click en el botón de AYUDA y solucionaremos su problema.</p>
+            </div>
+            <p><a class="btn btn-lg btn-warning" href="/help" role="button">Ayuda!</a></p>
+          </div>
+        </div>
+      </div>
+      <div class="carousel-item">
+        <div class="bd-placeholder-img bd-placeholder-img-lg featurette-image img-fluid mx-auto" style="width:100%; height:100%;overflow: hidden;text-align: center;text-align: -webkit-center; background: #777" xmlns="http://www.w3.org/2000/svg" role="img" preserveaspectratio="xMidYMid slice">
+            <img src="/public/banner3.jpeg" class="d-block h-100 w-auto" style="left: 50%;margin-left: -100%;position: relative;" alt="...">
+        </div>
+        {{!-- <svg class="bd-placeholder-img" width="100%" height="100%" xmlns="http://www.w3.org/2000/svg" aria-hidden="true" preserveAspectRatio="xMidYMid slice" focusable="false"><rect width="100%" height="100%" fill="#777"></rect></svg> --}}
+
+        <div class="container">
+          <div class="carousel-caption">
+            <div class="mx-1" style="background: rgba(1,1,1,0.8);">
+              <h1 class="mx-3">Dona un premio</h1>
+              <p class="mx-3">Porque sabemos que para construir un mundo unido necesitamos el aporte de todos, Te invitamos a donarnos un premio y ser protagonista de esta hermosa iniciativa.</p>
+            </div>
+            <p><a class="btn btn-lg btn-warning" target="_blank" href="https://forms.gle/evp4X7zrQYAmvvyg8" role="button">Donar</a></p>
           </div>
         </div>
       </div>
       <div class="carousel-item active">
-        {{!-- <img src="/public/centroMariapolis.jpg" class="position-absolute bd-placeholder-img card-img-top d-block" style="height: auto;"> --}}
-        <svg class="bd-placeholder-img" width="100%" height="100%" xmlns="http://www.w3.org/2000/svg" aria-hidden="true" preserveAspectRatio="xMidYMid slice" focusable="false"><rect width="100%" height="100%" fill="#777"></rect></svg>
+        <div class="bd-placeholder-img bd-placeholder-img-lg featurette-image img-fluid mx-auto" style="width:100%; height:100%;overflow: hidden;text-align: center;text-align: -webkit-center; background: #777" xmlns="http://www.w3.org/2000/svg" role="img" preserveaspectratio="xMidYMid slice">
+            <img src="/public/baner4.jpeg" class="d-block h-100 w-auto" style="left: 50%;margin-left: -100%;position: relative;" alt="...">
+        </div>
+        {{!-- <svg class="bd-placeholder-img" width="100%" height="100%" xmlns="http://www.w3.org/2000/svg" aria-hidden="true" preserveAspectRatio="xMidYMid slice" focusable="false"><rect width="100%" height="100%" fill="#777"></rect></svg> --}}
 
         <div class="container">
           <div class="carousel-caption text-end">
-            <h1>Compra un carton.</h1>
-            <p>Dando click en el botón  “Comprar” podrás comprar tus cartones para el Bingoloteando este  21 de Febrero ¡No te quedes sin tu cartón!</p>
-            <p><a class="btn btn-lg btn-primary" href="/catalogo" role="button">Comprar</a></p>
+            <div style="background: rgba(1,1,1,0.8);">
+              <h1 class="mx-3">Compra un carton.</h1>
+              <p class="mx-3">Dando click en el botón  “Comprar” podrás comprar tus cartones para el Bingoloteando este  21 de Febrero ¡No te quedes sin tu cartón!</p>
+            </div>
+            <p><a class="btn btn-lg btn-warning" href="/catalogo" role="button">Comprar</a></p>
           </div>
         </div>
       </div>
@@ -174,26 +203,40 @@ body {
 
     <!-- Three columns of text below the carousel -->
     <div class="row">
-      <div class="col-lg-4">
-        <svg class="bd-placeholder-img rounded-circle" width="140" height="140" xmlns="http://www.w3.org/2000/svg" role="img" aria-label="Placeholder: 140x140" preserveAspectRatio="xMidYMid slice" focusable="false"><title>Placeholder</title><rect width="100%" height="100%" fill="#777"></rect><text x="50%" y="50%" fill="#777" dy=".3em">140x140</text></svg>
+      <div class="col-lg-4" style="text-align: center;text-align: -webkit-center;">
+        {{!-- <svg class="bd-placeholder-img rounded-circle" width="140" height="140" xmlns="http://www.w3.org/2000/svg" role="img" aria-label="Placeholder: 140x140" preserveAspectRatio="xMidYMid slice" focusable="false">
+        <title>Placeholder</title>
 
-        <h2>Heading</h2>
-        <p>Donec sed odio dui. Etiam porta sem malesuada magna mollis euismod. Nullam id dolor id nibh ultricies vehicula ut id elit. Morbi leo risus, porta ac consectetur ac, vestibulum at eros. Praesent commodo cursus magna.</p>
-        <p><a class="btn btn-secondary" href="#" role="button">View details »</a></p>
+        <rect width="100%" height="100%" fill="#777"></rect>
+        <text x="50%" y="50%" fill="#777" dy=".3em">140x140</text>
+        </svg> --}}
+        <div class="bd-placeholder-img rounded-circle" style="width:140px; max-height: 140px;overflow: hidden;text-align: center;text-align: -webkit-center;" xmlns="http://www.w3.org/2000/svg" ria-label="Placeholder: 140x140" role="img" preserveAspectRatio="xMidYMid slice">
+            <img src="/public/cafe.jpeg" class="d-block h-100 w-auto" style="max-height: 140px;" alt="...">
+        </div>
+        <h2>Compra un café </h2>
+        <p>¿Quieres apoyar al Centro Mariápolis de otra forma? ¡Cómprales un café! ¿Un café?, se preguntarán, ¡Tranquil@s, es solo una forma de decir!  
+Comprar un café significa donar la cantidad de dinero que usarías en una tienda común para comprar un café
+</p>
+        <p><a class="btn btn-secondary" href="/catalogo#apoyar" role="button">Donar »</a></p>
       </div><!-- /.col-lg-4 -->
-      <div class="col-lg-4">
-        <svg class="bd-placeholder-img rounded-circle" width="140" height="140" xmlns="http://www.w3.org/2000/svg" role="img" aria-label="Placeholder: 140x140" preserveAspectRatio="xMidYMid slice" focusable="false"><title>Placeholder</title><rect width="100%" height="100%" fill="#777"></rect><text x="50%" y="50%" fill="#777" dy=".3em">140x140</text></svg>
-
-        <h2>Heading</h2>
-        <p>Duis mollis, est non commodo luctus, nisi erat porttitor ligula, eget lacinia odio sem nec elit. Cras mattis consectetur purus sit amet fermentum. Fusce dapibus, tellus ac cursus commodo, tortor mauris condimentum nibh.</p>
-        <p><a class="btn btn-secondary" href="#" role="button">View details »</a></p>
+      <div class="col-lg-4" style="text-align: center;text-align: -webkit-center;">
+        {{!-- <svg class="bd-placeholder-img rounded-circle" width="140" height="140" xmlns="http://www.w3.org/2000/svg" role="img" aria-label="Placeholder: 140x140" preserveAspectRatio="xMidYMid slice" focusable="false"><title>Placeholder</title><rect width="100%" height="100%" fill="#777"></rect><text x="50%" y="50%" fill="#777" dy=".3em">140x140</text></svg> --}}
+        <div class="bd-placeholder-img rounded-circle" style="width:140px; max-height: 140px;overflow: hidden;text-align: center;text-align: -webkit-center;" xmlns="http://www.w3.org/2000/svg" ria-label="Placeholder: 140x140" role="img" preserveAspectRatio="xMidYMid slice">
+            <img src="/public/tobi.jpeg" class="d-block h-100 w-auto" style="max-height: 140px;" alt="...">
+        </div>
+        <h2>Comida para el tobi</h2>
+        <p>¿Quieres apoyar al Centro Mariápolis de otra forma? ¡Apoya donando dinero para la comida de los perros del Centro, Tobi y Toto!</p>
+        <p><a class="btn btn-secondary" href="/catalogo#apoyar" role="button">Donar »</a></p>
       </div><!-- /.col-lg-4 -->
-      <div class="col-lg-4">
-        <svg class="bd-placeholder-img rounded-circle" width="140" height="140" xmlns="http://www.w3.org/2000/svg" role="img" aria-label="Placeholder: 140x140" preserveAspectRatio="xMidYMid slice" focusable="false"><title>Placeholder</title><rect width="100%" height="100%" fill="#777"></rect><text x="50%" y="50%" fill="#777" dy=".3em">140x140</text></svg>
-
-        <h2>Heading</h2>
-        <p>Donec sed odio dui. Cras justo odio, dapibus ac facilisis in, egestas eget quam. Vestibulum id ligula porta felis euismod semper. Fusce dapibus, tellus ac cursus commodo, tortor mauris condimentum nibh, ut fermentum massa justo sit amet risus.</p>
-        <p><a class="btn btn-secondary" href="#" role="button">View details »</a></p>
+      <div class="col-lg-4" style="text-align: center;text-align: -webkit-center;">
+        {{!-- <svg class="bd-placeholder-img rounded-circle" width="140" height="140" xmlns="http://www.w3.org/2000/svg" role="img" aria-label="Placeholder: 140x140" preserveAspectRatio="xMidYMid slice" focusable="false"><title>Placeholder</title><rect width="100%" height="100%" fill="#777"></rect><text x="50%" y="50%" fill="#777" dy=".3em">140x140</text></svg> --}}
+        <div class="bd-placeholder-img rounded-circle" style="width:140px; max-height: 140px;overflow: hidden;text-align: center;text-align: -webkit-center;" xmlns="http://www.w3.org/2000/svg" ria-label="Placeholder: 140x140" role="img" preserveAspectRatio="xMidYMid slice">
+            <img src="/public/parner.jpg" class="d-block h-100 w-auto" style="max-height: 140px;" alt="...">
+        </div>
+        <h2>Hazte socio</h2>
+        <p>¿Quieres apoyar al Centro Mariápolis de otra forma? ¡Apoya al Centro Mariápolis haciéndote socio y aportando mensualmente!
+</p>
+        <p><a class="btn btn-secondary" target="_blank" href="https://docs.google.com/forms/d/e/1FAIpQLSfYBsnubqXOy13nZvy5ZD_FMd0-b8uLhhPf3DEd2wb2u_MbLA/viewform" role="button">ir »</a></p>
       </div><!-- /.col-lg-4 -->
     </div><!-- /.row -->
 
@@ -209,7 +252,7 @@ body {
       </div>
       <div class="col-md-5">
         <div class="bd-placeholder-img bd-placeholder-img-lg featurette-image img-fluid mx-auto" style="width:500px; max-height: 500px;overflow: hidden;text-align: center;text-align: -webkit-center;" xmlns="http://www.w3.org/2000/svg" role="img" preserveAspectRatio="xMidYMid slice">
-            <img src="/public/image3.png" class="d-block h-100 w-auto" style="max-height: 500px;" alt="...">
+            <img src="/public/image7.jpg" class="d-block h-100 w-auto" style="max-height: 500px; left: 50%;margin-left: -500px;position: relative;" alt="...">
         </div>
         {{!-- <svg class="bd-placeholder-img bd-placeholder-img-lg featurette-image img-fluid mx-auto" width="500" height="500" xmlns="http://www.w3.org/2000/svg" role="img" aria-label="Placeholder: 500x500" preserveAspectRatio="xMidYMid slice" focusable="false">
         <title>Placeholder</title>
@@ -225,16 +268,16 @@ body {
     <div class="row featurette" style="align-items: center;">
       <div class="col-md-7 order-md-2">
         <h2 class="featurette-heading">¿Qué es el  <span class="text-muted">Centro Mariápolis Cunaco?</span></h2>
-        <p class="lead">A 170 km de la ciudad de Santiago, en medio del valle de Colchagua rodeado por campos y viñas, se encuentra el Centro Mariápolis. En sus amplios espacios verdes se entra en contacto con la naturaleza el lugar, el mismo cuenta con un gran parque estilo francés que invita también al descanso y a la recreación.  Sin embargo, para el movimiento de los Focolares el Centro Mariápolis es una casa, “su casa” en Chile.  Un lugar que acoge y que quiere dar visibilidad al amor recíproco, del que nos habla el Evangelio, y que es la base de la vida de los miembros del Movimiento de los Focolares. Un lugar para formarse en la Espiritualidad de la Unidad.  Por eso, durante el año se realizan retiros espirituales, congresos, eventos culturales y sociales para niños, jóvenes, familias, sacerdotes, religiosos, personas comprometidas en los distintos ámbitos sociales y en definitiva, para todas aquellas personas interesadas en el estilo de vida de los Focolares, independientemente de su estado, sexo, edad, religión o creencia.</p>
+        <p class="lead">A 170 km de la ciudad de Santiago, en medio del valle de Colchagua rodeado por campos y viñas, se encuentra el Centro Mariápolis. El mismo cuenta con un gran parque estilo francés que invita a la interioridad, al descanso y a la recreación. Sin embargo, para el movimiento de los Focolares el Centro Mariápolis es una casa, “su casa” en Chile. Un lugar que acoge y que quiere dar visibilidad al amor recíproco, del que nos habla el Evangelio, y que es la base de la vida de los miembros del Movimiento. Un lugar para formarse en la Espiritualidad de la Unidad y en la cultura de la fraternidad. Por eso, durante el año se realizan retiros espirituales, congresos, eventos culturales y sociales para niñas, niños, jóvenes, familias, sacerdotes, personas comprometidas en los distintos ámbitos sociales. El Centro Mariapolis es “Una casa abierta a todos”.</p>
       </div>
       <div class="col-md-5 order-md-1">
         {{!-- <svg class="bd-placeholder-img bd-placeholder-img-lg featurette-image img-fluid mx-auto" width="500" height="500" xmlns="http://www.w3.org/2000/svg" role="img" aria-label="Placeholder: 500x500" preserveAspectRatio="xMidYMid slice" focusable="false"><title>Placeholder</title><rect width="100%" height="100%" fill="#eee"></rect><text x="50%" y="50%" fill="#aaa" dy=".3em">500x500</text></svg> --}}
           <div class="bd-placeholder-img bd-placeholder-img-lg featurette-image img-fluid mx-auto" style="width:500px; max-height: 500px;overflow: hidden;text-align: center;text-align: -webkit-center;" xmlns="http://www.w3.org/2000/svg" role="img" preserveAspectRatio="xMidYMid slice">
-            <img src="/public/centroMariapolis.jpg" class="d-block h-100 w-auto" style="max-height: 500px;" alt="...">
+            <img src="/public/centroMariapolis2.jpg" class="d-block h-100 w-auto" style="max-height: 500px; left: 50%;margin-left: -500px;position: relative;" alt="...">
         </div>
       </div>
     </div>
-
+    
     <hr class="featurette-divider">
 
     <div class="row featurette" style="align-items: center;">
@@ -245,7 +288,7 @@ body {
       <div class="col-md-5">
         {{!-- <svg class="bd-placeholder-img bd-placeholder-img-lg featurette-image img-fluid mx-auto" width="500" height="500" xmlns="http://www.w3.org/2000/svg" role="img" aria-label="Placeholder: 500x500" preserveAspectRatio="xMidYMid slice" focusable="false"><title>Placeholder</title><rect width="100%" height="100%" fill="#eee"></rect><text x="50%" y="50%" fill="#aaa" dy=".3em">500x500</text></svg> --}}
         <div class="bd-placeholder-img bd-placeholder-img-lg featurette-image img-fluid mx-auto" style="width:500px; max-height: 500px;overflow: hidden; text-align: center;text-align: -webkit-center;" xmlns="http://www.w3.org/2000/svg" role="img" preserveAspectRatio="xMidYMid slice">
-            <img src="/public/image17.png" class="d-block h-100 w-auto" style="max-height: 500px;" alt="...">
+            <img src="/public/image17.png" class="d-block h-100 w-auto" style="max-height: 500px; left: 50%;margin-left: -500px;position: relative;" alt="...">
         </div>
       </div>
     </div>

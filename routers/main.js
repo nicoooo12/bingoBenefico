@@ -11,11 +11,16 @@ router.get('/', (req,res)=>{
 })
 
 router.get('/inicio',isAuthenticate, (req,res)=>{
+  // console.log(req.user, req.session);
   res.render('principal/')
 })
 
-router.get('/about',isAuthenticate, (req,res)=>{
+router.get('/about', (req,res)=>{
   res.render('principal/about')
+})
+
+router.get('/donar',isAuthenticate, (req,res)=>{
+  res.render('principal/donar')
 })
 router.get('/catalogo',isAuthenticate, async(req,res,next)=>{
   try {

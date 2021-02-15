@@ -30,11 +30,15 @@ router.get('/play', isAuthenticate, async (req,res,next)=>{
     // console.log(o);
     if(estado[0].estamosJuegando){
       if(estado[0].initJuego){
-        res.render('play/jugar', {
-          in : o,
-          car,
-          estado: estado[0],
-        })
+        if(o[0]){
+          res.render('play/jugar', {
+            in : o,
+            car,
+            estado: estado[0],
+          })
+        }else{
+          res.render('play/noTengo',{})
+        }
       }else{
         res.render('play/salaEspera', {
           message: estado[0].messajeEspera

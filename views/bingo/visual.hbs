@@ -26,7 +26,7 @@
     <div class="modal-content">
       <div class="modal-body">
           <div class="text-center mt-5">
-            <p id="pnom">Felisidades</p>
+            <p id="pnom">Felicidades</p>
             <h1 id="hnom">
               Gano 
             </h1>
@@ -213,7 +213,7 @@
     </table>
   </div>
 
-  <div class="item-center align-middle" style="position: absolute;height: 350px;width: 100px; margin-top: 25px; top: 38%; left:14%;">
+  <div class="item-center align-middle ms-5" style="position: absolute;height: 350px;width: 100px; margin-top: 25px; top: 38%; left:14%;">
     <table class="align-middle text-center table tb-border table-bordered" style="border:#6f42c1 !important; height: 100%; width:100%; font-size:20px ">
       <tbody>
         <tr class="color" style="background-color: #6f42c1; color:white; font-weight: bold">
@@ -266,7 +266,11 @@
 
   function removeItemFromArr ( arr, item ) {
       let i = arr.indexOf( item );
-      arr.splice( i, 1 );
+      if(i == -1){
+        console.log('noppp :(')
+      }else{
+        arr.splice( i, 1 );
+      }
   }
 
   function numero(numeroTotoal){
@@ -277,63 +281,68 @@
           distanciaP5 = 5
 
       let pop=0
-      const actualizarNumero = ()=>{
-        //console.log(pop , numerosAzar.length-1, numerosAzar[pop], numerosAzar[pop-1])
-        if(pop==0){
-          if(!(document.querySelectorAll('.num')[74].style.background == 'rgb(13, 110, 253)')){
-            document.querySelectorAll('.num')[74].style.background = ''
+      const actualizarNumero = (owo)=>{
+        //console.log(pop , numerosAzar.length-1, numerosAzar[pop], numerosAzar[pop-1]
+        console.log(numerosAzar[pop], pop, owo)
+        if(owo==0){
+          console.log(document.querySelectorAll('.num')[numerosAzar[numerosAzar.length-1]-1])
+          if(!(document.querySelectorAll('.num')[numerosAzar[numerosAzar.length-1]-1].style.background == 'rgb(13, 110, 253)')){
+            document.querySelectorAll('.num')[numerosAzar[numerosAzar.length-1]-1].style.background = ''
           }         
         }else{
           document.querySelectorAll('.num')[numerosAzar[pop-1]-1].style.background = ''
         }
-        if(pop <= (numerosAzar.length - 2)){
-          document.getElementById('numeroLanzar').innerText = numerosAzar[pop]
-          $('#numeroLanzar2')[0].innerText = numerosAzar[pop] <= 15 ? 'B' : numerosAzar[pop] <= 30 ? 'I' : numerosAzar[pop] <= 45 ? 'N' : numerosAzar[pop] <= 60 ? 'G' : numerosAzar[pop] <= 75 ? 'O' : ''
-          document.querySelectorAll('.num')[numerosAzar[pop]-1].style.background = 'red'
+        if(owo <= (numerosAzar.length - 2)){
+          document.getElementById('numeroLanzar').innerText = numerosAzar[owo]
+          $('#numeroLanzar2')[0].innerText = numerosAzar[owo] <= 15 ? 'B' : numerosAzar[owo] <= 30 ? 'I' : numerosAzar[owo] <= 45 ? 'N' : numerosAzar[owo] <= 60 ? 'G' : numerosAzar[owo] <= 75 ? 'O' : ''
+          document.querySelectorAll('.num')[numerosAzar[owo]-1].style.background = 'red'
           pop++
         }else{
           pop = 0
-          document.getElementById('numeroLanzar').innerText = numerosAzar[pop]
-          $('#numeroLanzar2')[0].innerText = numerosAzar[pop] <= 15 ? 'B' : numerosAzar[pop] <= 30 ? 'I' : numerosAzar[pop] <= 45 ? 'N' : numerosAzar[pop] <= 60 ? 'G' : numerosAzar[pop] <= 75 ? 'O' : ''
-          document.querySelectorAll('.num')[numerosAzar[pop]-1].style.background = 'red'
+          document.getElementById('numeroLanzar').innerText = numerosAzar[owo]
+          $('#numeroLanzar2')[0].innerText = numerosAzar[owo] <= 15 ? 'B' : numerosAzar[owo] <= 30 ? 'I' : numerosAzar[owo] <= 45 ? 'N' : numerosAzar[owo] <= 60 ? 'G' : numerosAzar[owo] <= 75 ? 'O' : ''
+          document.querySelectorAll('.num')[numerosAzar[owo]-1].style.background = 'red'
         }
       } 
-      console.log(distanciaP1+distanciaP2 +distanciaP3)
+      
+      //console.log(distanciaP1+distanciaP2 +distanciaP3)
       const lanzar = async ()=>{
         if((noww ) <= distanciaP1){
-          actualizarNumero()
+          actualizarNumero(pop)
           await sleep(5);
           noww +=1
           lanzar()
         }else if((noww ) <= (distanciaP1 + distanciaP2)){
-          actualizarNumero()
+          actualizarNumero(pop)
           await sleep(15)
           noww += 1
           lanzar()
         }else if((noww) <= distanciaP1+distanciaP2 +distanciaP3){
-          actualizarNumero()
+          actualizarNumero(pop)
           await sleep(30)
           noww += 1
           lanzar()
         }else if((noww) <= distanciaP1+distanciaP2 +distanciaP3+distanciaP4){
-          actualizarNumero()
+          actualizarNumero(pop)
           await sleep(90)
           noww += 1
           lanzar()
         }else if((noww) <= distanciaP1+distanciaP2 +distanciaP3+distanciaP4+distanciaP5){
-          actualizarNumero()
+          actualizarNumero(pop)
           await sleep(150)
           noww += 1
           lanzar()
         }else if((noww) <= distanciaP1+distanciaP2 +distanciaP3+distanciaP4+distanciaP5 +5){
-          actualizarNumero()
+          actualizarNumero(pop)
           await sleep(250)
           noww += 1
           lanzar()
         }else{
+          //actualizarNumero(Math.round(Math.random()*numerosAzar.length))
+          actualizarNumero(numeroTotoal ? numerosAzar.indexOf(numeroTotoal) : pop)
           await sleep(1000)
           colorear(document.getElementById('numeroLanzar').innerText)
-          socket.emit('lanzado', +document.getElementById('numeroLanzar').innerText)
+          socket.emit('lanzado', +document.getElementById('numeroLanzar').innerText, numeresAA)
           removeItemFromArr(numerosAzar, +document.getElementById('numeroLanzar').innerText)
           $('#numeroLanzado3A')[0].innerText = $('#numeroLanzado2A')[0].innerText
           $('#numeroLanzado3B')[0].innerText = $('#numeroLanzado2B')[0].innerText
@@ -346,12 +355,9 @@
       let noww = 0
       lanzar()
   }
-</script>
 
-<script>
   var numeres = [0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0]
   var numeresAA = [0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0]
-  var numeroAlazar = 0
   function lansar(){
     let tu = true
     let numeroNuevo
@@ -359,7 +365,7 @@
       if(numeres.filter(e=>{return e === 1}).length == 75){
         tu = false
       }
-      let v = Math.round((Math.random()*75)/1)
+      let v = Math.round(Math.random()*75)
       //console.log(v, numeres[v], numeres[v] === 0)
       if(numeres[v-1] === 0){
         numeroNuevo = v
@@ -381,9 +387,7 @@
 
 
   hacerArray()
-</script>
 
-<script>
 var myModal = new bootstrap.Modal(document.getElementById('staticBackdrop'), {
   keyboard: false,
   backdrop: false
@@ -416,23 +420,27 @@ var myModal3 = new bootstrap.Modal(document.getElementById('staticBackdrop3'), {
       numero()
     }
   })
-  socket.on('gan',(data, id, user)=>{
+  socket.on('gano',(data, id, user)=>{
     $('#pnom')[0].innerText = user + ' dice : '
     console.log(user)
-    myModal.toggle()
-    socket.emit('gann', data, numeresAA, id, user)
+    myModal2.hide()
+    myModal3.hide()
+    myModal.show()
+    //socket.emit('gann', data, numeresAA, id, user)
   })
   socket.on('genne',async (user)=>{
     $('#hnom')[0].innerText = user + ' es el GANADOR!!! 🎉🎉✨'
-    myModal.toggle()
-    myModal2.toggle()
+    myModal.hide()
+    myModal3.hide()
+    myModal2.show()
     await sleep(10000)
-    myModal2.toggle()
+    myModal2.hide()
   })
   socket.on('nogenne',async(user)=>{
-    myModal.toggle()
-    myModal3.toggle()
+    myModal.hide()
+    myModal2.hide()
+    myModal3.show()
     await sleep(3000)
-    myModal3.toggle()
+    myModal3.hide()
   })
 </script>

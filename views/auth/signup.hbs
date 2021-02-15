@@ -41,7 +41,7 @@
 
 <div class="container-fluid position-absolute h-100 w-100">
     <div class="row h-100">
-    <div class="c-2 col col-1 bg-primary">
+    <div class="c-2 col col-1 bg-warning">
       <div class="container">
         
         
@@ -56,22 +56,35 @@
             <h1 class="fs-2 fw-bold"> Crea tu cuenta</h1>
           </div>
           <div class="container">
-            <form action="/auth/signup?redirect={{redirect}}" method="POST">
+            <form novalidate action="/auth/signup?redirect={{redirect}}" method="POST" class="needs-validation">
               <label class="fs-3 fw-light text-danger">{{#each error}}{{obj message}}{{/each}}</label>
               <br>
-              <label class="fs-3 fw-light">Nombre</label>
-              <input type="text" name="nombre" autocomplete="off" id="inputEmail" class="form-control" required="" autofocus="">
-              <label for="inputEmail" class="fs-3 fw-light">Apellido</label>
-              <input type="text" name="apellido" autocomplete="off" id="inputEmail" class="form-control" required="" >
-              <label for="inputEmail" class="fs-3 fw-light">Email address</label>
+              <label class="fs-3 fw-light" for="inputNombre">Nombre</label>
+              <input type="text" name="nombre" autocomplete="off" id="inputNombre" class="form-control" required="" autofocus="">
+              <label for="inputApellido" class="fs-3 fw-light">Apellido</label>
+              <input type="text" name="apellido" autocomplete="off" id="inputApellido" class="form-control" required="" >
+              
+              <label for="inputPhone" class="fs-3 fw-light">Numero de telefono</label>
+              <div class="input-group mb-3">
+                <span class="input-group-text" id="basic-addon1">+56 9</span>
+                <input type="tel" name="telefono" pattern="[0-9]{4} [0-9]{4}|[0-9]{8}" autocomplete="off" id="inputPhone" class="form-control" placeholder="1234 5678" required="" >
+              </div>
+
+
+              <label for="inputEmail" class="fs-3 fw-light">Correo Electronico</label>
               <input type="email" name="correo" autocomplete="off" id="inputEmail" class="form-control" required="" >
-              <label for="inputPassword" class="fs-3 fw-light">Contraseña</label>
-              <input type="password" name="password" id="inputPassword" class="form-control" required="">
+
+              <label for="inputPassword" class="fs-3 fw-light">Crea una contraseña</label>
+              <input type="password" name="password" id="inputPassword" class="form-control" pattern="[a-zA-Z0-9(!¡¿?#$%&)]{8,}" required="" autocomplete="new-password">
+              <label for="inputPassword" class="fw-light d-block">Minimo 8 caracteres</label>
+
+              <label for="inputConfPassword" class="fs-3 fw-light mt-1">Confirma tu contraseña</label>
+              <input type="password" name="password" id="inputConfPassword" class="form-control" required="" autocomplete="new-password">
               
 
 
               <label class="d-inline-block mt-3">Ya tienes una cuenta? <a href="/auth/signin" class="d-inline">Ingrasa</a></label>
-              <button type="submit" class="d-block btn btn-primary mt-3 w-50">Entrar</button>          
+              <button type="submit" class="d-block btn btn-warning mt-3 w-50">Entrar</button>          
             </form>
           </div>
           <div class="container bottom-0 mb-5 mt-5 ">
@@ -80,6 +93,34 @@
       </div>
     </div>
   </div>
+
+<script>
+  (function () {
+  'use strict'
+
+  // Fetch all the forms we want to apply custom Bootstrap validation styles to
+  var forms = document.querySelectorAll('.needs-validation')
+
+  // Loop over them and prevent submission
+  Array.prototype.slice.call(forms)
+    .forEach(function (form) {
+      form.addEventListener('submit', function (event) {
+        if($('#inputPassword')[0].value !== $('#inputConfPassword')[0].value){
+          event.preventDefault()
+          event.stopPropagation()
+          $('#inputConfPassword')[0].value = ''
+        }
+        if (!form.checkValidity()) {
+          event.preventDefault()
+          event.stopPropagation()
+        }
+          form.classList.add('was-validated')
+        
+
+      }, false)
+    })
+})()
+</script>
 
 {{#each error}}
 <script redirect="{{obj redirect}}">

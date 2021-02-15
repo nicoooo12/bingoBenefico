@@ -37,13 +37,23 @@ router.get('/bingo',isAdmin, (req,res)=>{
   res.render('bingo/visual')
 })
 
-router.get('/control',isAdmin, async(req,res)=>{
-  let es = await store.get('estados', {})
+router.get('/control',isAdmin, async(req,res,next)=>{
+  try {
+    let es = await store.get('estados', {})
+  let users = await store.get('users', {})
+  let cartones = await store.get('cartones', {})
   let s = await store.get('catalogos', {})
+  // console.log(users);
   res.render('bingo/control',{
+    cartones,
     s,
-    es
+    es : es[0],
+    users,
   })
+  } catch (error) {
+    next(error)
+  }
+  
 })
 
 router.get('/gen/:user/:serial',isAdmin,(req,res)=>{
@@ -94,7 +104,8 @@ router.post('/db/put/:model/:id/',isAdmin, async(req,res,next)=>{
 
 router.post('/db/delete/:model/:id',isAdmin, async(req,res,next)=>{
   try {
-    await store.delt(req.params.model, {_id:req.params.id})
+    console.log(req.params.id);
+    await store.delt(req.params.model, {_id: req.params.id})
     // res.send('SUCCESS')
     res.redirect('/admin/' + req.params.model)
   } catch (error) {

@@ -65,7 +65,7 @@
         <br>
         <br>
         <div class="text-center mb-5">
-          <div class="spinner-border text-primary" style="width: 3rem; height: 3rem;" role="status">
+          <div class="spinner-border text-warning" style="width: 3rem; height: 3rem;" role="status">
             <span class="visually-hidden">Loading...</span>
           </div>
         </div>
@@ -83,7 +83,7 @@
       </div>
       <div class="modal-body">
         <h1>
-        Felisidades, Ganaste!!!
+        Felicidades, Ganaste!!!
         </h1>
       </div>
     </div>
@@ -106,16 +106,21 @@
   </div>
 </div>
 
-<nav class=" navbar navbar-expand-lg navbar-dark bg-primary py-2" style="position:sticky; top: 0; background-color: rgba(255,255,255,0.95); z-index: 1000000;" aria-current="true" aria-label="Secondary navigation">
+<nav class=" navbar navbar-expand-lg text-dark bg-warning py-2" style="position:sticky; top: 0; background-color: rgba(255,255,255,0.95); z-index: 1000000;" aria-current="true" aria-label="Secondary navigation">
   <div class="container">
       <div class="container">
         <div class="navbar-collapse" >
-          <a class="navbar-brand" href="/play/play">A Jugar!!!</a>
+          <a href="/play" class="btn text-black p-0" style="margin-bottom: 0.5rem!important">
+            <svg xmlns="http://www.w3.org/2000/svg" width="16" height="16" fill="currentColor" class="bi bi-arrow-left" viewBox="0 0 16 16">
+              <path fill-rule="evenodd" d="M15 8a.5.5 0 0 0-.5-.5H2.707l3.147-3.146a.5.5 0 1 0-.708-.708l-4 4a.5.5 0 0 0 0 .708l4 4a.5.5 0 0 0 .708-.708L2.707 8.5H14.5A.5.5 0 0 0 15 8z"/>
+            </svg>
+          </a>
+          <a class="navbar-brand link-dark ms-5" href="/play/play">A Jugar!!!</a>
           <div class="navbar-collapse justify-content-end">
             <div class="justify-content-end">
               <ul class="navbar-nav text-white justify-content-end">
                 {{!-- <li class="nav-item mx-2">Serie : 1 </li> --}}
-                <li class="nav-item mx-2">Premio : {{estado.premioJuego}} </li>
+                <li class="nav-item mx-2 text-dark">Premio : {{estado.premioJuego}} </li>
               </ul>
 
             </div>
@@ -135,7 +140,7 @@
   <div class="col-4 c1 container" style="position:relative;">
     <div class="row">
       <div class="col ratio ratio-1x1 card-img-top" >
-        <table  class="table table-bordered border-primary" style="height: 100%; border:{{objinobj2 car 'serie' estado.serieJuego 'color'}} !important;">
+        <table  class="table table-bordered border-warning" style="height: 100%; border:{{objinobj2 car 'serie' estado.serieJuego 'color'}} !important;">
         <tbody class="align-middle" style="text-align: center; font-size:24px; ">
         <tr>
           <td scope="col" style="background-color: {{objinobj2 car 'serie' estado.serieJuego 'color'}}; color:white; font-weight:bold">B</td>
@@ -443,7 +448,11 @@ socket.on('fine',()=>{
         document.querySelectorAll('tr')[i].children[e].style.background = 'white'
         document.querySelectorAll('tr')[i].children[e].style.color = 'black'
         if(o[e][i-1] == 0){
-          document.querySelectorAll('tr')[i].children[e].innerText = 'X'
+          document.querySelectorAll('tr')[i].children[e].innerText = '{{objinobj2 car 'serie' estado.serieJuego 'textoMedio'}}'
+          if(data2[e][i-1] == '1'){
+            document.querySelectorAll('tr')[i].children[e].style.background = '{{objinobj2 car 'serie' estado.serieJuego 'color'}}';
+            document.querySelectorAll('tr')[i].children[e].style.color = 'white';
+          }
         }else{
           document.querySelectorAll('tr')[i].children[e].innerText = o[e][i-1]
           //console.log(o[e][i-1], data2[e][i-1])
@@ -466,7 +475,7 @@ socket.on('fine',()=>{
     oe.map((e,o)=>{
       if(pag == o){
         $('#cartones')[0].innerHTML += `
-          <li class="page-item active" aria-current="page"><span class="page-link">${o+1}</span></li>
+          <li class="page-item active" aria-current="page"><span class="page-link bg-warning border-warning">${o+1}</span></li>
         `
       }else{
         $('#cartones')[0].innerHTML += `
@@ -502,9 +511,12 @@ socket.on('fine',()=>{
     return res
   }
   cambio(0, true)
+
+  window.onbeforeunload = ()=>{
+    sessionStorage.setItem(pag,`[[${colores[0]}],[${colores[1]}],[${colores[2]}],[${colores[3]}],[${colores[4]}]]`)
+  }
 </script>
 
 <footer class="container pb-5" style="postion:relative; bottom: 0;">
-    <p class="float-end"><a href="/juego">Volver a atrás</a></p>
-    <p>Nesesitas ayuda? · <a href="/contact">has click aquí!</a> · <a href="/info">Info</a></p>
+    <p>Nesesitas ayuda? · <a href="/help">has click aquí!</a></p>
   </footer>

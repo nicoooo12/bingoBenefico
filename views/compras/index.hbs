@@ -33,7 +33,7 @@
     <div class="row py-lg-5">
       <div class="col-lg-6 col-md-8 mx-auto">
         <h1 class="fw-light">1. Seleccion de pago</h1>
-        <p class="lead text-muted">Elige tu forma de pago. Aviso:  La compra desde el pago online se realizará de forma inmediata y en menor tiempo.</p>
+        <p class="lead text-muted">Seleccione el método de pago que más le acomode.</p>
         <table class="table text-start">
           <thead>
             <td>
@@ -81,12 +81,9 @@
             </tr> 
         </table>        
         <p>
-          <form method="post" action="{{payurl}}" style="display: inline;">
-            <input type="hidden" name="token_ws" value="{{paytoken}}" />
-            <input type="submit" class="btn btn-outline-primary my-2" value="Pagar online" />
-          </form>
-          {{!-- <a href="/pagar/initpay" class="btn btn-outline-primary my-2">Pagar online</a> --}}
-          <a href="/pagar/otros" class="btn btn-outline-primary my-2">Otro</a>
+          <a href="/pagar/select/transferencia{{que}}" class="btn btn-warning my-2">Pagar con Transferencia</a>
+          {{!-- <a href="/pagar/initpay" class="btn btn-outline-warning my-2">Pagar online</a> --}}
+          <a href="/pagar/select/otros{{que}}" class="btn btn-secondary my-2">Otro medio</a>
         </p>
       </div>
     </div>
@@ -100,5 +97,5 @@
 
 <footer class="container" style="">
     <p class="float-end"><a href="/catalogo">volver</a></p>
-    <p>Moviemento de los Focolares - Chile · <a href="/contact">Contacto</a> · <a href="/info">Info</a></p>
+    <p>Movimiento de los Focolares - Chile · <a href="/contact">Contacto</a> · <a href="/info">Info</a></p>
   </footer>

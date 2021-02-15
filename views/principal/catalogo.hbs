@@ -53,14 +53,18 @@
       cuenta += 1
       e.parentElement.children[1].style.display = ''
       e.attributes['total'].value = (+e.attributes['total'].value) + 1
-        e.parentElement.parentElement.children[1].innerText = `añadido(${e.attributes['total'].value})  CLP$${e.parentElement.parentElement.children[1].attributes['precio'].value}c/u` 
+        console.log(e.attributes['serial'].value, e.parentElement.parentElement.parentElement.children[1].innerText, e.parentElement.parentElement.children[2])
+        e.parentElement.parentElement.children[1].attributes['precio'] ? e.parentElement.parentElement.children[1].innerText = `añadido(${e.attributes['total'].value})  CLP$${e.parentElement.parentElement.children[1].attributes['precio'].value}c/u`  : false
         e.parentElement.children[1].children[1].innerText = `${e.attributes['total'].value}` 
       document.getElementById('spannum').innerText = cuenta
 
       if(document.getElementById(`tr-${(e.attributes['serial'].value)}`)){
         document.getElementById(`tr-${(e.attributes['serial'].value)}`).children[1].children[0].children[0].children[0].innerText = '$' + (e.attributes['total'].value * (+document.getElementById(`tr-${(e.attributes['serial'].value)}`).children[1].children[0].children[0].children[0].attributes['precio'].value))
       }else{
+        e.parentElement.parentElement.children[1].attributes['precio'] ? 
         addProductoInList(e.attributes['serial'].value, e.parentElement.parentElement.parentElement.children[0].innerText, e.parentElement.parentElement.children[1].attributes['precio'].value)
+        : 
+        addProductoInList(e.attributes['serial'].value, e.parentElement.parentElement.parentElement.children[1].innerText, e.parentElement.parentElement.children[2].attributes['precio'].value)
       }
       if(!on){
         document.querySelectorAll('nav')[1].style.display = ''
@@ -81,11 +85,12 @@
         e.style.display = ''
         e.parentElement.children[1].style.display = 'none'
         e.attributes['onclick'].value = 'addCarrito(this)'
-        e.parentElement.parentElement.children[1].innerText = `CLP$` + e.parentElement.parentElement.children[1].attributes['precio'].value 
+        e.parentElement.parentElement.children[1].attributes['precio'] ? e.parentElement.parentElement.children[1].innerText = `CLP$` + e.parentElement.parentElement.children[1].attributes['precio'].value : false
       }else{
         e.parentElement.children[1].children[1].innerText = `${e.attributes['total'].value}` 
-        e.parentElement.parentElement.children[1].innerText = `añadido(${e.attributes['total'].value})  CLP$${e.parentElement.parentElement.children[1].attributes['precio'].value}c/u` 
-        document.getElementById(`tr-${(e.attributes['serial'].value)}`).children[1].children[0].children[0].children[1].innerText = +document.getElementById(`tr-${(e.attributes['serial'].value)}`).children[1].children[0].children[0].children[1].innerText -1
+        e.parentElement.parentElement.children[1].attributes['precio'] ? e.parentElement.parentElement.children[1].innerText = `añadido(${e.attributes['total'].value})  CLP$${e.parentElement.parentElement.children[1].attributes['precio'].value}c/u` : false
+   
+       // document.getElementById(`tr-${(e.attributes['serial'].value)}`).children[1].children[0].children[0].children[1].innerText = +document.getElementById(`tr-${(e.attributes['serial'].value)}`).children[1].children[0].children[0].children[1].innerText -1
       }
     }
 
@@ -108,11 +113,18 @@
 
     function pagar(){
       let o = '/pagar?'
-      for(i=0; i <= document.getElementById('contenedorCentral').children.length - 1; i++){
+      for(i=0; i <= (document.getElementById('contenedorCentral').children.length)- 1; i++){
         if((+document.getElementById(`contenedorCentral`).children[i].children[0].children[1].children[3].children[0].children[1].children[1].innerText) > 0 ) {
-          o += `${i+1}=${+document.getElementById(`contenedorCentral`).children[i].children[0].children[1].children[3].children[0].children[1].children[1].innerText}&`
+          o += `${document.getElementById(`contenedorCentral`).children[i].children[0].children[1].children[3].children[0].children[0].attributes['serial'].value}=${+document.getElementById(`contenedorCentral`).children[i].children[0].children[1].children[3].children[0].children[1].children[1].innerText}&`
         }
       }
+      if(+$('#apoyar')[0].children[1].children[1].children[3].children[0].children[1].children[1].innerText >=1){
+        o += `${102}=${+$('#apoyar')[0].children[1].children[1].children[3].children[0].children[1].children[1].innerText}&`
+      }
+      if(+$('#apoyar')[0].children[1].children[0].children[3].children[0].children[1].children[1].innerText>=1){
+        o += `${101}=${+$('#apoyar')[0].children[1].children[0].children[3].children[0].children[1].children[1].innerText}&`
+      }
+      
       document.location.href = o
     }
 
@@ -141,7 +153,7 @@
           <h1 class="fw-light">¡Apoya con tu compra para este bingo!</h1>
           <p class="lead text-muted">Comprando estos bingos estarás apoyando la recaudación de fondos del Centro Mariápolis. Solo añade a tu carrito los cartones de los bingos que quieras jugar y cuando estés list@ para pagar, presiona “¡Pagar todo!”.</p>
           <p>
-            {{!-- <a href="/play" class="btn btn-outline-primary my-2">Jugar ahora</a> --}}
+            {{!-- <a href="/play" class="btn btn-outline-warning my-2">Jugar ahora</a> --}}
             {{!-- <a href="#" class="btn btn-secondary my-2">Secondary action</a> --}}
           </p>
         </div>
@@ -162,7 +174,7 @@
                 <div class="card-body">
                   <p class="card-text mb-1" style="font-size: 30px; font-weight: 100; ">{{titulo}}</p>
                   <p class="card-text h4 mb-10">{{descripcion}}</p>
-                  <p class="card-text"><small class="text-muted">Premios : {{premioBingito}} - {{premioCompleto}}</small></p>
+                  <p class="card-text"><small class="text-muted">Premios : {{premioBingito}} ~ {{premioCompleto}}</small></p>
                   <div class="d-flex justify-content-between align-items-center">
                     <div class="btn-group">
                       <button type="button" class="btn btn-sm btn-outline-success" total="0" serial="{{serie}}" onclick="addCarrito(this)">Agregar al carrito</button>
@@ -198,5 +210,76 @@
     </div>
   </footer> --}}
 </div>
+
+
+<div class="container marketing" id="apoyar">
+    <hr class="featurette-divider">
+
+    <!-- Three columns of text below the carousel -->
+    <div class="row">
+      <div class="col-lg-4 mt-5" style="text-align: center;text-align: -webkit-center; ">
+        {{!-- <svg class="bd-placeholder-img rounded-circle" width="140" height="140" xmlns="http://www.w3.org/2000/svg" role="img" aria-label="Placeholder: 140x140" preserveAspectRatio="xMidYMid slice" focusable="false">
+        <title>Placeholder</title>
+
+        <rect width="100%" height="100%" fill="#777"></rect>
+        <text x="50%" y="50%" fill="#777" dy=".3em">140x140</text>
+        </svg> --}}
+        <div class="bd-placeholder-img rounded-circle" style="width:140px; max-height: 140px;overflow: hidden;text-align: center;text-align: -webkit-center;" xmlns="http://www.w3.org/2000/svg" ria-label="Placeholder: 140x140" role="img" preserveAspectRatio="xMidYMid slice">
+            <img src="/public/cafe.jpeg" class="d-block h-100 w-auto" style="max-height: 140px;" alt="...">
+        </div>
+        <h2>Compra un café </h2>
+        <p>¿Quieres apoyar al Centro Mariápolis de otra forma? ¡Cómprales un café! ¿Un café?, se preguntarán, ¡Tranquil@s, es solo una forma de decir!  Comprar un café significa donar la cantidad de dinero que usarías en una tienda común para comprar un café</p>
+        <div>
+          {{!-- <a class="btn btn-secondary" href="#" role="button">Donar »</a> --}}
+          <div class="btn-group">
+                      <button type="button" class="btn btn-sm btn-outline-success" total="0" serial="101" onclick="addCarrito(this)">Agregar al carrito</button>
+                      {{!-- <button type="button" class="btn btn-sm btn-outline-success" style="display:none" onclick="addCarrito(this.parentElement.children[0])">+</button> --}}
+                      <div class="btn-group" style="display:none">
+                        <button type="button" class="btn btn-sm text-primary" onclick="removeCarrito(this.parentElement.parentElement.children[0])">-</button>
+                        <sapn type="button" class="btn" >0</sapn>
+                        <button type="button" class="btn btn-sm text-primary" onclick="addCarrito(this.parentElement.parentElement.children[0])">+</button>
+                      </div>
+                      {{!-- <button type="button" class="btn btn-sm btn-success " >Comprar YA!</button> --}}
+                    </div>
+                    <br>
+                    <small class="text-muted mt-2 d-block" style="font-size: 16px;" precio="500">CLP$800</small>
+        </div>
+      </div><!-- /.col-lg-4 -->
+      <div class="col-lg-4 mt-5" style="text-align: center;text-align: -webkit-center;">
+        {{!-- <svg class="bd-placeholder-img rounded-circle" width="140" height="140" xmlns="http://www.w3.org/2000/svg" role="img" aria-label="Placeholder: 140x140" preserveAspectRatio="xMidYMid slice" focusable="false"><title>Placeholder</title><rect width="100%" height="100%" fill="#777"></rect><text x="50%" y="50%" fill="#777" dy=".3em">140x140</text></svg> --}}
+        <div class="bd-placeholder-img rounded-circle" style="width:140px; max-height: 140px;overflow: hidden;text-align: center;text-align: -webkit-center;" xmlns="http://www.w3.org/2000/svg" ria-label="Placeholder: 140x140" role="img" preserveAspectRatio="xMidYMid slice">
+            <img src="/public/tobi.jpeg" class="d-block h-100 w-auto" style="max-height: 140px;" alt="...">
+        </div>
+        <h2>Comida para el tobi</h2>
+        <p>¿Quieres apoyar al Centro Mariápolis de otra forma? ¡Apoya donando dinero para la comida de los perros del Centro, Tobi y Toto!</p>
+        <div>
+          {{!-- <a class="btn btn-secondary" href="#" role="button">Donar »</a> --}}
+          <div class="btn-group">
+                      <button type="button" class="btn btn-sm btn-outline-success" total="0" serial="102" onclick="addCarrito(this)">Agregar al carrito</button>
+                      {{!-- <button type="button" class="btn btn-sm btn-outline-success" style="display:none" onclick="addCarrito(this.parentElement.children[0])">+</button> --}}
+                      <div class="btn-group" style="display:none">
+                        <button type="button" class="btn btn-sm text-primary" onclick="removeCarrito(this.parentElement.parentElement.children[0])">-</button>
+                        <sapn type="button" class="btn" >0</sapn>
+                        <button type="button" class="btn btn-sm text-primary" onclick="addCarrito(this.parentElement.parentElement.children[0])">+</button>
+                      </div>
+                      {{!-- <button type="button" class="btn btn-sm btn-success " >Comprar YA!</button> --}}
+                    </div>
+                    <br>
+                    <small class="text-muted mt-2 d-block" style="font-size: 16px;" precio="1500">CLP$1500</small>
+        </div>
+      </div><!-- /.col-lg-4 -->
+      <div class="col-lg-4 mt-5" style="text-align: center;text-align: -webkit-center;">
+        {{!-- <svg class="bd-placeholder-img rounded-circle" width="140" height="140" xmlns="http://www.w3.org/2000/svg" role="img" aria-label="Placeholder: 140x140" preserveAspectRatio="xMidYMid slice" focusable="false"><title>Placeholder</title><rect width="100%" height="100%" fill="#777"></rect><text x="50%" y="50%" fill="#777" dy=".3em">140x140</text></svg> --}}
+        <div class="bd-placeholder-img rounded-circle" style="width:140px; max-height: 140px;overflow: hidden;text-align: center;text-align: -webkit-center;" xmlns="http://www.w3.org/2000/svg" ria-label="Placeholder: 140x140" role="img" preserveAspectRatio="xMidYMid slice">
+            <img src="/public/parner.jpg" class="d-block h-100 w-auto" style="max-height: 140px;" alt="...">
+        </div>
+        <h2>Hazte socio</h2>
+        <p>¿Quieres apoyar al Centro Mariápolis de otra forma? ¡Apoya al Centro Mariápolis haciéndote socio y aportando mensualmente!
+</p>
+        <p><a class="btn btn-secondary" target="_blank" href="https://docs.google.com/forms/d/e/1FAIpQLSfYBsnubqXOy13nZvy5ZD_FMd0-b8uLhhPf3DEd2wb2u_MbLA/viewform" role="button">ir »</a></p>
+      </div><!-- /.col-lg-4 -->
+    </div><!-- /.row -->
+
+  </div>
 
 {{>footer}}
