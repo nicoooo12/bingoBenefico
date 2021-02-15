@@ -60,15 +60,16 @@ const mySchemaMetodoOtros = new Schema({
   formaPago: String,
   iniciado: Boolean,
   fin: Boolean,
+  estado:String,
 })
 
 const mySchemaTransferencias = new Schema({
   id: String,
-  imgDate: String,
   pedido: Object,
-  ext:String,
   nombre:String,
   monto:Number,
+  iniciado: Boolean,
+  estado:String,
   fin: Boolean,
 })
 

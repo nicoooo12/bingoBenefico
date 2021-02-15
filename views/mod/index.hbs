@@ -68,6 +68,7 @@
     <table class="table" style="-webkit-user-select: text;-moz-user-select: text;-ms-user-select: text;user-select: text; ">
         <tr>
           <td scope="col"></td>
+          <td scope="col">iniciado</td>
           <td scope="col">Nombre</td>
           <td scope="col">Monto</td>
           <td scope="col">pedido</td>
@@ -81,8 +82,18 @@
             {{else}}
               <button class="btn btn-danger" onclick="finess('{{_id}}')">Fin</button>
             {{/if}}
-            <a href="/public/comprobantes/{{id}}({{imgDate}}).{{ext}}" target="_blank" class="btn btn-warning">ver</a>
-          </td>            
+
+            {{#if iniciado}}
+            {{else}}
+              <button class="btn btn-success" onclick="iniciarss('{{_id}}')">iniciar</button>
+            {{/if}}
+            {{!-- <a href="/public/comprobantes/{{id}}({{imgDate}}).{{ext}}" target="_blank" class="btn btn-warning">ver</a> --}}
+          </td>  
+          <td>{{#if iniciado}}
+              <p class="bg-success text-white">Si</p>
+            {{else}}
+              <p class="bg-danger text-white">No</p>
+            {{/if}}</td>          
           <td>{{nombre}}</td>
           <td>{{monto}}</td>
           <td>{{pedido}}</td>
@@ -138,11 +149,21 @@
 
   function iniciar(id){
     $.post(document.location.origin + `/api/db/put/metodoOtros/${id}`, { data : JSON.stringify({
-        'iniciado' : true
+        'iniciado' : true,
+        'estado': 'Iniciado ~ Contactado'
       })},'json').done(function( data ) {
         document.location.href = document.location.href
       });
   }
 
+
+  function iniciarss(id){
+    $.post(document.location.origin + `/api/db/put/transferencias/${id}`, { data : JSON.stringify({
+        'iniciado' : true,
+        'estado': 'Iniciado ~ En revision'
+      })},'json').done(function( data ) {
+        document.location.href = document.location.href
+      });
+  }
 
 </script>

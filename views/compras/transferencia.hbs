@@ -43,15 +43,35 @@
           <li class="list-group-item">Titular: Fundación Centro de Espiritualidad Mariapolis</li>
         </ul>
         
-        <form action="/pagar/transferencia?m={{monto}}&p={{obj pedido}}" enctype="multipart/form-data" method="post">
+        {{!-- <form action="/pagar/transferencia?m={{monto}}&p={{obj pedido}}" enctype="multipart/form-data" method="post">
           <div class="container mt-5">
             <label class="fs-3 fw-light">Comprobante (imagen)</label>
             <input type="file" accept="image/*" name="comprobante" id="inputEmail" class="form-control mt-2" placeholder="" required="" autocomplete="address-level1">
             <button type="submit" class="btn btn-warning mt-4">Enviar</button>
           </div>
-        </form>
+        </form> --}}
+
+        <h1 class="fw-normal mt-5">Tu codigo de referencia es </h1>
+        <p>este debes copiarlo y pegarlo en el formulario</p>
+        <ul class="list-group" style="-webkit-user-select: text;-moz-user-select: text;-ms-user-select: text;user-select: text; ">
+          <li class="list-group-item" id="ids">45934985734987</li>
+        </ul>
+
+        <a href="" target="_blank" class="btn btn-warning mt-4" onclick="initPay()">Iniciar Pago</a>
       </div>
     </div>
   </section>
   </div>
 </div>
+
+
+<form action="/pagar/transferencia?m={{monto}}&p={{obj pedido}}" method="post" styles="display:none">
+  <button type="submit" id="sum"></button>
+</form>
+
+<script>
+  $('#ids')[0].innerText = '{{user._id}}'.slice(-8)
+  function initPay(){
+    document.querySelector('#sum').click()
+  }
+</script>

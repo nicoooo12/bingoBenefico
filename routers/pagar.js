@@ -1,20 +1,7 @@
-'use strict'
-
 const express = require('express')
 const router = express.Router()
 const store = require('../libs/mongoose')
 const carton = require('../services/cartones')
-const multer = require('multer')
-var storage = multer.diskStorage({
-  destination: function (req, file, cb) {
-    cb(null, './public/comprobantes/')
-  },
-  filename: function (req, file, cb) {
-    cb(null, `${req.user._id}(${req.Datee}).${file.mimetype.match(/[a-z]{1,}$/)[0]}`) //Appending .jpg
-  }
-})
-const upload = multer({ storage: storage}).single('comprobante')
-
 
 router.get('/',isAuthenticate, async(req,res,next)=>{
 try{
@@ -68,7 +55,7 @@ router.get('/otros', isAuthenticate,async(req,res)=>{
         let prs = await store.get('catalogos', {serie:o[i-1]})
         if(prs[0]){
           io += ( prs[0].precio *  +req.query[o[i-1]] )
-          productos.push({producto: prs[0].titulo, precio: prs[0].precio, catidad: req.query[o[i-1]], total: ( prs[0].precio *  +req.query[o[i-1]] )})
+          productos.push({producto: prs[0].serie, precio: prs[0].precio, catidad: req.query[o[i-1]], total: ( prs[0].precio *  +req.query[o[i-1]] )})
         }else if(+o[i-1] >= 100 ){
           if(+o[i-1]-100 === 1){
             io += ( 800 *  +req.query[o[i-1]] )
@@ -92,7 +79,10 @@ router.get('/otros', isAuthenticate,async(req,res)=>{
 
 router.post('/otros/init', isAuthenticate,async(req,res,next)=>{
   try {
-    await store.post('metodoOtros', {...req.body, id: req.user._id, iniciado:false, monto: req.query.m, pedido: req.query.p})
+        fin: false,
+    await store.post('metodoOtros', {...req.body, id: req.user._id,
+      fin: false,
+      iniciado:false, monto: req.query.m, pedido: req.query.p, estado: 'Iniciado ~ En espera'})
     await store.put('users', {_id : req.user._id}, {compra: true})
     res.redirect('/pagar/otros/init')
   } catch (error) {
@@ -100,8 +90,6 @@ router.post('/otros/init', isAuthenticate,async(req,res,next)=>{
   }
   
 })
-
-
 
 router.get('/otros/init', isAuthenticate,async(req,res,next)=>{
   res.render('compras/init',{})
@@ -124,7 +112,7 @@ router.get('/transferencia', isAuthenticate,async(req,res,next)=>{
         let prs = await store.get('catalogos', {serie:o[i-1]})
         if(prs[0]){
           io += ( prs[0].precio *  +req.query[o[i-1]] )
-          productos.push({producto: prs[0].titulo, precio: prs[0].precio, catidad: req.query[o[i-1]], total: ( prs[0].precio *  +req.query[o[i-1]] )})
+          productos.push({producto: prs[0].titulo+'~'+prs[0].serie, precio: prs[0].precio, catidad: req.query[o[i-1]], total: ( prs[0].precio *  +req.query[o[i-1]] )})
         }else if(+o[i-1] >= 100 ){
           if(+o[i-1]-100 === 1){
             io += ( 800 *  +req.query[o[i-1]] )
@@ -147,21 +135,19 @@ router.get('/transferencia', isAuthenticate,async(req,res,next)=>{
 })
 
 router.post('/transferencia', async(req, res, next)=> {
-  req.Datee = Date.now()
-  upload(req, res, async (err) => {
-    if (err instanceof multer.MulterError) {
-      next(err)
-    } else if (err) {
-      next(err)
-    }
     try {
-      let ext = req.file.mimetype.match(/[a-z]{1,}$/)[0]
-      await store.post('transferencias', {id: req.user._id, imgDate: req.Datee, monto: req.query.m, nombre: `${req.user.nombre} ${req.user.apellido}`, pedido: req.query.p, ext })
+      await store.put('users', {_id : req.user._id}, {compra: true})
+      await store.post('transferencias', {
+        id: req.user._id, monto: req.query.m,
+        nombre: `${req.user.nombre} ${req.user.apellido}`,
+        pedido: req.query.p,
+        fin: false,
+        estado: 'Iniciado ~ En espera'
+      })
       res.redirect('/pagar/comprobando')
     } catch (error) {
       next(error)
     }
-  })
     
 })
 
@@ -174,15 +160,36 @@ router.get('/estado', isAuthenticate,async(req,res,next)=>{
     let otro = await store.get('metodoOtros', {id: req.user._id})  
     let trans = await store.get('transferencias', {id: req.user._id})  
 
-    
 
-    if(!otro.filter((e)=>{
-      return e.fin === false
-    })[0] && !trans.filter((e)=>{
-      return e.fin === false
-    })[0]){
-      await store.put('users', {_id: req.user._id}, {compra: false} )
+    let offO = false
+    let offT = false
+    if(trans[0]){
+      if(trans.filter((e)=>{return e.fin === false})[0]){
+        offT = false
+      }else{
+        offT = true
+      }
+    }else{
+      offT = true
     }
+
+    if(otro[0]){
+      if(otro.filter((e)=>{return e.fin === false})[0]){
+        offO = false
+      }else{
+        offO = true
+      }
+    }else{
+      offO = true
+    }
+
+    if(offT && offO){
+      await store.put('users', {_id: req.user._id}, {compra: false} )
+    }else{
+      await store.put('users', {_id: req.user._id}, {compra: true} )
+
+    }
+
 
     res.render('compras/estado',{
       otro,
