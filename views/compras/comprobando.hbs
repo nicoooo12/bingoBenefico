@@ -35,6 +35,12 @@
         <h1 class="fw-light">Estamo comprobando tu transferencia</h1>
         <p>Esto tardara un poco, nosotros te avisamo!</p>
         <p>
+
+          <h1 class="fw-normal mt-5">Tu codigo de referencia es </h1>
+        <p>este debes copiarlo y pegarlo en el formulario</p>
+        <ul class="list-group" style="-webkit-user-select: text;-moz-user-select: text;-ms-user-select: text;user-select: text; ">
+          <li class="list-group-item" id="ids">45934985734987</li>
+        </ul>
           <a href="/" class="btn btn-warning my-2">Volver</a>
           {{!-- <a href="/pagar/initpay" class="btn btn-outline-warning my-2">Pagar online</a>
           <a href="/pagar/select/otros" class="btn btn-secondary my-2">Otro medio</a> --}}
@@ -44,3 +50,4 @@
   </section>
   </div>
 </div>
+<script>$('#ids')[0].innerText = '{{user._id}}'.slice(-8)</script>
