@@ -6,8 +6,6 @@ const config = {
   secret : process.env.SECRET,
   host: process.env.HOST ,
   db: process.env.DB,
-  wpCmmerceCode: process.env.WP_COMMERCE_CODE,
-  wpApiKey: process.env.WP_API_KEY,
 }
 
 module.exports = config
