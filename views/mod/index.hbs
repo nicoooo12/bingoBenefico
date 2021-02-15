@@ -1,31 +1,45 @@
-<div class="bg-dark h-25 w-100 position-absolute">
+<div class="bg-dark h-25 w-100 position-absolute" >
   <div class="container  text-center text-white" style="margin-top : 25px">
     <h1>Hola Mods xd</h1>
     {{!-- <a href="/admin/control" class="btn btn-primary mt-4">control</a> --}}
-    {{!-- <a href="/admin/bingo" class="btn btn-primary mt-4">bingo</a> --}}
+    <a href="/mod/create" class="btn btn-primary mt-4">Crear bingo</a>
     <a href="/" class="btn btn-secondary mt-4">volver al inicio</a>
   </div>
 </div>
 <div class="bg-light w-100 position-relative" style="top: 30%;">
   <h1 style="text-align: center;">Otros</h1>
   <div class="container d-flex justify-content-center" style="">
-      <table class="table">
+      <table class="table" style="-webkit-user-select: text;-moz-user-select: text;-ms-user-select: text;user-select: text; ">
         <tr>
           <td scope="col"></td>
+          <td scope="col">fin</td>
           <td scope="col">Iniciado</td>
           <td scope="col">Nombre</td>
           <td scope="col">Telefono</td>
           <td scope="col">Monto</td>
           <td scope="col">Region Ciudad</td>
           <td scope="col">forma de pago</td>
+          <td scope="col">pedido</td>
+          <td scope="col">User Id</td>
         </tr>
         {{#each otro}}
         <tr>
           <td>
-            <button class="btn btn-danger">Fin</button>
+            {{#if fin}}
+              <button class="btn btn-danger" onclick="desfine('{{_id}}')">desHacer</button>
+            {{else}}
+              <button class="btn btn-danger" onclick="fine('{{_id}}')">Fin</button>
+            {{/if}}
             {{#if iniciado}}
             {{else}}
-              <button class="btn btn-success">iniciar</button>
+              <button class="btn btn-success" onclick="iniciar('{{_id}}')">iniciar</button>
+            {{/if}}
+          </td>
+          <td>
+            {{#if fin}}
+              <p class="bg-success text-white">Si</p>
+            {{else}}
+              <p class="bg-danger text-white">No</p>
             {{/if}}
           </td>
           <td>
@@ -40,6 +54,8 @@
           <td>{{monto}}</td>
           <td>{{regionCiudad}}</td>
           <td>{{formaPago}}</td>
+          <td>{{pedido}}</td>
+          <td>{{id}}</td>
         </tr>
         {{/each}}
       </table>
@@ -49,24 +65,84 @@
 <div class="bg-light w-100 position-relative my-5" style="top: 30%;">
   <h1 style="text-align: center;">Transfrerencia</h1>
   <div class="container d-flex justify-content-center" style="">
-    <table class="table">
+    <table class="table" style="-webkit-user-select: text;-moz-user-select: text;-ms-user-select: text;user-select: text; ">
         <tr>
           <td scope="col"></td>
           <td scope="col">Nombre</td>
           <td scope="col">Monto</td>
+          <td scope="col">pedido</td>
+          <td scope="col">User id</td>
         </tr>
         {{#each trans}}
         <tr>
           <td>
             {{#if fin}}
+              <button class="btn btn-danger" onclick="desfiness('{{_id}}')">desHacer</button>
             {{else}}
-              <button class="btn btn-warning">ver</button>
+              <button class="btn btn-danger" onclick="finess('{{_id}}')">Fin</button>
             {{/if}}
+            <a href="/public/comprobantes/{{id}}({{imgDate}}).{{ext}}" target="_blank" class="btn btn-warning">ver</a>
           </td>            
           <td>{{nombre}}</td>
           <td>{{monto}}</td>
+          <td>{{pedido}}</td>
+          <td>{{id}}</td>
         </tr>
         {{/each}}
       </table>
   </div>
 </div>
+
+
+<script>
+
+  function fine(id){
+      $.post(document.location.origin + `/api/db/put/metodoOtros/${id}`, { data : JSON.stringify({
+        'fin' : true
+      })},'json')
+      .done(function( data ) {
+        document.location.href = document.location.href
+      });
+
+  }
+
+  function desfine(id){
+      $.post(document.location.origin + `/api/db/put/metodoOtros/${id}`, { data : JSON.stringify({
+        'fin' : false
+      })},'json',)
+      .done(function( data ) {
+        document.location.href = document.location.href
+      });
+
+  }
+
+  function finess(id){
+      $.post(document.location.origin + `/api/db/put/transferencias/${id}`, { data : JSON.stringify({
+        'fin' : true
+      })},'json')
+      .done(function( data ) {
+        document.location.href = document.location.href
+      });
+
+  }
+
+  function desfiness(id){
+      $.post(document.location.origin + `/api/db/put/transferencias/${id}`, { data : JSON.stringify({
+        'fin' : false
+      })},'json',)
+      .done(function( data ) {
+        document.location.href = document.location.href
+      });
+
+  }
+
+  function iniciar(id){
+    $.post(document.location.origin + `/api/db/put/metodoOtros/${id}`, { data : JSON.stringify({
+        'iniciado' : true
+      })},'json').done(function( data ) {
+        document.location.href = document.location.href
+      });
+  }
+
+
+</script>

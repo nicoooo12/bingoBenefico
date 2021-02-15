@@ -53,6 +53,7 @@ const mySchemaErrores = new Schema({
 const mySchemaMetodoOtros = new Schema({
   id:String,
   monto:Number,
+  pedido: Object,
   nombreApellido: String,
   regionCiudad: String,
   telefono: String,
@@ -64,6 +65,8 @@ const mySchemaMetodoOtros = new Schema({
 const mySchemaTransferencias = new Schema({
   id: String,
   imgDate: String,
+  pedido: Object,
+  ext:String,
   nombre:String,
   monto:Number,
   fin: Boolean,

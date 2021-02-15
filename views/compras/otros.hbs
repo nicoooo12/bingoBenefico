@@ -34,7 +34,7 @@
       <div class="col-lg-6 col-md-8 mx-auto">
         <h1 class="fw-light">2. Pago - Otros</h1>
         
-        <form action="/pagar/otros/init?m={{monto}}" method="post">
+        <form action="/pagar/otros/init?m={{monto}}&p={{obj pedido}}" method="post">
           <div class="container mt-5">
             <label class="fs-3 fw-light">Nombre y Apellido</label>
             <input type="text" name="nombreApellido" id="inputEmail" class="form-control" placeholder="" required="" autocomplete="address-level1" value="{{user.nombre}} {{user.apellido}}">

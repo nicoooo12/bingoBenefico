@@ -10,7 +10,7 @@ var storage = multer.diskStorage({
     cb(null, './public/comprobantes/')
   },
   filename: function (req, file, cb) {
-    cb(null, `${req.user._id}(${req.Date}).${file.mimetype.match(/[a-z]{1,}$/)[0]}`) //Appending .jpg
+    cb(null, `${req.user._id}(${req.Datee}).${file.mimetype.match(/[a-z]{1,}$/)[0]}`) //Appending .jpg
   }
 })
 const upload = multer({ storage: storage}).single('comprobante')
@@ -61,23 +61,27 @@ router.get('/select/otros', isAuthenticate,async(req,res)=>{
 router.get('/otros', isAuthenticate,async(req,res)=>{
   try {
     let io = 0,
+    productos=[],
     o = Object.keys(req.query)
-
     for (let i=1; i<= o.length; i++){
       if(+o[i-1]){
         let prs = await store.get('catalogos', {serie:o[i-1]})
         if(prs[0]){
           io += ( prs[0].precio *  +req.query[o[i-1]] )
+          productos.push({producto: prs[0].titulo, precio: prs[0].precio, catidad: req.query[o[i-1]], total: ( prs[0].precio *  +req.query[o[i-1]] )})
         }else if(+o[i-1] >= 100 ){
           if(+o[i-1]-100 === 1){
             io += ( 800 *  +req.query[o[i-1]] )
+            productos.push({producto: 'Cafe', precio: 800, catidad: req.query[o[i-1]], total: ( 800 *  +req.query[o[i-1]] )})
           }else if(+o[i-1]-100 === 2){
             io += ( 1500 *  +req.query[o[i-1]] )
+            productos.push({producto: 'Comida tobi', precio: 1500, catidad: req.query[o[i-1]], total: ( 1500 *  +req.query[o[i-1]] )})
           }
         }
       }
     }
     res.render('compras/otros',{
+      pedido: productos,
       monto:io,
       que: req._parsedUrl.search ? req._parsedUrl.search.replace('?redirect=', ''): ''
     })
@@ -88,7 +92,7 @@ router.get('/otros', isAuthenticate,async(req,res)=>{
 
 router.post('/otros/init', isAuthenticate,async(req,res,next)=>{
   try {
-    await store.post('metodoOtros', {...req.body, id: req.user._id, iniciado:false, monto: req.query.m})
+    await store.post('metodoOtros', {...req.body, id: req.user._id, iniciado:false, monto: req.query.m, pedido: req.query.p})
     await store.put('users', {_id : req.user._id}, {compra: true})
     res.redirect('/pagar/otros/init')
   } catch (error) {
@@ -112,6 +116,7 @@ router.get('/select/transferencia', isAuthenticate,async(req,res)=>{
 router.get('/transferencia', isAuthenticate,async(req,res,next)=>{
   try {
     let io = 0,
+    productos=[],
     o = Object.keys(req.query)
 
     for (let i=1; i<= o.length; i++){
@@ -119,16 +124,20 @@ router.get('/transferencia', isAuthenticate,async(req,res,next)=>{
         let prs = await store.get('catalogos', {serie:o[i-1]})
         if(prs[0]){
           io += ( prs[0].precio *  +req.query[o[i-1]] )
+          productos.push({producto: prs[0].titulo, precio: prs[0].precio, catidad: req.query[o[i-1]], total: ( prs[0].precio *  +req.query[o[i-1]] )})
         }else if(+o[i-1] >= 100 ){
           if(+o[i-1]-100 === 1){
             io += ( 800 *  +req.query[o[i-1]] )
+            productos.push({producto: 'Cafe', precio: 800, catidad: req.query[o[i-1]], total: ( 800 *  +req.query[o[i-1]] )})
           }else if(+o[i-1]-100 === 2){
             io += ( 1500 *  +req.query[o[i-1]] )
+            productos.push({producto: 'Comida tobi', precio: 1500, catidad: req.query[o[i-1]], total: ( 1500 *  +req.query[o[i-1]] )})
           }
         }
       }
     }
     res.render('compras/transferencia',{
+      pedido: productos,
       monto:io,
       que: req._parsedUrl.search ? req._parsedUrl.search.replace('?redirect=', ''): ''
     })
@@ -138,21 +147,22 @@ router.get('/transferencia', isAuthenticate,async(req,res,next)=>{
 })
 
 router.post('/transferencia', async(req, res, next)=> {
-  req.Date = Date.now()
-  upload(req, res, (err) => {
+  req.Datee = Date.now()
+  upload(req, res, async (err) => {
     if (err instanceof multer.MulterError) {
       next(err)
     } else if (err) {
       next(err)
     }
+    try {
+      let ext = req.file.mimetype.match(/[a-z]{1,}$/)[0]
+      await store.post('transferencias', {id: req.user._id, imgDate: req.Datee, monto: req.query.m, nombre: `${req.user.nombre} ${req.user.apellido}`, pedido: req.query.p, ext })
+      res.redirect('/pagar/comprobando')
+    } catch (error) {
+      next(error)
+    }
   })
-  try {
-  await store.post('transferencias', {id: req.user._id, imgDate: req.Date, monto: req.query.m, nombre: `${req.user.nombre} ${req.user.apellido}`})
-  res.redirect('/pagar/comprobando')
-  } catch (error) {
-    next(error)
-  }
-
+    
 })
 
 router.get('/comprobando',(req,res)=>{

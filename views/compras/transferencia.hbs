@@ -43,7 +43,7 @@
           <li class="list-group-item">Titular: Fundación Centro de Espiritualidad Mariapolis</li>
         </ul>
         
-        <form action="/pagar/transferencia?m={{monto}}" enctype="multipart/form-data" method="post">
+        <form action="/pagar/transferencia?m={{monto}}&p={{obj pedido}}" enctype="multipart/form-data" method="post">
           <div class="container mt-5">
             <label class="fs-3 fw-light">Comprobante (imagen)</label>
             <input type="file" accept="image/*" name="comprobante" id="inputEmail" class="form-control mt-2" placeholder="" required="" autocomplete="address-level1">

@@ -1,0 +1,26 @@
+<div class="bg-dark h-25 w-100 position-absolute" >
+  <div class="container  text-center text-white" style="margin-top : 25px">
+    <h1>Hola Mods xd</h1>
+    {{!-- <a href="/admin/control" class="btn btn-primary mt-4">control</a> --}}
+    <a href="/mod" class="btn btn-primary mt-4">volver</a>
+    <a href="/" class="btn btn-secondary mt-4">volver al inicio</a>
+  </div>
+</div>
+
+
+<div class="bg-light w-100 position-relative" style="top: 30%;">
+  <div class="container">
+    <form action="/mod/create" method="post">
+      <label class="fs-3 fw-light">id User</label>
+      <input type="text" name="user" id="inputEmail" class="form-control" placeholder="" required="" autofocus="" autocomplete="address-level1">
+
+      <label class="fs-3 fw-light">serie</label>
+      <input type="text" name="serial" id="inputEmail" class="form-control" placeholder="" required="" autofocus="" autocomplete="address-level1">
+      
+      {{!-- <label class="fs-3 fw-light">id User</label>
+      <input type="email" name="correo" id="inputEmail" class="form-control" placeholder="" required="" autofocus="" autocomplete="address-level1"> --}}
+
+      <button type="submit" class="btn btn-primary mt-5">Hacer</button>
+    </form>
+  </div>
+</div>
