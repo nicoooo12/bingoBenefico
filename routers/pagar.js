@@ -234,7 +234,7 @@ function isAuthenticate(req,res,next){
       next()
   }else{
     // console.log(req._parsedUrl.href);
-      res.redirect('/auth/signin?redirect='+req._parsedUrl.href)
+      res.redirect('/auth?redirect='+req._parsedUrl.href)
   }
 }
 

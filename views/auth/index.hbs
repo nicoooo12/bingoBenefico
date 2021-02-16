@@ -1,0 +1,32 @@
+<style>
+  @media(max-width: 800px){
+    .col-6{
+      width: 100%;
+    }
+  }
+  .card{
+    border:none
+  }
+</style>
+
+<div class="container text-center h-100">
+  <div class="row position-absolute h-100 align-content-center card">
+    <div class="col-6">
+      <h1 class="fw-light mt-5 mb-0"> Bingoloteando</h1>
+      <p class="lead text-black m-0">En casa</p>
+      <h1 class="fw-light mt-5">¡Bienvenid@s!</h1>
+      <div class="container px-5">
+        <p class="lead text-black mb-0">Para acceder a la página tienes que iniciar sesión o crearte una cuenta. Con eso podrás:  ¡Comprar, acceder y jugar tus cartones!, ¡Enterarte más de este evento, de los Jóvenes por un Mundo Unido y el Centro Mariápolis Cunaco! y ¡Poder ayudar a esta hermosa causa!</p>
+        <p class="lead text-black mt-0"><a href="/about"> Enterarte más de este evento </a></p>
+      </div>
+
+      <div class="mt-5 btn-group-lg">
+        <a href="/auth/signin?redirect={{redirect}}" class="btn btn-secondary">Ingresar</a>
+        <a href="/auth/signup?redirect={{redirect}}" class="btn btn-warning">Crear una cuenta</a>
+      </div>
+
+      <h5 class="fw-light po-2 my-5 bottom-100"> nesesitas ayuda? <a href="/help">Obtenla aquí</a></h5>
+
+    </div>
+  </div>
+</div>

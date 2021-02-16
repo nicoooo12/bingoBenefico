@@ -4,6 +4,13 @@ const passport = require('passport');
 const store = require('../libs/mongoose')
 const bcrypt = require('bcrypt')
 
+router.get('/',(req,res)=>{
+  res.render('auth',{
+    redirect : req._parsedUrl.search ? req._parsedUrl.search.replace('?redirect=', '') : '',
+
+  })
+})
+
 router.get('/signin', (req,res)=>{
   // console.log(req._parsedUrl.search.replace('?redirect=', ''));
   // console.log(req._parsedUrl);

@@ -6,7 +6,7 @@ router.get('/', (req,res)=>{
   if(req.isAuthenticated()){
     res.redirect('/inicio')
   }else{
-    res.redirect('/auth/signin?redirect=/inicio')
+    res.redirect('/auth?redirect=/inicio')
   }
 })
 
@@ -49,7 +49,7 @@ function isAuthenticate(req,res,next){
   if(req.isAuthenticated()){
       next()
   }else{
-    res.redirect('/auth/signin?redirect='+req._parsedUrl.href)
+    res.redirect('/auth?redirect='+req._parsedUrl.href)
   }
 }
 
