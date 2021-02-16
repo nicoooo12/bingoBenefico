@@ -44,6 +44,7 @@ router.post('/signup', async (req, res, next) => {
           nombre: nombre,
           apellido: apellido,
           correo: correo,
+          telefono: telefono,
       }
       let post = await store.post('users', newUser)
       const newUserAuth = {
