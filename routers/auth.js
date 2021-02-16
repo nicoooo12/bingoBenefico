@@ -33,7 +33,7 @@ router.get('/signup', (req,res)=>{
 
 router.post('/signup', async (req, res, next) => {
   try {
-    let { nombre, apellido, correo, password } = req.body
+    let { nombre, apellido, correo, password,telefono} = req.body
     password = password.toString()
   const user = await store.get('users', {correo: correo})
   if (user[0]) {
