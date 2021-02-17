@@ -38,6 +38,57 @@ router.get('/signup', (req,res)=>{
   })
 })
 
+router.get('/recuperar', (req,res)=>{
+  res.render('auth/comunicate',{})
+})
+
+router.get('/password', (req,res)=>{
+  res.render('auth/recuperar',{})
+})
+
+router.post('/password',async (req,res,next)=>{
+  try {
+    let user = await store.get('users', {correo: req.body.correo})
+    if(user[0].password == true){
+      res.render('auth/password',{
+        user: user[0]
+      })
+    }else{
+      res.render('auth/comunicate',{})
+    }
+  } catch (error) {
+    next(error)
+  }
+})
+
+router.post('/password/create', async(req,res,next)=>{
+  try {
+    let user = await store.get('users', {correo: req.body.correo})
+  let auth = await store.get('auths', {id: user[0].id})
+  if(user[0]){
+    if(auth[0]){
+      let newPas = await bcrypt.hash(req.body.password, 10)
+      await store.put('auths', {id: user[0].id}, {password : newPas})
+      let user2 = await store.put('users', {correo: req.body.correo}, {password : false})
+      req.logIn(user[0],(err)=>{
+        if(err){
+          next(err)
+        }
+      })
+    
+      res.redirect('/')
+    }else{
+      res.render('auth/comunicate')
+    }
+  }else{
+    res.render('auth/comunicate')
+  }  
+  } catch (error) {
+    console.log(error);
+    next(error)
+  }
+})
+
 router.post('/signup', async (req, res, next) => {
   try {
     let { nombre, apellido, correo, password,telefono} = req.body

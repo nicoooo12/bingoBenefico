@@ -6,6 +6,7 @@ const mySchemaUsers = new Schema({
   apellido: String,
   correo: String,
   telefono: Number,
+  password:Boolean,
   compra:Boolean,
 })
 
