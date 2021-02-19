@@ -1,6 +1,8 @@
 const express = require('express')
 const router = express.Router()
 const store = require('../libs/mongoose')
+const config = require('../config')
+const pdf = require('../services/print')
 router.get('/',isAuthenticate, async(req,res,next)=>{
   try {
     if(req.user){
@@ -22,13 +24,15 @@ router.get('/',isAuthenticate, async(req,res,next)=>{
   }
 })
 
+router.post('/print', pdf.pdf)
+
 router.get('/play', isAuthenticate, async (req,res,next)=>{
   try{
     let o = await store.get('cartones', {propietario_correo : req.user._id})
     let estado = await store.get('estados',{})
     let car = await store.get('catalogos', {})
     // console.log(o);
-    if(estado[0].estamosJuegando){
+    if(estado[0].estamosJuegando || config.dev){
       if(estado[0].initJuego){
         if(o[0]){
           res.render('play/jugar', {
@@ -47,24 +51,25 @@ router.get('/play', isAuthenticate, async (req,res,next)=>{
     }else{
       res.redirect('/play')
     }
+
   }
   catch(err){
     next(err)
   }
 })
 
-router.get('/:id', async (req,res,next)=>{
-  try{
-    let o = await store.get('cartones', {_id : req.params.id})
-    // console.log(o);
-    res.render('play/visual', {
-      in : o[0].data
-    })
-  }
-  catch(err){
-    next(err)
-  }
-})
+// router.get('/:id', async (req,res,next)=>{
+//   try{
+//     let o = await store.get('cartones', {_id : req.params.id})
+//     // console.log(o);
+//     res.render('play/visual', {
+//       in : o[0].data
+//     })
+//   }
+//   catch(err){
+//     next(err)
+//   }
+// })
 
 function isAuthenticate(req,res,next){
   if(req.isAuthenticated()){

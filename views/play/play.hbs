@@ -93,12 +93,12 @@
                 {{!-- <img src="{{img}}" class="bd-placeholder-img card-img-top d-block w-100"> --}}
               </div>
               <div class="card-body">
-                <p class="card-text mb-1" style="font-size: 30px; font-weight: 100; ">{{titulo}}</p>
-                <p class="card-text h4 mb-10">{{descripcion}}</p>
-                <p class="card-text"><small class="text-muted"></small></p>
                 <div class="d-flex justify-content-between align-items-center">
                   <div class="btn-group">
-                    {{!-- <button type="button" class="btn btn-sm btn-outline-secondary">ver</button> --}}
+                    <form action="/play/print" method="post">
+                    <input type="hidden" value="{{_id}}" name="num">
+                      {{!-- <button type="submit" class="btn btn-sm btn-outline-secondary">imprimir</button> --}}
+                    </form>
                     {{!-- <button type="button" class="btn btn-sm btn-success " >Jugar!</button> --}}
                     {{!-- <a href="/play/{{id}}" type="button" class="btn btn-sm btn-outline-secondary " >ver!</a> --}}
                     {{!-- <button type="button" class="btn btn-sm btn-outline-secondary " onclick="verCarton([[{{array data 0}}],[{{array data 1}}],[{{array data 2}}],[{{array data 3}}],[{{array data 4}}]])">ver mi carton!</button> --}}

@@ -42,6 +42,7 @@ Handlebars.registerHelper('list', function (aString) {
 
 
 Handlebars.registerHelper('objinobj', function(obj, parametro) {
+  console.log(obj);
   return obj[parametro]
 });
 
@@ -69,4 +70,15 @@ Handlebars.registerHelper('ifif', function(o,e) {
 Handlebars.registerHelper('ififnet', function(o,e) {
   // console.log(o, e);
   return o == e
+});
+
+Handlebars.registerHelper('cartonesAdmin', function(user, cartones, serial) {
+  let cartonesUser = cartones.filter((e)=>{
+    return e.propietario_correo == user._id
+  })
+  let enJuego = cartonesUser.filter((e)=>{
+    return e.serial == serial || e.serial == 28
+  })
+
+  return enJuego
 });
