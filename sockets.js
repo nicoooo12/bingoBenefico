@@ -10,8 +10,8 @@ module.exports = (socket)=>{
       io.join('users')
       
     })
-    io.on('iniciarJuego', (serie, premio,color)=>{
-      socket.to('bingo').to('users').emit('init', serie,premio, color)
+    io.on('iniciarJuego', (serie, premio,color, titulo)=>{
+      socket.to('bingo').to('users').emit('init', serie,premio, color,titulo)
     })
     io.on('lanzar', ()=>{
       socket.to('bingo').emit('lan')
@@ -23,7 +23,10 @@ module.exports = (socket)=>{
       socket.to('bingo').to('users').emit('fine')
     })
     io.on('bingo!', (o, nom)=>{
-      socket.to('bingo').to('admin').emit('gano', o, io.id, nom)
+      socket.to('admin').emit('gano', o, io.id, nom)
+    })
+    io.on('bingoShow', (nom)=>{
+      socket.to('bingo').emit('gano',nom)
     })
     // io.on('gann', (data1,data2,id,user)=>{
     //   socket.to('admin').emit('gano', data1, data2, id, user)

@@ -1,9 +1,19 @@
+<style>
+  .td-ult{
+    height: 100%;
+    width: 189px;
+    position: absolute;
+    border-width: 3px !important;
+  }
+</style>
+
+
 <div class="modal fade" id="staticBackdrop" data-bs-backdrop="static" data-bs-keyboard="false" tabindex="-1" aria-labelledby="staticBackdropLabel" aria-hidden="true" style="z-index: 1000001;">
   <div class="modal-dialog modal-lg">
     <div class="modal-content">
       <div class="modal-body">
           <div class="text-center mt-5">
-            <p id="pnom"></p>
+            <p id="pnom"></p><span> dice : </span>
             <h1>
             BINGO!!!
             </h1>
@@ -63,12 +73,12 @@
   </div>
 </div>
 
-<div class="container" id="cp" >
-  <div class="item-center align-middle" style="position: relative;height: 350px;width: 100%; margin-top: 25px">
-    <table  class="table tb-border table-bordered align-middle" style="height: 100%; font-size:24px; border:#6f42c1 !important;">
+<div class="mx-5" id="cp" >
+  <div class="item-center align-middle" style="position: relative;height: 470px;width: 1702px; margin-top: 25px">
+    <table  class="table tb-border table-bordered align-middle" style="height: 100%; font-size:35px; border:black !important;">
       <tbody style="text-align: center;">
         <tr>
-          <td scope="col" class="color" style="background-color: #6f42c1; color:white; font-weight: bold;">B</td>
+          <td scope="col" class="color" style="background-color: black; color:white; font-weight: bold;">B</td>
           <td scope="col" class="num">1</td>
           <td scope="col" class="num">2</td>
           <td scope="col" class="num">3</td>
@@ -86,7 +96,7 @@
           <td scope="col" class="num">15</td>
         </tr>
         <tr>
-          <td scope="col" class="color" style="background-color: #6f42c1; color:white; font-weight: bold;">I</td>
+          <td scope="col" class="color" style="background-color: black; color:white; font-weight: bold;">I</td>
           <td scope="col" class="num">16</td>
           <td scope="col" class="num">17</td>
           <td scope="col" class="num">18</td>
@@ -104,7 +114,7 @@
           <td scope="col" class="num">30</td>
         </tr>
         <tr>
-          <td scope="col" class="color" style="background-color: #6f42c1; color:white; font-weight: bold;">N</td>
+          <td scope="col" class="color" style="background-color: black; color:white; font-weight: bold;">N</td>
           <td scope="col" class="num">31</td>
           <td scope="col" class="num">32</td>
           <td scope="col" class="num">33</td>
@@ -122,7 +132,7 @@
           <td scope="col" class="num">45</td>
         </tr>
         <tr>
-          <td scope="col" class="color" style="background-color: #6f42c1; color:white; font-weight: bold;">G</td>
+          <td scope="col" class="color" style="background-color: black; color:white; font-weight: bold;">G</td>
           <td scope="col" class="num">46</td>
           <td scope="col" class="num">47</td>
           <td scope="col" class="num">48</td>
@@ -140,7 +150,7 @@
           <td scope="col" class="num">60</td>
         </tr>
         <tr>
-          <td scope="col" class="color" style="background-color: #6f42c1; color:white; font-weight: bold;">O</td>
+          <td scope="col" class="color" style="background-color: black; color:white; font-weight: bold;">O</td>
           <td scope="col" class="num">61</td>
           <td scope="col" class="num">62</td>
           <td scope="col" class="num">63</td>
@@ -162,9 +172,9 @@
   </div>
 
   <div class="item-center align-middle" style="position: relative;height: 100px;width: 100px; margin-top: 25px">
-    <table class="table tb-border table-bordered" style="border:#6f42c1 !important; height: 100%; width:100%; font-size:20px ">
+    <table class="table tb-border table-bordered" style="border:black !important; height: 100%; width:100%; font-size:20px ">
       <tbody>
-        <tr class="color" style="background-color: #6f42c1; color:white; font-weight: bold">
+        <tr class="color" style="background-color: black; color:white; font-weight: bold">
           <td>
             Total
           </td>
@@ -179,9 +189,9 @@
   </div>
 
   <div class="item-center align-middle" style="position: relative;height: 100px;width: 100px; margin-top: 25px">
-    <table class="table tb-border table-bordered" style="border:#6f42c1 !important; height: 100%; width:100%; font-size:20px ">
+    <table class="table tb-border table-bordered" style="border:black !important; height: 100%; width:100%; font-size:20px ">
       <tbody>
-        <tr class="color" style="background-color: #6f42c1; color:white; font-weight: bold">
+        <tr class="color" style="background-color: black; color:white; font-weight: bold">
           <td>
             numero
           </td>
@@ -196,15 +206,15 @@
     </table>
   </div>
 
-  <div class="item-center align-middle" style="position: relative;height: 100px;width: 100px; margin-top: 25px">
-    <table class="table tb-border table-bordered" style="border:#6f42c1 !important; height: 100%; width:100%; font-size:20px ">
+  <div class="item-center align-middle" style="position: relative;height: 163px;width: 529px; margin-top: 25px; display: inline-block;">
+    <table class="table tb-border table-bordered" style="border:black !important; height: 100%; width:100%; font-size:20px;">
       <tbody>
-        <tr class="color" style="background-color: #6f42c1; color:white; font-weight: bold">
+        <tr class="color text-center" style="background-color: black; color:white; font-weight: bold;height: 10px;">
           <td>
             Premio
           </td>
         </tr>
-        <tr>
+        <tr class="text-center" style="font-size: 25px;">
           <td id="pre">
             -
           </td>
@@ -213,34 +223,60 @@
     </table>
   </div>
 
-  <div class="item-center align-middle ms-5" style="position: absolute;height: 350px;width: 100px; margin-top: 25px; top: 38%; left:14%;">
-    <table class="align-middle text-center table tb-border table-bordered" style="border:#6f42c1 !important; height: 100%; width:100%; font-size:20px ">
+  <div class="item-center align-middle" style="position: relative;height: 84px;width: 594px; margin-top: 25px;display: inline-block;">
+    <table class="table tb-border table-bordered inv" style="border:black !important; height: 100%; width:100%; font-size:20px ">
       <tbody>
-        <tr class="color" style="background-color: #6f42c1; color:white; font-weight: bold">
-          {{!-- <td></td> --}}
-          <td style="height: 16%;">
-            Ultimas
-          </td>
-        </tr>
-        <tr>
-          {{!-- <td id="numLan"></td> --}}
+        <tr class="color text-center" style="background-color: black; color:white; font-weight: bold;height: 10px;">
           <td>
-            <span id="numeroLanzadoA"></span>
-            <span id="numeroLanzadoB"></span>
+            <h1 id="titulo" class="m-2"></h1>
           </td>
         </tr>
-        <tr>
-          {{!-- <td id="numLan"></td> --}}
-          <td >
-                        <span id="numeroLanzado2A"></span>
-            <span id="numeroLanzado2B"></span>
+      </tbody>
+    </table>
+  </div>
+
+  <div class="item-center align-middle ms-5" style="position: absolute;height: 350px;width: 100px; margin-top: 25px; top: 38%; left:14%;">
+    <table class="align-middle text-center table tb-border table-bordered" style="border:black !important; height: 100%; width:100%; font-size:70px ">
+      <tbody>
+        <tr style="top: 30%;position: absolute;height: 168px;width: 648px;">
+          {{!-- <td></td> --}}
+          <td class="color td-ult" style="background-color: black; color:white; font-weight: bold; width: 167px!important;
+    height: 81px;
+    left: -6.Z%;
+    top: 25%;
+    font-size: 30px!important;
+    transform: rotate(
+-90deg
+);">
+            {{!-- <ul class="list-group">
+              <li>U</li>
+              <li>L</li>
+              <li>T</li>
+              <li>I</li>
+              <li>M</li>
+              <li>A</li>
+              <li>S</li>
+            </ul> --}}
+            Ultimas
+            {{!-- Ultimas --}}
           </td>
-        </tr>
-        <tr>
-          {{!-- <td id="numLan"></td> --}}
-          <td >
-                        <span id="numeroLanzado3A"></span>
-            <span id="numeroLanzado3B"></span>
+          <td class="td-ult fw-light" style="left: 80px; ">
+            <div class="my-3">
+              <span id="numeroLanzadoA"></span>
+              <span id="numeroLanzadoB"></span>
+            </div>
+          </td>
+          <td class="td-ult fw-light" style="left: 268px;">
+            <div class="my-3">
+              <span id="numeroLanzado2A"></span>
+              <span id="numeroLanzado2B"></span>
+            </div>
+          </td>
+          <td class="td-ult fw-light" style="left: 456px;">
+            <div class="my-3">
+              <span id="numeroLanzado3A"></span>
+              <span id="numeroLanzado3B"></span>
+            </div>
           </td>
         </tr>
       </tbody>
@@ -253,6 +289,8 @@
 
 <script>//document.getElementById('numeroLanzar').innerText = 0
   //window.open(document.location.origin, 'Bingo', { }, false)
+   $('.num').css('border-width', '3px 3px')
+   var colorAAEE = '#0d6efd'
   function sleep(ms) {
     return new Promise(resolve => setTimeout(resolve, ms));
   }
@@ -295,13 +333,13 @@
         if(owo <= (numerosAzar.length - 2)){
           document.getElementById('numeroLanzar').innerText = numerosAzar[owo]
           $('#numeroLanzar2')[0].innerText = numerosAzar[owo] <= 15 ? 'B' : numerosAzar[owo] <= 30 ? 'I' : numerosAzar[owo] <= 45 ? 'N' : numerosAzar[owo] <= 60 ? 'G' : numerosAzar[owo] <= 75 ? 'O' : ''
-          document.querySelectorAll('.num')[numerosAzar[owo]-1].style.background = 'red'
+          document.querySelectorAll('.num')[numerosAzar[owo]-1].style.background = '#ffca2c'
           pop++
         }else{
           pop = 0
           document.getElementById('numeroLanzar').innerText = numerosAzar[owo]
           $('#numeroLanzar2')[0].innerText = numerosAzar[owo] <= 15 ? 'B' : numerosAzar[owo] <= 30 ? 'I' : numerosAzar[owo] <= 45 ? 'N' : numerosAzar[owo] <= 60 ? 'G' : numerosAzar[owo] <= 75 ? 'O' : ''
-          document.querySelectorAll('.num')[numerosAzar[owo]-1].style.background = 'red'
+          document.querySelectorAll('.num')[numerosAzar[owo]-1].style.background = '#ffca2c'
         }
       } 
       
@@ -380,7 +418,7 @@
   function colorear(num){
     numeresAA[num-1] = 1
     document.querySelector('.numTotal').innerText = numeresAA.filter(e=>{return e === 1}).length
-    document.querySelectorAll('.num')[num-1].style.background = '#0d6efd'
+    document.querySelectorAll('.num')[num-1].style.background = colorAAEE
     document.querySelectorAll('.num')[num-1].style.color = 'white'
   }
 
@@ -402,8 +440,11 @@ var myModal3 = new bootstrap.Modal(document.getElementById('staticBackdrop3'), {
 })
   let socket = io()
   socket.emit('soyBingo')
-  socket.on('init', (serial, premio,color)=>{
+  socket.on('init', (serial, premio,color,titulo)=>{
     if(serial, premio,color){
+      colorAAEE = color
+      $('#titulo')[0].innerText = titulo||''
+      $('#tiutlo').css('background', color ? color : 'rgb(111, 66, 193)')
       $('#pre')[0].innerText = premio
       $('#numeroLanzar')[0].innerText = 0
       $('#numeroLanzar2')[0].innerText = ''
@@ -420,8 +461,8 @@ var myModal3 = new bootstrap.Modal(document.getElementById('staticBackdrop3'), {
       numero()
     }
   })
-  socket.on('gano',(data, id, user)=>{
-    $('#pnom')[0].innerText = user + ' dice : '
+  socket.on('gano',(user)=>{
+    $('#pnom')[0].innerText = user
     console.log(user)
     myModal2.hide()
     myModal3.hide()
@@ -437,10 +478,15 @@ var myModal3 = new bootstrap.Modal(document.getElementById('staticBackdrop3'), {
     myModal2.hide()
   })
   socket.on('nogenne',async(user)=>{
-    myModal.hide()
-    myModal2.hide()
-    myModal3.show()
-    await sleep(3000)
-    myModal3.hide()
+    console.log($('#pnom')[0].innerText)
+    console.log($('#pnom')[0].innerText == user)
+    if($('#pnom')[0].innerText == user){
+      $('#pnom')[0].innerText = ''
+      myModal.hide()
+      myModal2.hide()
+      myModal3.show()
+      await sleep(3000)
+      myModal3.hide()
+    }
   })
 </script>

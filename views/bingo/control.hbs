@@ -84,7 +84,7 @@
       <label for="" class="mt-4">serie</label>
       <select class="form-select d-inline-block mt-3" id="serie" aria-label="Default select example">
         {{#each s}}
-        <option value="{{serie}}" color="{{color}}">{{serie}}</option>
+        <option value="{{serie}}" titulo="{{titulo}}" color="{{color}}">{{serie}}</option>
         {{/each}}
       </select>
           
@@ -96,22 +96,34 @@
           {{/each}} 
         </select>
 
-      <label for="" class="mt-4">data</label>
-      <button class="btn btn-danger ms-4" id="generar">generar</button>
-      <button class="btn btn-outline-primary mx-1">ver</button>
       <br> 
-      <button class="btn btn-success btn-lg mt-3 ms-1" id="iniciar">Iniciar</button> 
+      {{#if es.initJuego}}
+      <button class="btn btn-outline-secondary btn-lg mt-3 ms-1" id="iniciar">reiniciar</button> 
       <button class="btn btn-outline-danger btn-lg mt-3 ms-1" id="terminar">terminar</button> 
+      {{else}}
+      <button class="btn btn-success btn-lg mt-3 ms-1" id="iniciar">Iniciar</button> 
+      {{/if}}
     </div>
   </div>
   <div class="col-6">
     <p class="fs-4">Vista bingo <span class="badge rounded-pill bg-danger"> </span></p>
     <p class="fs-4">Usuarios conectados: <span>0</span></p>
-    <div class="position-relative" style="height: 60%; overflow-y : scroll;">
+    <div class="position-absolute" style="height: 70%;width: 45%;overflow-y: scroll;position: absolute!important;">
       <ul class="list-group">
         {{#if es.initJuego}} 
           {{#each users}}
-            {{#if (ifif (objinobj2 ../cartones 'propietario_correo' id 'serial') ../es.serialJuego)}}
+          {{#if (cartonesAdmin this ../cartones ../es.serieJuego)}}
+            <li class="list-group-item">
+                {{nombre}} {{apellido}}
+                <button class="btn btn-sm ms-3 btn-warning" onclick="bingo('{{nombre}} {{apellido}}')">Bingo manual</button>
+                <div class="pagination">
+                {{#each (cartonesAdmin this ../cartones ../es.serieJuego)}}
+                  <div class="page-item"><a class="page-link" onclick="lap([[{{array data 0}}],[{{array data 1}}],[{{array data 2}}],[{{array data 3}}],[{{array data 4}}]])">{{this.serial}}</a></div>
+                {{/each}}
+                </div>  
+              </li>
+            {{/if}}
+            {{!-- {{#if (ifif (objinobj2 ../cartones 'propietario_correo' id 'serial') ../es.serialJuego)}}
               <li class="list-group-item">
                 {{nombre}} {{apellido}}
                 <button class="btn btn-sm ms-3 btn-warning">Bingo manual</button>
@@ -123,7 +135,10 @@
                   {{/each}}
                 </div>  
               </li>
-            {{/if}}
+            {{/if}} --}}
+
+
+
           {{/each}}
         {{/if}}
       </ul>
@@ -151,7 +166,6 @@
 <script>
   const socket = io()
   socket.emit('soyAdmin')
-  var numerosAzar = []
   var numeres = [0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0]
   var myModal = new bootstrap.Modal(document.getElementById('staticBackdrop'), {
     keyboard: false
@@ -169,23 +183,30 @@
       })},'json')
       socket.emit('iniciarJuego')
   })
-  $('#generar').click(()=>{
-    for(i=0; i <= 74; i++){
-      numerosAzar.push(lansar())
-    }
-  })
   $('#iniciar').click(()=>{
-    if($('#serie')[0].value == 'serie' || $('#premio')[0].value == 'Premio' || !numerosAzar[0]){
+    if($('#serie')[0].value == 'serie' || $('#premio')[0].value == 'Premio'){
       console.log('nop')
     }else{
       $.post(document.location.origin + '/api/db/put/estados/602328f52da1de24ac1e38e6', { data : JSON.stringify({
-        'dataJuego' : numerosAzar,
         'initJuego': true,
         'serieJuego' : +$('#serie')[0].value,
         'premioJuego' : $('#premio')[0].value,
         'tiradas' : 0,
       })},'json')
-      socket.emit('iniciarJuego', +$('#serie')[0].value, $('#premio')[0].value, $('#serie')[0].children[$('#serie')[0].options.selectedIndex].attributes['color'].value)
+      .done(()=>{
+        console.log('href')
+        console.log(+$('#serie')[0].value,
+          $('#premio')[0].value,
+          $('#serie')[0].children[$('#serie')[0].options.selectedIndex].attributes['color'].value,
+          $('#serie')[0].children[$('#serie')[0].options.selectedIndex].attributes['titulo'].value)
+        document.location.href = document.location.href
+        socket.emit(
+          'iniciarJuego',
+          +$('#serie')[0].value,
+          $('#premio')[0].value,
+          $('#serie')[0].children[$('#serie')[0].options.selectedIndex].attributes['color'].value,
+          $('#serie')[0].children[$('#serie')[0].options.selectedIndex].attributes['titulo'].value)
+      })
     }
   })
   $('#terminar').click(()=>{
@@ -197,8 +218,9 @@
         'tiradas' : 0,
       })},(e)=>{
         console.log(e)
+        document.location.href = document.location.href
+        socket.emit('end')
       },'json')
-    socket.emit('end')
   })
   $('#lanzar').click(()=>{
     $('#lanzar')[0].disabled = true
@@ -220,6 +242,7 @@
       <button class="btn btn-outline-success btn-sm ms-1" onclick="cof('${idsocket}', '${user}', this)">confirmar</button>
       <button class="btn btn-outline-danger btn-sm ms-1" onclick="res('${idsocket}', '${user}', this)">rechasar</button>
       <button class="btn btn-outline-secondary btn-sm ms-1" onclick="lap([[${data1[0]}],[${data1[1]}],[${data1[2]}],[${data1[3]}],[${data1[4]}]])">ver</button>
+      <button class="btn btn-outline-primary btn-sm ms-1" onclick="lop('${user}')">Show</button>
     </li>`
   })
 //-//-//-//-//-//-//-//-//-//-//-//-//-//-//-//-//-//-
@@ -229,6 +252,10 @@
     print(d1)
     myModal.show()
   }
+  function lop(d1){
+    socket.emit('bingoShow', d1)
+    console.log(d1)
+  }
   function cof(id, user,t){
     socket.emit('ganos', id, user)
     t.parentElement.remove()
@@ -237,7 +264,9 @@
     socket.emit('nop', id, user)
     t.parentElement.remove()
   }
-
+  function bingo(user){
+    socket.emit('bingo!', [], user)
+  }
 
   function print(o){
     console.log(o[0])

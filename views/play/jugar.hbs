@@ -220,7 +220,7 @@
 <script>
 const socket = io()
 socket.emit('soyUser')
-var oe = [{{#each (deCartones in estado.serieJuego)}} [[{{array data 0}}],[{{array data 1}}],[{{array data 2}}],[{{array data 3}}],[{{array data 4}}]], {{/each}}]
+var oe = [{{#each (deCartones in estado.serieJuego)}} [[{{array data 0}}],[{{array data 1}}],[{{array data 2}}],[{{array data 3}}],[{{array data 4}}]], {{/each}} {{#each (deCartones in '28')}} [[{{array data 0}}],[{{array data 1}}],[{{array data 2}}],[{{array data 3}}],[{{array data 4}}]], {{/each}}]
 let pag = 0
 let colores = [[0,0,0,0,0],[0,0,0,0,0],[0,0,0,0,0],[0,0,0,0,0],[0,0,0,0,0]]
 jQuery.event.special.touchstart = {
@@ -260,7 +260,7 @@ const press = (a)=>{
 const leaven = (a)=>{
   //console.log(a)
   $(a.target).off('mouseleave touchleave',leaven)
-  if(a.target.style.background === '{{objinobj2 car 'serie' estado.serieJuego 'color'}}'){
+  if(a.target.style.background === $('td')[0].style.backgroundColor){
     //console.log('blnco')
     colores[a.target.cellIndex][a.target.parentElement.rowIndex-1] = 0
     a.target.style.background = 'white'
@@ -274,7 +274,7 @@ const leaven = (a)=>{
 
 const unpress = (a)=>{
   if(a.target.classList[0] == 'num'){
-    if(a.target.style.background === '{{objinobj2 car 'serie' estado.serieJuego 'color'}}'){
+    if(a.target.style.background === $('td')[0].style.backgroundColor){
       //console.log('blnco')
       colores[a.target.cellIndex][a.target.parentElement.rowIndex-1] = 0
       a.target.style.background = 'white'
@@ -294,7 +294,7 @@ const unpress = (a)=>{
 $('.num').on('mousedown touchstart', press)
 $('#bingos').click(()=>{
   console.log('djidjid')
-  myModal.toggle()
+  myModal.toggle()  
   socket.emit('bingo!', oe[pag],'{{ user.nombre}} {{ user.apellido}}' );
 })
 socket.on('init', (o,e,a)=>{
