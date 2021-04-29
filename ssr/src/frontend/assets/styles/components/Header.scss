@@ -1,0 +1,97 @@
+@import '../Index.scss';
+
+a{
+  text-decoration: none;
+  &:active{
+    color: black;
+  }
+}
+.header__pag-active{
+  text-decoration: underline 3px;
+}
+.header{
+  background-color: $greyscale_off-white;
+  display: flex;
+  width: 100%;
+  height: 72px;
+  align-items: center;
+  justify-content: space-around;
+  filter: drop-shadow(0px 8px 16px rgba(17, 17, 17, 0.04));
+}
+.header__content{
+  width: 90%;
+  max-width: 1560px;
+  align-items: center;
+  justify-content: space-around;
+  display: flex;
+}
+.header__title{
+  @extend .Typography-text-TL;
+}
+.header__nav{
+  width: 30%;
+  &>ul{
+    display: flex;
+    justify-content: space-around;
+    width: 100%;
+    list-style: none;
+    height: 50px;
+    align-items: center;
+  }
+  &>ul>li{
+    @extend .Typography-text-LS
+  }
+  &>ul>li>a{
+    text-decoration: none;
+  }
+  &>ul>li>a>button{
+    height: 50px;
+    width: auto;
+    @extend .btn-text;
+  }
+}
+.header__buttonGroup{
+  width: 25%;
+  &>ul{
+    display: flex;
+    justify-content: end;
+    width: 100%;
+    list-style: none
+  }
+}
+.header__buttonItem-signIn{
+  // width: 110px;
+  // height: 45px;
+  font-size: 15px;
+  border-radius: 16px;
+  @extend .btn-secondary;
+}
+.header__buttonItem-signUp{
+  // width: 200px;
+  // height: 45px;
+  font-size: 15px;
+  border-radius: 16px;
+  @extend .btn-primary;
+}
+
+@media (max-width: $mediaWidth1){
+  .header__buttonGroup{
+    display: none;
+  }
+  .header__content{
+    flex-direction: column;
+  }
+  .header{
+    padding: 4rem;
+  }
+  .header__title{
+    font-weight: bold;
+  }
+}
+
+@media (max-width: $mediaWidth2){
+  .header__nav > ul > li > a > button{
+    font-size: 15px;
+    margin: 8px;
+  }
+}

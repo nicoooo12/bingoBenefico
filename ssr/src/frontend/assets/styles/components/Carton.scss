@@ -1,0 +1,76 @@
+@import '../Index.scss' ;
+
+.carton{
+  width: 430px;
+  // height: 430px;
+  background: $greyscale_off-white;
+  border-radius: 32px;
+  margin: 10px;
+  filter: drop-shadow(0px 8px 16px rgba(17, 17, 17, 0.04));
+  display: inline-block;
+}
+
+.carton__content{
+  margin: 30px;
+  height: calc(100% - 60px);
+  min-height: 240px;
+  display: flex;
+  flex-direction: column;
+  justify-content: space-around;
+}
+
+.carton__title{
+  @extend .Typography-text-DS;
+  margin-bottom: 20px;
+}
+
+.carton__buttonPrint{
+  @extend .btn-secondary;
+  display: flex;
+  align-items: center;
+  text-align: center;
+  &>svg{
+    margin-right: 8px;
+  }
+}
+
+.carton__foot{
+  width: 100%;
+  align-items: center;
+  margin: 20px 0 0 0;
+  display: flex;
+  height: 32px;
+  justify-content: space-between;
+}
+
+.carton__table{
+  height: 100%;
+  width: 100%;
+  -webkit-user-select: none;
+  -moz-user-select: none;
+  -ms-user-select: none;
+  user-select: none; 
+  border-collapse: collapse;
+  border: 2px solid $primary_default;
+  &>thead{
+    width: 100%;
+    vertical-align: bottom;
+    &>tr>th{
+      padding: .5rem .5rem;
+      background-color: $primary_default;
+      color: $greyscale_off-white;
+      @extend .Typography-text-LL;
+
+    }
+  }
+  &>tbody{
+    vertical-align: inherit;
+    &>tr>td{
+      padding: .5rem .5rem;
+      border-width: 0 1px;
+      text-align: center;
+      border: 2px solid $primary_default;
+      @extend .Typography-text-TL;
+    }
+  }
+}

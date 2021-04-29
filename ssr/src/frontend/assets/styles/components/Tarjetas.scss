@@ -1,0 +1,64 @@
+@import '../Index.scss';
+
+.tarjeta{
+  width: 430px;
+  // height: 300px;
+  background: $greyscale_off-white;
+  border-radius: 32px;
+  margin: 10px;
+  transition: 0.5s;
+  filter: drop-shadow(0px 8px 16px rgba(17, 17, 17, 0.04));
+  display: inline-block;
+}
+.tarjeta__content{
+  margin: 30px;
+  height: calc(100% - 60px);
+  // height: 240px;
+  min-height: 240px;
+  display: flex;
+  flex-direction: column;
+  justify-content: space-around;
+}
+
+.tarjeta__premios{
+  // width: 115px;
+  margin: 5px;
+  display: flex;
+  // justify-content: space-around;
+  align-items: center;
+  @extend .Typography-text-LL
+}
+
+.tarjeta__title{
+  @extend .Typography-text-DSB;
+  margin-bottom: 10px;
+}
+.tarjeta__subTitle{
+  @extend .Typography-text-TS;
+  margin: 0 15px 20px 0;
+}
+.tarjeta__componentsGroup{
+  width: calc(100%);
+  display: flex;
+  justify-content: space-between;
+}
+
+.tarjeta:hover{
+  transform: scale(1.02);
+  filter: drop-shadow(0px 8px 16px rgba(17, 17, 17, 0.1));
+}
+
+@media (max-width: $mediaWidth1){
+  .tarjeta{
+    width: calc(100% - 20px);
+    height: auto;
+    min-height: 300px;
+  }
+  .tarjeta:hover{
+    transform: none;
+    filter: none;
+  }
+  .tarjeta__content{
+    margin: 20px 20px;
+  }
+}

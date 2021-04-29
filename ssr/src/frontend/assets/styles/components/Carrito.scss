@@ -1,0 +1,153 @@
+@import '../Index.scss';
+
+.carrito{
+  transition: .3s;
+  display: inline-block;
+}
+
+.carrito__button{
+  // background-color: $greyscale_inputBG;
+  // color: $greyscale_label;
+  border-radius: 10px;
+  @extend .btn-primary;
+  font-size: 13px;
+  width: 80px;
+  // margin: 5px;
+  transition: 1s;
+  place-content: space-around;
+  display: flex;
+  text-align: center;
+  justify-content: center;
+  align-items: center;
+
+  // &:focus~.carrito__factura{
+  //   display: block;
+  // }
+}
+
+.carrito__header{
+  display: flex;
+  align-items: center;
+  &>h1{
+    display: inline-block;
+    width: calc(100% - 70px);
+  }
+  &>button{
+    margin: 0 0 0 15px;
+    padding: 10px;
+    @extend .btn-text
+  }
+}
+
+.carrito__factura{
+  min-width: 450px;
+  position: absolute;
+  z-index: 1;
+  filter: drop-shadow(0px 8px 16px rgba(17, 17, 17, 0.4));
+  border-radius: 32px;
+  padding: 30px 30px;
+  background-color: $greyscale_off-white;
+  &:active{
+    display: block;
+  }
+}
+
+.carrito__btnPagar{
+  margin: 10px 0 0 0;
+  width: calc(100% - 10px);
+  @extend .btn-primary
+}
+
+.carrito__tableContent{
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+}
+
+.carrito__table{
+  margin: 10px 0;
+  caption-side: bottom;
+  border-collapse: collapse;
+  width: calc(100% - 10px);
+  &>thead{
+    width: 100%;
+    vertical-align: bottom;
+    border-bottom: solid 2px $greyscale_inputBG;
+    &>tr>th{
+      padding: .5rem .5rem;
+      &.th__precio{
+        text-align: end;
+      }
+      &.th__title{
+        text-align: start;
+      }
+      &.th__button{
+        text-align: center;
+      }
+    }
+  }
+  &>tbody{
+    vertical-align: inherit;
+    &>tr>td{
+      padding: .5rem .5rem;
+      &.td__precio{
+        text-align: end;
+      }
+      &.td__title{
+        text-align: start;
+      }
+      &.td__button{
+        text-align: center;
+      }
+    }
+    &>tr>td>.buttonGroup{
+      height: auto;
+      width: 125px;
+    }
+  }
+  &>tfoot{
+    margin-top: 10px;
+    border-top: solid 3px $greyscale_inputBG;
+    &>tr>td{
+      padding: .5rem .5rem;
+      &.td__precio{
+        text-align: end;
+      }
+      &.td__title{
+        text-align: start;
+      }
+      &.td__button{
+        text-align: center;
+      }
+    }  
+  }
+}
+
+@media (max-width: $mediaWidth1){
+ .carrito__factura{
+  left: 0;
+  top: 0;
+  width: 100%;
+  min-width: 0;
+  border-radius: 0;
+  padding: 10px;
+  height: 100%;
+  &:active ~ #react{
+    overflow: visible;
+  } 
+}
+}
+
+@media (max-width: $mediaWidth2){
+  .carrito__table{
+    &>tbody{
+      &>tr>td{
+        padding: .5rem .5rem;
+      }
+      &>tr>td>.buttonGroup{
+        height: auto;
+        width: auto;
+      }
+    }
+  }
+}

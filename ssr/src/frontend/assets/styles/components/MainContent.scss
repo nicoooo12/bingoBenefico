@@ -1,0 +1,16 @@
+@import '../Index.scss';
+
+main{
+  display: flex;
+  width: 90%;
+  flex-flow: column;
+  max-width: 1560px;
+  margin: 30px;
+}
+
+@media (max-width: $mediaWidth1){
+  main{
+    margin: 0;
+    width: 100%;
+  }
+}

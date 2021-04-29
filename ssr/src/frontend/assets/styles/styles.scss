@@ -1,0 +1,517 @@
+@import './Vars.scss';
+
+//*regular: 400 /  semi-bold: 600 / bold: 700*/
+
+.Typography-div{
+  margin: 100px;
+}
+.Typography-title{
+  color: $greyscale_label;
+  font-size: 16px;
+  line-height: 32px;
+  letter-spacing: 3px;
+  font-weight: 700;
+}
+.Typography-info{
+  color: $greyscale_label;
+  font-size: 14px;
+  line-height: 22px;
+  letter-spacing: 0px;
+  font-weight: 400;
+}
+.Typography-text-DL{
+  font-size: 64px;
+  line-height: 66px;
+  letter-spacing: 1px;
+  font-weight: 400;
+}
+.Typography-text-DLB{
+  font-size: 64px;
+  line-height: 66px;
+  letter-spacing: 1px;
+  font-weight: 700;
+}
+.Typography-text-DM{
+  font-size: 48px;
+  line-height: 50px;
+  letter-spacing: 1px;
+  font-weight: 400;
+}
+.Typography-text-DMB{
+  font-size: 48px;
+  line-height: 50px;
+  letter-spacing: 1px;
+  font-weight: 700;
+}
+.Typography-text-DS{
+  font-size: 32px;
+  line-height: 34px;
+  letter-spacing: 1px;
+  font-weight: 400;
+}
+.Typography-text-DSB{
+  font-size: 32px;
+  line-height: 34px;
+  letter-spacing: 1px;
+  font-weight: 700;
+}
+.Typography-text-TL{
+  font-size: 24px;
+  line-height: 38px;
+  letter-spacing: 0.75px;
+  font-weight: 400;
+}
+.Typography-text-LL{
+  font-size: 24px;
+  line-height: 38px;
+  letter-spacing: 0.75px;
+  font-weight: 600;
+}
+.Typography-text-TM{
+  font-size: 18px;
+  line-height: 34px;
+  letter-spacing: 0.75px;
+  font-weight: 400;
+}
+.Typography-text-LM{
+  font-size: 18px;
+  line-height: 34px;
+  letter-spacing: 0.75px;
+  font-weight: 600;
+}
+.Typography-text-TS{
+  font-size: 16px;
+  line-height: 28px;
+  letter-spacing: 0.75px;
+  font-weight: 400;
+}
+.Typography-text-LS{
+  font-size: 16px;
+  line-height: 28px;
+  letter-spacing: 0.75px;
+  font-weight: 600;
+}
+.Typography-text-TXS{
+  font-size: 14px;
+  line-height: 24px;
+  letter-spacing: 0.75px;
+  font-weight: 400;
+}
+.Typography-text-LXS{
+  font-size: 14px;
+  line-height: 24px;
+  letter-spacing: 0.75px;
+  font-weight: 600;
+}
+
+@media (max-width: $mediaWidth1){
+  .Typography-title{
+    color: $greyscale_label;
+    font-size: 16px;
+    line-height: 32px;
+    letter-spacing: 3px;
+    font-weight: 700;
+  }
+  .Typography-info{
+    color: $greyscale_label;
+    font-size: 14px;
+    line-height: 22px;
+    letter-spacing: 0px;
+    font-weight: 400;
+  }
+  .Typography-text-DL{
+    font-size: 48px;
+    line-height: 50px;
+    letter-spacing: 1px;
+    font-weight: 400;
+  }
+  .Typography-text-DLB{
+    font-size: 48px;
+    line-height: 50px;
+    letter-spacing: 1px;
+    font-weight: 700;
+  }
+  .Typography-text-DM{
+    font-size: 32px;
+    line-height: 36px;
+    letter-spacing: 1px;
+    font-weight: 400;
+  }
+  .Typography-text-DMB{
+    font-size: 32px;
+    line-height: 36px;
+    letter-spacing: 1px;
+    font-weight: 700;
+  }
+  .Typography-text-DS{
+    font-size: 24px;
+    line-height: 32px;
+    letter-spacing: 1px;
+    font-weight: 400;
+  }
+  .Typography-text-DSB{
+    font-size: 24px;
+    line-height: 32px;
+    letter-spacing: 1px;
+    font-weight: 700;
+  }
+  .Typography-text-TL{
+    font-size: 20px;
+    line-height: 32px;
+    letter-spacing: 0.75px;
+    font-weight: 400;
+  }
+  .Typography-text-LL{
+    font-size: 20px;
+    line-height: 32px;
+    letter-spacing: 0.75px;
+    font-weight: 600;
+  }
+  .Typography-text-TM{
+    font-size: 16px;
+    line-height: 34px;
+    letter-spacing: 0.75px;
+    font-weight: 400;
+  }
+  .Typography-text-LM{
+    font-size: 16px;
+    line-height: 28px;
+    letter-spacing: 0.75px;
+    font-weight: 600;
+  }
+  .Typography-text-TS{
+    font-size: 14px;
+    line-height: 24px;
+    letter-spacing: 0.75px;
+    font-weight: 400;
+  }
+  .Typography-text-LS{
+    font-size: 14px;
+    line-height: 24px;
+    letter-spacing: 0.75px;
+    font-weight: 600;
+  }
+  .Typography-text-TXS{
+    font-size: 13px;
+    line-height: 22px;
+    letter-spacing: 0.75px;
+    font-weight: 400;
+  }
+  .Typography-text-LXS{
+    font-size: 13px;
+    line-height: 22px;
+    letter-spacing: 0.75px;
+    font-weight: 600;
+  }
+}
+
+button{
+  margin: 10px;
+  cursor: pointer;
+  @extend .Typography-text-LS;
+  -webkit-user-select: none;
+  -moz-user-select: none;
+  -ms-user-select: none;
+  user-select: none; 
+}
+.btn-primary{
+  padding: .575rem .75rem;
+  // width: 200px;
+  // height: 64px;
+  border-radius: 40px;
+  color: $greyscale_off-white;
+  background: $primary_default;
+  outline: none;
+  &:hover{
+    background: $primary_dark;
+  }
+  &:focus{
+    box-shadow : 0 0 0 8px $primary_light;
+  }
+  &:active{
+    background: $primary_default;
+  }
+  &:disabled{
+    background: $primary_default;
+    opacity: 0.5;
+    box-shadow: 0px 4px 4px rgba(0, 0, 0, 0.25);
+  }
+}
+.btn-primary-loading{
+  width: 200px;
+  height: 64px;
+  border-radius: 40px;
+  color: $greyscale_off-white;
+  background: $primary_default;
+  outline: none;
+}
+
+.btn-secondary{
+  // width: 200px;
+  // height: 64px;
+  padding: .475rem .75rem;
+  border-radius: 40px;
+  color: $primary_default;
+  border: solid 2px $primary_default;
+  background: rgba(0, 0, 0, 0);
+  outline: none;
+  &:hover{
+    color: $primary_dark;
+    background: rgba(0, 0, 0, 0.05);
+  }
+  &:focus{
+    box-shadow : 0 0 0 8px $greyscale_inputBG;
+  }
+  &:disabled{
+    opacity: 0.5;
+  }
+}
+.btn-secondary-loading{
+  border-radius: 40px;
+  color: $primary_default;
+  border: solid 2px $primary_default;
+  background: rgba(0, 0, 0, 0);
+}
+.btn-subtie{
+  padding: .575rem .75rem;
+  border-radius: 40px;
+  color: $primary_default;
+  border: solid 2px $greyscale_line;
+  background: rgba(0, 0, 0, 0);
+  outline: none;
+  &:hover{
+    color: $primary_dark;
+  }
+  &:focus{
+    border-radius: 40px;
+    outline: none;
+    box-shadow : 0 0 0 8px $greyscale_inputBG;
+    color: $primary_default;
+    border: solid 2px $greyscale_line;
+    background: rgba(0, 0, 0, 0);
+  }
+  &:active{
+    border-radius: 40px;
+    color: $primary_default;
+    border: solid 2px $greyscale_line;
+    background: rgba(0, 0, 0, 0);
+  }
+  &:disabled{
+    opacity: 0.5;
+    color: $primary_default;
+    border: solid 2px $greyscale_line;
+    background: rgba(0, 0, 0, 0);
+    border-radius: 40px;
+  }
+}
+.btn-subtie-loading{
+  width: 200px;
+  height: 64px;
+  border-radius: 40px;
+  color: $primary_default;
+  border: solid 2px $greyscale_line;
+  background: rgba(0, 0, 0, 0);
+  outline: none;
+}
+
+.btn-text{
+  outline: none;  
+  padding: .575rem .75rem;
+  border-radius: 40px;
+  background: rgba(0, 0, 0, 0);
+  color: $primary_default;
+  &:hover{
+    border-radius: 40px;
+    color: $primary_dark;
+    background: rgba(0, 0, 0, 0);
+  }
+  &:focus{
+    border-radius: 40px;
+    color: $primary_default;
+    outline: none;
+    background: $greyscale_inputBG;
+  }
+  &:active{
+    border-radius: 40px;
+    background: rgba(0, 0, 0, 0);
+    color: $primary_default;
+  }
+  &:disabled{
+    opacity: 0.5;
+    color: $primary_default;
+    background: rgba(0, 0, 0, 0);
+    border-radius: 40px;
+  }
+}
+.btn-text-loading{
+  @extend .Typography-text-LS;
+  width: 200px;
+  height: 64px;
+  border-radius: 40px;
+  background: rgba(0, 0, 0, 0);
+  color: $primary_default;
+  outline: none;
+  &::after{
+    content: '...';
+    -webkit-animation: .75s linear infinite loading;
+    animation: .75s linear infinite loading;
+  }
+}  
+.loading-spinner{
+  display: inline-block;
+  width: 1rem;
+  height: 1rem;
+  vertical-align: text-bottom;
+  border: .25em solid currentColor;
+  border-right-color: transparent;
+  border-radius: 50%;
+  -webkit-animation: .75s linear infinite spinner-border;
+  animation: .75s linear infinite spinner-border;
+}
+
+.input-text,
+.input-text-success,
+.input-text-error{
+  position: relative;
+  width: 100%;
+  margin: 10px;
+  @extend .Typography-text-TS;
+}
+.input-text > input{
+  display: block;
+  width: 325px;
+  height: 64px;
+  background: $greyscale_inputBG;
+  border-radius: 16px;
+  color: $greyscale_placeholder;
+  padding: 20px;
+  outline: none;
+  &::placeholder{
+    color: transparent;
+  }
+  &:active,
+   &:focus{
+    border: 2px solid $primary_default;
+    background: $greyscale_off-white;
+
+  }
+  &:not(:placeholder-shown){
+    border: 2px solid $primary_default;
+    font-size: 16px;
+    // background: transparent;
+    color: $greyscale_title-active;
+    padding-top: 36px;
+  }
+  &:not(:placeholder-shown)~label{
+    font-size: 14px;
+    top: 6px;
+    left: 20px;
+    color: $greyscale_label;
+  }
+}
+.input-text-error > input{
+  display: block;
+  width: 325px;
+  height: 64px;
+  background: $error_light;
+  border-radius: 16px;
+  color: $greyscale_title-active;
+  padding: 20px;
+  outline: none;
+  &::placeholder{
+    color: transparent;
+  }
+  &:active,
+   &:focus{
+    border: 2px solid $error_default;
+    background: $greyscale_off-white;
+
+  }
+  &:not(:placeholder-shown){
+    border: 2px solid $error_default;
+    font-size: 16px;
+    // background: transparent;
+    color: $greyscale_title-active;
+    padding-top: 36px;
+  }
+  &:not(:placeholder-shown)~label{
+    font-size: 14px;
+    top: 6px;
+    left: 20px;
+    color: $error_dark;
+  }
+  &~label{
+    color: $error_dark;
+  }
+}
+.input-text-success > input{
+  display: block;
+  width: 325px;
+  height: 64px;
+  background: $success_light;
+  border-radius: 16px;
+  color: $greyscale_title-active;
+  padding: 20px;
+  outline: none;
+  &::placeholder{
+    color: transparent;
+  }
+  &:active,
+   &:focus{
+    border: 2px solid $success_default  ;
+    background: $greyscale_off-white;
+
+  }
+  &:not(:placeholder-shown){
+    border: 2px solid $success_default;
+    font-size: 16px;
+    // background: transparent;
+    color: $greyscale_title-active;
+    padding-top: 36px;
+  }
+  &:not(:placeholder-shown)~label{
+    font-size: 14px;
+    top: 6px;
+    left: 20px;
+    color: $success_dark;
+  }
+  &~label{
+    color: $success_dark;
+  }
+}
+
+.input-text > label,
+.input-text-success > label,
+.input-text-error > label{
+  @extend .Typography-text-TS;
+  display: block;
+  color: $greyscale_placeholder;
+  position: absolute;
+  top: 20px;
+  left: 22px;
+  -moz-user-select: none; 
+  -webkit-user-select: none;
+  -ms-user-select: none;
+  user-select: none; 
+  transition: .15s ease-in-out;
+}
+
+@keyframes spinner-border{
+  100% {
+    transform: rotate(
+  360deg
+  );
+  }
+}
+
+@keyframes loading{
+  0%{
+    content: '.';
+  }
+  50%{
+    content: '..';
+  }
+  100%{
+    content: '...';
+  }
+}

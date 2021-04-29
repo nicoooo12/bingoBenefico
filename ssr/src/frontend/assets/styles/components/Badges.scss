@@ -1,0 +1,34 @@
+@import '../Index.scss';
+
+.badges{
+  background-color: $primary_light;
+  color: $primary_dark;
+  // width: 90px;
+  padding: .34rem .50rem;
+  height: 30px;
+  border-radius: 39px;
+  display: flex;
+  text-align: center;
+  justify-content: center;
+  align-items: center;
+  -webkit-user-select: none;
+  -moz-user-select: none;
+  -ms-user-select: none;
+  user-select: none; 
+  &>span{
+    @extend .Typography-text-LS;
+    display: flex;
+    text-align: center;
+    justify-content: center;
+    align-items: center;
+  }
+}
+
+@media (max-width: $mediaWidth2){
+  .badges{
+    padding: 0.2rem .3rem;
+    &>span{
+      font-size: 12px;
+    }
+  }
+}

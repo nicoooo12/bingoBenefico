@@ -1,0 +1,15 @@
+@import '../Index.scss';
+
+.section{
+  border-radius: 32px;
+  padding: 15px 20px;
+  background-color: $greyscale_bg;
+  align-self: center;
+}
+
+@media (max-width: $mediaWidth1){
+  .section{
+    padding: 0;
+    width: 100%;
+  }
+}
