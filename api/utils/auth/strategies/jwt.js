@@ -3,7 +3,7 @@ const { Strategy, ExtractJwt } = require('passport-jwt');
 const boom = require('@hapi/boom');
 
 const usersService = require('../../../services/users');
-const { config } = require('../../../config');
+const config = require('../../../config');
 
 passport.use(
   new Strategy(
@@ -19,9 +19,20 @@ passport.use(
           return cb(boom.unauthorized(), false);
         }
 
-        delete user.password;
+        console.log({ 
+          _id : user._id,
+          name : user.name,
+          email: user.email,
+          scopes: tokenPayload.scopes 
+        });
 
-        cb(null, { ...user, scopes: tokenPayload.scopes });
+
+        cb(null, { 
+          _id : user._id,
+          name : user.name,
+          email: user.email,
+          scopes: tokenPayload.scopes 
+        });
       } catch (error) {
         return cb(error);
       }

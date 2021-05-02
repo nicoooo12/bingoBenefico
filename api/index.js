@@ -20,10 +20,11 @@ app.use(express.json())
 app.use(helmet())
 
 //routers
-require('./routers/cartones')(app);
-require('./routers/catalogos')(app);
+require('./routers/auth')(app);
+// require('./routers/cartones')(app);
+// require('./routers/catalogos')(app);
 require('./routers/orden')(app);
-require('./routers/premios')(app);
+// require('./routers/premios')(app);
 
 //404 not found
 app.use((req,res)=>{

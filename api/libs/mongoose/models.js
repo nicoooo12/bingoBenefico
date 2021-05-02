@@ -48,7 +48,6 @@ const mySchemaErrores = new Schema({
 
 
 const users = mongoose.model('users', mySchemaUsers)
-const auths = mongoose.model('auths', mySchemaAuth)
 const cartones = mongoose.model('cartones', mySchemaCartones)
 const catalogos = mongoose.model('catalogos', mySchemaCatalogos)
 const ordenes = mongoose.model('ordenes', mySchemaOrdenes)
@@ -58,7 +57,6 @@ const errores = mongoose.model('errores', mySchemaErrores)
 
 module.exports = {
   users,
-  auths,
   catalogos,
   cartones,
   ordenes,

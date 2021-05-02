@@ -12,7 +12,7 @@ let transporter = nodemailer.createTransport({
   },
 });
 
-async function correo(to, subject){
+async function correo(to, subject, html="<b>Hello world?</b>"){
   try {
     
     await transporter.sendMail({
@@ -20,7 +20,7 @@ async function correo(to, subject){
       to, // list of receivers
       subject, // Subject line
       // text: "Hello world?", // plain text body
-      html: "<b>Hello world?</b>", // html body
+      html, // html body
     });
 
   } catch (err) {
@@ -49,7 +49,7 @@ async function correoConfirmation(to){
   }
 }
 
-correoConfirmation('28nicoooo12@gmail.com')
+// correoConfirmation('28nicoooo12@gmail.com')
 
 module.exports = {
   correo,

@@ -31,14 +31,14 @@ function authApi(app) {
         if (error || !user) {
           return next(boom.unauthorized());
         }
-
+        console.log('pase');
         req.login(user, { session: false }, async function(error) {
           if (error) {
             return next(error);
           }
 
-          const apiKey = await apiKeysService.getApiKey({ token: apiKeyToken });
-
+          const apiKey = apiKeysService.getApiKey({ token: apiKeyToken });
+          console.log(apiKey);
           if (!apiKey) {
             return next(boom.unauthorized());
           }
@@ -49,9 +49,9 @@ function authApi(app) {
             sub: id,
             name,
             email,
-            scopes: apiKey.scopes
+            scopes: apiKey
           };
-
+          
           const token = jwt.sign(payload, config.authJwtSecret, {
             expiresIn: '15m'
           });

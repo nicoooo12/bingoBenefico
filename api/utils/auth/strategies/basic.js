@@ -13,14 +13,16 @@ passport.use(
       if (!user) {
         return cb(boom.unauthorized(), false);
       }
-
       if (!(await bcrypt.compare(password, user.password))) {
         return cb(boom.unauthorized(), false);
       }
-
-      delete user.password;
-
-      return cb(null, user);
+      
+      let returnUser = {
+        _id : user._id,
+        name : user.name,
+        email: user.email
+      }
+      return cb(null, returnUser);
     } catch (error) {
       return cb(error);
     }
