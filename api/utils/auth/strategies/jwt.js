@@ -19,14 +19,6 @@ passport.use(
           return cb(boom.unauthorized(), false);
         }
 
-        console.log({ 
-          _id : user._id,
-          name : user.name,
-          email: user.email,
-          scopes: tokenPayload.scopes 
-        });
-
-
         cb(null, { 
           _id : user._id,
           name : user.name,

@@ -31,14 +31,12 @@ function authApi(app) {
         if (error || !user) {
           return next(boom.unauthorized());
         }
-        console.log('pase');
         req.login(user, { session: false }, async function(error) {
           if (error) {
             return next(error);
           }
 
           const apiKey = apiKeysService.getApiKey({ token: apiKeyToken });
-          console.log(apiKey);
           if (!apiKey) {
             return next(boom.unauthorized());
           }

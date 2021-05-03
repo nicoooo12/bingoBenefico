@@ -1,4 +1,5 @@
 const store = require('../libs/mongoose')
+const canvasServices = require('./canvasUrl')
 const table = 'ordenes'
 
 async function createOrden(
@@ -8,8 +9,8 @@ async function createOrden(
   user // String
 ){
   try{
- 
-    let newOrden = await store.get(table,{
+
+    let newOrden = await store.post(table,{
       compra,
       totalPago,
       tipoDePago,
@@ -31,8 +32,10 @@ async function createOrden(
 async function addCanvasUrl(id, canvasUrl){
 
   try {
+
+    await canvasServices.createCanvasUrl(id, canvasUrl)
     
-    let editOrden = await store.put(table, id, {
+    let editOrden = await store.put(table, {user: id}, {
       canvasUrl: true,
       estado: 1, // 0: finalizado, 1: en revisión, 2: incida
     })
@@ -78,7 +81,7 @@ async function getOrden(id){
   try {
     
     let getOrden = await store.get(table, {
-      user: id,
+      user: id.id,
     })
 
     return getOrden

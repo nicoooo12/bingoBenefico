@@ -1,7 +1,5 @@
 const Joi = require('joi')
 
-const userIdSchema = Joi.string().regex(/^[0-9a-fA-F]{24}$/);
-
 const createUserSchema =Joi.object({
   name: Joi
     .string()
@@ -17,6 +15,5 @@ const createUserSchema =Joi.object({
 
 
 module.exports = {
-  userIdSchema,
   createUserSchema,
 };
