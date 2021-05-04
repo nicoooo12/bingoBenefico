@@ -1,7 +1,8 @@
 const store = require('../libs/mongoose')
 const canvasServices = require('./canvasUrl')
+const correoService = require('./correo')
+const cartonesService = require('./cartones')
 const table = 'ordenes'
-
 async function createOrden(
   compra, // Array
   totalPago, //Number
@@ -9,7 +10,10 @@ async function createOrden(
   user // String
 ){
   try{
-
+    let getOrden = await store.get(table, { user })
+    if(getOrden[0]){
+      return { err : true}
+    }
     let newOrden = await store.post(table,{
       compra,
       totalPago,
@@ -19,7 +23,7 @@ async function createOrden(
       user
     }) 
 
-    return newOrden
+    return {err: false, newOrden}
 
   }
   catch(err){
@@ -54,6 +58,19 @@ async function getCanvasOrden(id){
 
   try {
     
+    let getOrden = await store.get(table, {
+      user: id,
+    })
+    if(!getOrden[0] || !getOrden[0].canvasUrl){
+      return { canvas : false}
+    }
+    let getCanvas = await canvasServices.getCanvasUrl(id)
+
+    return {
+      canvas: true,
+      data: getCanvas
+    }
+
   } catch (err) {
     
     throw new Error(err)
@@ -81,7 +98,7 @@ async function getOrden(id){
   try {
     
     let getOrden = await store.get(table, {
-      user: id.id,
+      user: id,
     })
 
     return getOrden
@@ -96,7 +113,7 @@ async function getOrden(id){
 
 async function editOrden(id, data){
   try {
-    let editOrden = await store.put(table, id, data)
+    let editOrden = await store.put(table, {user: id}, data)
 
     return editOrden
 
@@ -110,10 +127,19 @@ async function editOrden(id, data){
 async function cancelOrden(id){
 
   try {
-    let deletedOrden = await store.delt(table, id)
-
-    return deletedOrden
-
+    let getOrden = await store.get(table, {
+      user: id,
+    })
+    if(!getOrden[0]){
+      return { message: 'order already deleted or does not exist'} 
+    }else{
+      await store.delt(table, {user: id})
+      if(getOrden[0].canvasUrl){
+        canvasServices.deleteCanvasUrl(id)
+      }
+      return {message:'cancel successfully'}
+    }
+    
   } catch (err) {
     
     throw new Error(err)
@@ -126,16 +152,26 @@ async function terminarOrden(id){
   
   try {
     
+
     //cambiar el estado 
-    let editOrden = await store.put(table, id, {
+    let editOrden = await store.put(table, {user: id}, {
       estado: 0, 
     })
-
     //crea los cartones
+    editOrden[0].compra.map(async (e)=>{
+      for(let i=1; i<= e.cantidad; i++){
+        await cartonesService.createCarton(id, e.serie)
+      }
+    })
 
-    //crear pdfs
-
+    //deleted orden
+    await store.delt(table, {user: id})
+    if(editOrden[0].canvasUrl){
+      canvasServices.deleteCanvasUrl(id)
+    }
     //manda el correo con los pdfs
+    let [user] = await store.get('users', {_id : id})
+    await correoService.correoConfirmation(user.email, await cartonesService.getCarton({ user: id}))
 
     //retornar
     return editOrden

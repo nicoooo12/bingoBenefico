@@ -30,7 +30,7 @@ async function correo(to, subject, html="<b>Hello world?</b>"){
   }
 }
 
-async function correoConfirmation(to){
+async function correoConfirmation(to, cartones){
   try {
     
     await transporter.sendMail({
@@ -38,8 +38,8 @@ async function correoConfirmation(to){
       to, // list of receivers
       subject: 'Confirmación de compra ✨', // Subject line
       // text: "Hello world?", // plain text body
-      html: "<b>Hello world?</b>", // html body
-      attachments: [{ filename: 'MisCartonesBingoloteando.pdf', content: await pdfService.pdf() }]
+      html: "<b>Hola: </b>Confirmamos la compra de tus cartones para el bingo✨.  Además adjuntamos un archivo <b>pdf</b> en donde encontrarás los cartones de tu compra. <br>De parte de todo el equipo organizador, te damos las gracias por ayudar colaborando a esta causa.<br><br>atte: equipo técnico <b>Bingoloteando</b>", // html body
+      attachments: [{ filename: 'MisCartonesBingoloteando.pdf', content: await pdfService.pdf(cartones) }]
     });
 
   } catch (err) {

@@ -1,121 +1,148 @@
 const express = require('express')
-const router = express.Router()
-const config = require('../config')
+const passport = require('passport');
 
-const store = require('../libs/mongoose')
+const scopesValidationHandler = require('../utils/middleware/scopeValidationHandler');
+const validationHandler = require('../utils/middleware/validationHandler')
+
 const cartonesService = require('../services/cartones')
 
+const {
+  createCartonSchema
+} = require('../utils/schemas/carton')
+const idSchema = require('../utils/schemas/id')
+
+require('../utils/auth/strategies/jwt')
+
 module.exports = function (app) {
-  app.use('/api',router)
+  const router = express.Router()
+  app.use('/api/cartones',router)
 
-  // API cartones ---
-  router.get('/carton', async (req,res)=>{
-    //obtener todos los cartones o solo uno de un user (?id_carton)
-    try{
-
-      let requestCatalogo = await store.get('cartones', (req.body.id&&req.body.id)) 
-
-      res.json({
-        error:false, 
-        data:requestCatalogo,
-        message:'ok',
-      }).status(200)
-
-    }
-    catch(err){
-      res.json({
-        error:true,
-        stack: config.dev ? err : false,
-        message: 'Internal server error'
-      }).status(500)
-    }
-  })
-  router.post('/carton', async (req,res)=>{
-    //crear un o mas cartones (user, tipo, cantidad)
-    if(
-      !req.body.propertyId || (typeof(req.body.propertyId) !== 'string') ||
-      !req.body.cartones || (typeof(req.body.cartones) !== 'object')
-    ){
-      return res.json({
-        error: true,
-        message: 'data expected and not specified',
-      }).status(400)
-    }
-
-    let errorDataArray = false;
-    req.body.cartones.map((e)=>{
-      if(
-        !e.serie || (typeof(e.serie) !== 'number') ||
-        !e.cantidad || (typeof(e.cantidad) !== 'number')
-      ){
-        errorDataArray = true; 
-      }
-    })
-
-    if(errorDataArray){
-      return res.json({
-        error: true,
-        message: 'data expected and not specified in array',
-      }).status(400)
-    }
-
+  router.post('/:idUser/:serie', //create carton (id, serie)
+  passport.authenticate('jwt', { session: false }),
+  scopesValidationHandler(['create:carton']),
+  validationHandler(createCartonSchema, 'params'),
+  async (req,res,next)=>{
     try {
       
-      let newCartons=[];
-      await req.body.cartones.map(async (e)=>{
-        for(let i=1; i<= e.cantidad; i++){
-          let newCarton = await cartonesService.createCarton(req.body.propertyId, e.serie)
-          newCartons.push({
-            data: newCarton.data,
-            user_id: newCarton.user_id,
-            serie: newCarton.serie
-          })
-        }
-
-        res.json({
-          error: false,
-          data: newCartons,
-          message: 'created'
-        }).status(201)
-
-      })
+      let newCarton = await cartonesService.createCarton(req.params.idUser, req.params.serie)
+      
+      res.json({
+        message: 'created',
+        data: newCarton
+      }).status(201)
 
     } catch (err) {
-      console.log(err);
-      return res.json({
-        error:true,
-        stack: config.dev ? err : false,
-        message:'Internal error server'
-      }).status(500)
+      next(err)
     }
-
-
   })
-  router.delete('/carton', async (req,res)=>{
-    //eliminar un carton (id)
-    if(!req.body.id || (typeof(req.body.id) !== 'object')  ){
-      return res.json({
-        error: true,
-        message: 'Data expected and not specified'
-      }).status(400)
-    }
- 
-    try{
-      await store.delt('cartones', req.body.id)
+
+  router.get('/mys', //get My cartones (user.id)
+  passport.authenticate('jwt', { session: false }),
+  scopesValidationHandler(['read:myCarton']),
+  // validationHandler(createCartonSchema),
+  async (req,res,next)=>{
+    try {
+      
+      let getCartones = await cartonesService.getCarton({ user: req.user._id})
+      
       res.json({
-        error: false,
-        message: 'deleted successfully',
+        message: 'ok',
+        data: getCartones
       }).status(200)
-    }
-    catch(err){
 
-      return res.json({
-        error: true,
-        stack: config.dev ? err : false,
-        message: 'Internal server error'
-      }).status(500) 
-
+    } catch (err) {
+      next(err)
     }
   })
-  
+
+  router.get('/mys/:serie', //get My cartones (id)
+  passport.authenticate('jwt', { session: false }),
+  scopesValidationHandler(['read:myCarton']),
+  // validationHandler(createCartonSchema),
+  async (req,res,next)=>{
+    try {
+      
+      let getCartones = await cartonesService.getCarton({ user: req.user._id, serie: req.params.serie })
+      
+      res.json({
+        message: 'ok',
+        data: getCartones
+      }).status(200)
+
+    } catch (err) {
+      next(err)
+    }
+  })
+
+  router.get('/user/:id', //get My cartones (user.id, data)
+  passport.authenticate('jwt', { session: false }),
+  scopesValidationHandler(['read:cartonUser']),
+  validationHandler(idSchema, 'params'),
+  async (req,res,next)=>{
+    try {
+      let getCartones = await cartonesService.getCarton({ user: req.params.id})
+      
+      res.json({
+        message: 'ok',
+        data: getCartones
+      }).status(200)
+
+    } catch (err) {
+      next(err)
+    }
+  })
+
+  router.get('/:id', //get My cartones (user.id, data)
+  passport.authenticate('jwt', { session: false }),
+  scopesValidationHandler(['read:cartonById']),
+  validationHandler(idSchema, 'params'),
+  async (req,res,next)=>{
+    try {
+      let getCartones = await cartonesService.getCarton({ _id: req.params.id})
+      
+      res.json({
+        message: 'ok',
+        data: getCartones
+      }).status(200)
+
+    } catch (err) {
+      next(err)
+    }
+  })
+
+  router.get('/', //get My cartones (user.id, data)
+  passport.authenticate('jwt', { session: false }),
+  scopesValidationHandler(['read:cartones']),
+  async (req,res,next)=>{
+    try {
+      let getCartones = await cartonesService.getCarton({})
+      
+      res.json({
+        message: 'ok',
+        data: getCartones
+      }).status(200)
+
+    } catch (err) {
+      next(err)
+    }
+  })
+
+  router.delete('/:id', //get My cartones (user.id, data)
+  passport.authenticate('jwt', { session: false }),
+  scopesValidationHandler(['deleted:carton']),
+  validationHandler(idSchema, 'params'),
+  async (req,res,next)=>{
+    try {
+      
+      let deletedCartones = await cartonesService.deletedCarton({ _id: req.params.id})
+      
+      res.json({
+        message: deletedCartones.message,
+      }).status(200)
+
+    } catch (err) {
+      next(err)
+    }
+  })
+
 }

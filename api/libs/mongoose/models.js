@@ -9,9 +9,8 @@ const mySchemaUsers = new Schema({
 })
 
 const mySchemaCartones = new Schema({
-  user_id: String,
+  user: String,
   data: Array,
-  // tipo: Object,
   serie: Number,
 })
 

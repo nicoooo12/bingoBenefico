@@ -1,23 +1,66 @@
 const store = require('../libs/mongoose')
+const boom = require('@hapi/boom')
+//crud
 
+const table = 'cartones'
 async function createCarton(propietario, serie){
-  let bucle = true
-  let resultado
-  while(bucle){
-    let dataGenerada = generar()
-    let carton = await store.get('cartones', {data: dataGenerada, serie})
-    if(!carton[0]){
-      bucle=false
-      let newCarton = await store.post('cartones', {
-        user_id: propietario,
-        data: dataGenerada,
-        serie,
-      })
-      resultado = newCarton
+  try {
+
+    let bucle = true
+    let resultado
+    while(bucle){
+      let dataGenerada = generar()
+      let carton = await store.get(table, {data: dataGenerada, serie})
+      if(!carton[0]){
+        bucle=false
+        let newCarton = await store.post(table, {
+          user: propietario,
+          data: dataGenerada,
+          serie,
+        })
+        resultado = newCarton
+      }
     }
+    return resultado
+
+  } catch (err) {
+    throw new Error(err)
   }
-  return resultado
 }
+
+async function getCarton(id){
+  try {
+    
+    let getCartones = await store.get(table, id)
+
+    return getCartones
+
+  } catch (err) {
+    throw new Error(err)
+  }
+}
+
+async function deletedCarton(id){
+  try {
+
+    let getCarton = await store.get(table, {
+      _id: id,
+    })
+    if(!getCarton[0]){
+      return { message: 'carton already deleted or does not exist'} 
+    }else{
+      await store.delt(table, {
+        _id: id,
+      })
+      return {message:'deleted successfully'}
+    }
+    
+  } catch (err) {
+    throw new Error(err)
+  }
+}
+
+//internal functions
 function generar(){
   let devolver = [[0,0,0,0,0],[0,0,0,0,0],[0,0,76,0,0],[0,0,0,0,0],[0,0,0,0,0]]
   for(let i = 0; i <= 4; i++){
@@ -91,9 +134,9 @@ function compare(arrayDe, num){
   return o
 }
 
-// let test = generar()
-// console.log(test);
 
 module.exports = {
   createCarton,
+  getCarton,
+  deletedCarton,
 }

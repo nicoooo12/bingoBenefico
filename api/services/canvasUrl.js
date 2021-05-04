@@ -3,7 +3,7 @@ const path = require('path')
 function createCanvasUrl(id, canvasUrl){
   return new Promise((resolve, reject) =>{
     console.log(  );
-    fs.writeFile(path.join(__dirname, '..', 'img', `${id}.txt` ), canvasUrl, (err)=>{
+    fs.writeFile(path.join(__dirname, '..', 'db', 'img', `${id}.txt` ), canvasUrl, (err)=>{
       if(err){
         reject(err);
       }
@@ -18,7 +18,7 @@ function createCanvasUrl(id, canvasUrl){
 
 function getCanvasUrl(id){
   return new Promise((resolve, reject)=>{
-    fs.readFile(path.join(__dirname, '..', 'img', `${id}.txt` ), 'UTF-8', (err, data)=>{
+    fs.readFile(path.join(__dirname, '..', 'db', 'img', `${id}.txt` ), 'UTF-8', (err, data)=>{
       if (err){
         reject(err)
       }
@@ -32,7 +32,7 @@ function getCanvasUrl(id){
 function deleteCanvasUrl(id){
 
   return new Promise((resolve, reject)=>{
-    fs.unlink(path.join(__dirname, '..', 'img', `${id}.txt` ), (err)=>{
+    fs.unlink(path.join(__dirname, '..', 'db', 'img', `${id}.txt` ), (err)=>{
       if(err){
         reject(err);
       }

@@ -501,8 +501,8 @@ async function pdf(cartones){
   return new Promise((resolve, reject) => {
     htmlPdf.create(layout(
       cartones.map((e)=>{
-        return carton('', e.serie, e.data)
-      })
+        return carton('Carton de pruebas', e.serie, e.data)
+      }).join()
     ), { format: 'Letter' }).toBuffer( (err, buffer) =>{
       if(err){
         reject(err)

@@ -1,7 +1,6 @@
 const Joi = require('joi');
-const { createConnection } = require('mongoose');
 
-const createUserSchema =Joi.object({
+const createOrdenSchema =Joi.object({
   compra: Joi
     .array()
     .required(),
@@ -13,6 +12,15 @@ const createUserSchema =Joi.object({
     .required(),
 });
 
+const editOrdenSchema =Joi.object({
+  compra: Joi
+    .array(),
+  totalPago: Joi
+    .number(),
+  tipoDePago: Joi
+    .string(),
+});
+
 const addCanvasUrlSchema = Joi.object({
   data: Joi
     .string()
@@ -20,6 +28,7 @@ const addCanvasUrlSchema = Joi.object({
 })
 
 module.exports = {
-  createUserSchema,
+  createOrdenSchema,
   addCanvasUrlSchema,
+  editOrdenSchema
 };
