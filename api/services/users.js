@@ -30,7 +30,19 @@ async function createUser({ user }) {
   return createUser._id;
 }
 
+async function updateUser(id, data){
+
+  let updateUser = await store.put(collection,{ _id: id}, data)
+
+  return {
+    name: updateUser[0].name,
+    email: updateUser[0].email,
+  }
+
+}
+
 module.exports = {
   createUser,
   getUser,
+  updateUser,
 };

@@ -19,10 +19,10 @@ const mySchemaCatalogos = new Schema({
   titulo: String,
   subTitulo: String,
   precio: Number,
-  enVenta: Boolean
+  enVenta: Boolean,
+  serie: Number,
   // color: String,
   // emoji: String,
-  // serie: Number,
 })
 
 const mySchemaOrdenes = new Schema({

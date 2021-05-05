@@ -1,119 +1,95 @@
 const express = require('express')
-const config = require('../config')
+const passport = require('passport')
+const boom = require('@hapi/boom')
 
+const scopesValidationHandler = require('../utils/middleware/scopeValidationHandler');
+const validationHandler = require('../utils/middleware/validationHandler')
+
+const {
+  createCatalogoSchema,
+  editCatalogoSchema
+} = require('../utils/schemas/catalogo')
+const idSchema = require('../utils/schemas/id')
+const catalogoService = require('../services/catalogos')
+require('../utils/auth/strategies/jwt');
 
 module.exports = function (app) {
   const router = express.Router()
-  app.use('/api',router)
+  app.use('/api/catalogos',router)
 
-  //API /catalogos ---
-  router.get('/catalogos', async (req,res)=>{
-    //obtener (id)
-    
-  })
-  router.post('/catalogos', async (req,res)=>{
-    //crear (cantidad_premio,[premios_obj], title, precio)
-    if (
-      !req.body.premios || (typeof(req.body.premios) !== 'object') ||
-      !req.body.titulo || (typeof(req.body.titulo) !== 'string') ||
-      !req.body.subTitulo || (typeof(req.body.subTitulo) !== 'string') ||
-      !req.body.precio || (typeof(req.body.precio) !== 'number')
-      ) {
-        return res.json({
-        error: true,
-        message: 'Data expected and not specified'
-      }).status(400)
-    }
-
-    try{
-
-      let newCatalogo = await store.post('catalogos', {
-        premios: req.body.premios,
-        titulo: req.body.titulo,
-        subTitulo: req.body.subTitulo,
-        precio: req.body.precio,
-      })
+  router.post('/', //create My orden (user.id, data)
+  passport.authenticate('jwt', { session: false }),
+  scopesValidationHandler(['create:catalogo']),
+  validationHandler(createCatalogoSchema),
+  async (req,res,next)=>{
+    try {
       
+      let {
+        premios, titulo, subTitulo, precio, enVenta, serie
+      } = req.body
+      let newCatalogo = await catalogoService.createCatalogo(premios, titulo, subTitulo, precio, enVenta, serie)
+
       res.json({
-        error: false,
-        data: newCatalogo,
-        message: 'created'
+        message: 'created',
+        data: newCatalogo
       }).status(201)
-      
+
+    } catch (err) {
+      next(err)
     }
-    catch(err){
-
-      return res.json({
-        error: true,
-        stack: config.dev ? err : false,
-        message: 'Internal server error'
-      }).status(500)
-
-    }
-
   })
-  router.put('/catalogos', async (req,res)=>{
-    //editar (id, cantidad_premio,[premios_obj], title, precio)
-    if (
-      !req.body.id || (typeof(req.body.id) !== 'object') ||
-      (req.body.premios && (typeof(req.body.premios) !== 'object')) ||
-      (req.body.titulo &&(typeof(req.body.titulo) !== 'string')) ||
-      (req.body.subTitulo && (typeof(req.body.subTitulo) !== 'string')) ||
-      (req.body.precio && (typeof(req.body.precio) !== 'number'))
-    ){
-      return res.json({
-        error: true,
-        message: 'Data expected and not specified'
-      }).status(400)
-    }
 
-    try{
-      // let catalogoChange = await store.put('catalogos', req.body.id, req.body)
-      let editCatalogo = await store.put('catalogos', req.body.id, req.body)
+  router.get('/', //create My orden (user.id, data)
+  passport.authenticate('jwt', { session: false }),
+  scopesValidationHandler(['read:catalogos']),
+  async (req,res,next)=>{
+    try {
+      let newCatalogo = await catalogoService.getCatalogo({})
 
       res.json({
-        error: false,
-        data: editCatalogo,
-        message: 'edited successfully',
-      }).status(200)
+        message: 'created',
+        data: newCatalogo
+      }).status(201)
+
+    } catch (err) {
+      next(err)
     }
-    catch(err){
-
-      console.log(err)
-
-      return res.json({
-        error: true,
-        stack: config.dev ? err : false,
-        message: 'Internal server error'
-      }).status(500)
-    
-    }
-
   })
-  router.delete('/catalogos', async (req,res)=>{
-    //eliminar (id)
-    if(!req.body.id || (typeof(req.body.id) !== 'object')  ){
-      return res.json({
-        error: true,
-        message: 'Data expected and not specified'
-      }).status(400)
-    }
- 
-    try{
-      await store.delt('catalogos', req.body.id)
+
+  router.put('/:id', //create My orden (user.id, data)
+  passport.authenticate('jwt', { session: false }),
+  scopesValidationHandler(['update:catalogo']),
+  validationHandler(idSchema, 'params'),
+  validationHandler(editCatalogoSchema),
+  async (req,res,next)=>{
+    try {
+      let newCatalogo = await catalogoService.updateCatalogo({_id :req.params.id}, req.body)
+
       res.json({
-        error: false,
-        message: 'deleted successfully',
-      }).status(200)
+        message: 'created',
+        data: newCatalogo
+      }).status(201)
+
+    } catch (err) {
+      next(err)
     }
-    catch(err){
+  })
 
-      return res.json({
-        error: true,
-        stack: config.dev ? err : false,
-        message: 'Internal server error'
-      }).status(500) 
+  router.delete('/:id', //create My orden (user.id, data)
+  passport.authenticate('jwt', { session: false }),
+  scopesValidationHandler(['deleted:catalogo']),
+  validationHandler(idSchema, 'params'),
+  async (req,res,next)=>{
+    try {
+      let newCatalogo = await catalogoService.deletedCatalogo({_id :req.params.id})
 
+      res.json({
+        message: 'created',
+        data: newCatalogo
+      }).status(201)
+
+    } catch (err) {
+      next(err)
     }
   })
 

@@ -22,7 +22,7 @@ app.use(helmet())
 //routers
 require('./routers/auth')(app);
 require('./routers/cartones')(app);
-// require('./routers/catalogos')(app);
+require('./routers/catalogos')(app);
 require('./routers/orden')(app);
 // require('./routers/premios')(app);
 

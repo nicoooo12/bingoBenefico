@@ -13,7 +13,17 @@ const createUserSchema =Joi.object({
   isAdmin: Joi.boolean()
 });
 
+const updateUserSchema =Joi.object({
+  name: Joi
+    .string()
+    .max(100),
+  email: Joi
+    .string()
+    .email(),
+  isAdmin: Joi.boolean()
+});
 
 module.exports = {
   createUserSchema,
+  updateUserSchema
 };

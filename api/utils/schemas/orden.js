@@ -2,7 +2,16 @@ const Joi = require('joi');
 
 const createOrdenSchema =Joi.object({
   compra: Joi
-    .array()
+    .array().items(
+      Joi.object({
+        serie: Joi
+        .number()
+        .required(),
+        cantidad: Joi
+        .number()
+        .required(),
+      })
+    )
     .required(),
   totalPago: Joi
     .number()
@@ -14,7 +23,16 @@ const createOrdenSchema =Joi.object({
 
 const editOrdenSchema =Joi.object({
   compra: Joi
-    .array(),
+    .array().items(
+      Joi.object({
+        serie: Joi
+        .number()
+        .required(),
+        cantidad: Joi
+        .number()
+        .required(),
+      })
+    ),
   totalPago: Joi
     .number(),
   tipoDePago: Joi

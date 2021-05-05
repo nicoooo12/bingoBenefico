@@ -8,12 +8,15 @@ const validationHandler = require('../utils/middleware/validationHandler');
 
 const {
   createUserSchema,
+  updateUserSchema
 } = require('../utils/schemas/users');
+const idSchema = require('../utils/schemas/id');
 
 const config = require('../config');
 
 // Basic strategy
 require('../utils/auth/strategies/basic');
+require('../utils/auth/strategies/jwt');
 
 function authApi(app) {
   const router = express.Router();
@@ -82,6 +85,25 @@ function authApi(app) {
       next(error);
     }
   });
+
+  router.put('/',
+  passport.authenticate('jwt', { session: false}),
+  validationHandler(updateUserSchema),
+  async (req,res,next)=>{
+    try {
+      
+    let updateUser = await usersService.updateUser(req.user._id, req.body)
+
+    res.json({
+      message: 'ok',
+      data: updateUser
+    }).status(200)
+
+    } catch (err) {
+      next(err)
+    }
+  })
+  
 }
 
 module.exports = authApi;

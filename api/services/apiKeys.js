@@ -12,6 +12,7 @@ function getApiKey({ token }) {
       'update:myOrden',
       'deleted:myOrden',
       'read:myCarton',
+      'read:catalogos',
     ]
   }else if(token === config.adminApiKeyToken) {
     return [
@@ -36,6 +37,10 @@ function getApiKey({ token }) {
       'read:cartonById',
       'read:cartones',
       'deleted:carton',
+      'create:catalogo',
+      'read:catalogos',
+      'update:catalogo',
+      'deleted:catalogo',
     ]
   }
   return boom.badRequest('token not valid');
