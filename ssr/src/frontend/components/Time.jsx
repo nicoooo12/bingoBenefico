@@ -24,7 +24,7 @@ const App = ({ deadline = '2021-05-07T19:00', finalMessage = 'Ya Empezamos' })=>
 
   const countdown = (deadline, finalMessage) => {
 
-    const timerUpdate = setInterval(() => {
+    const timerUpdate = setTimeout(() => {
       const t = getRemainingTime(deadline);
       setTime(`${t.remainDays !== 0 ? t.remainDays + 'd:' : ''}${t.remainHours !== '00' ? t.remainHours + 'h:' : ''}${t.remainMinutes !== '00' ? t.remainMinutes + 'm:' : ''}${t.remainMinutes !== 0 ? ('0' + t.remainSeconds).slice(-2) : t.remainSeconds}s`);
 
@@ -39,9 +39,7 @@ const App = ({ deadline = '2021-05-07T19:00', finalMessage = 'Ya Empezamos' })=>
   getRemainingTime(deadline).remainTime >= 1 && countdown(deadline, finalMessage);
   return (
     <>
-      {
-        time
-      }
+      { time }
     </>
   );
 

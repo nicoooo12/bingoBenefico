@@ -21,6 +21,7 @@ function getApiKey({ token }) {
       'create:myOrden',
       'create:orden',
       'create:canvasOrden',
+      'create:commentOrden',
       'read:myOrden',
       'read:ordenId',
       'read:ordenes',

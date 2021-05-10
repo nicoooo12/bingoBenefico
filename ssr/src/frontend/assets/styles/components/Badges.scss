@@ -16,7 +16,7 @@
   -ms-user-select: none;
   user-select: none; 
   &>span{
-    @extend .Typography-text-LS;
+    @extend %Typography-text-LS;
     display: flex;
     text-align: center;
     justify-content: center;

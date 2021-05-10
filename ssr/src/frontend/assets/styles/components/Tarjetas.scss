@@ -26,15 +26,15 @@
   display: flex;
   // justify-content: space-around;
   align-items: center;
-  @extend .Typography-text-LL
+  @extend %Typography-text-LL
 }
 
 .tarjeta__title{
-  @extend .Typography-text-DSB;
+  @extend %Typography-text-DSB;
   margin-bottom: 10px;
 }
 .tarjeta__subTitle{
-  @extend .Typography-text-TS;
+  @extend %Typography-text-TS;
   margin: 0 15px 20px 0;
 }
 .tarjeta__componentsGroup{

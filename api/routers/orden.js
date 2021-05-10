@@ -9,6 +9,7 @@ const {
   createOrdenSchema,
   addCanvasUrlSchema,
   editOrdenSchema,
+  addCommentSchema,
 } = require('../utils/schemas/orden')
 const idsSchema = require('../utils/schemas/id')
 
@@ -73,7 +74,7 @@ module.exports = function (app) {
   router.post('/:id', //create orden (id, data)
   passport.authenticate('jwt', { session: false }),
   scopesValidationHandler(['create:orden']),
-  validationHandler(idsSchema),
+  validationHandler(idsSchema, 'params'),
   validationHandler(createOrdenSchema),
   async (req,res,next)=>{
     let {compra, totalPago, tipoDePago, } = req.body
@@ -85,10 +86,37 @@ module.exports = function (app) {
         req.params.id
       )
 
+      if(newOden.err){
+        next(boom.badRequest('orden already created, finish or cancel to be able to create another'))
+      }
 
       res.json({
         message: 'created',
-        data: newOden,  
+        data: newOden.newOrden,  
+      }).status(201)
+
+    } catch (err) {
+      next(err)
+    }
+  })
+
+  router.post('/comment/:id', //create orden (id, data)
+  passport.authenticate('jwt', { session: false }),
+  scopesValidationHandler(['create:commentOrden']),
+  validationHandler(idsSchema, 'params'),
+  validationHandler(addCommentSchema),
+  async (req,res,next)=>{
+
+    try {
+      let newCommentOden = await ordenServices.addComment(
+        req.params.id,
+        req.body.message
+      )
+
+
+      res.json({
+        message: 'add comment',
+        data: newCommentOden,  
       }).status(201)
 
     } catch (err) {

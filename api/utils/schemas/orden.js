@@ -2,7 +2,7 @@ const Joi = require('joi');
 
 const createOrdenSchema =Joi.object({
   compra: Joi
-    .array().items(
+    .array().min(1).items(
       Joi.object({
         serie: Joi
         .number()
@@ -23,7 +23,7 @@ const createOrdenSchema =Joi.object({
 
 const editOrdenSchema =Joi.object({
   compra: Joi
-    .array().items(
+    .array().min(1).items(
       Joi.object({
         serie: Joi
         .number()
@@ -45,8 +45,15 @@ const addCanvasUrlSchema = Joi.object({
     .required(),
 })
 
+const addCommentSchema = Joi.object({
+  message: Joi
+    .string()
+    .required(),
+})
+
 module.exports = {
   createOrdenSchema,
   addCanvasUrlSchema,
-  editOrdenSchema
+  editOrdenSchema,
+  addCommentSchema
 };

@@ -32,6 +32,14 @@ const mySchemaOrdenes = new Schema({
   estado: Number, // 0: finalizado, 1: en revisión, 2: incida
   canvasUrl: Boolean,
   user: String,
+  message: String,
+})
+
+const mySchemaOrdenesTerminadas = new Schema({
+  compra: Array,
+  pago: Number,
+  pagado: Number,
+  user: String,
 })
 
 const mySchemaEstados = new Schema({
@@ -50,6 +58,7 @@ const users = mongoose.model('users', mySchemaUsers)
 const cartones = mongoose.model('cartones', mySchemaCartones)
 const catalogos = mongoose.model('catalogos', mySchemaCatalogos)
 const ordenes = mongoose.model('ordenes', mySchemaOrdenes)
+const ordenesTerminadas = mongoose.model('ordenesTerminadas', mySchemaOrdenesTerminadas)
 
 const estados = mongoose.model('estados', mySchemaEstados)
 const errores = mongoose.model('errores', mySchemaErrores)
@@ -61,4 +70,5 @@ module.exports = {
   ordenes,
   estados,
   errores,
+  ordenesTerminadas,
 }

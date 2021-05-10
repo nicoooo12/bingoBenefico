@@ -1,0 +1,98 @@
+@import '../../Index.scss';
+
+.accordion{
+  -webkit-user-select: none;
+  -moz-user-select: none;
+  -ms-user-select: none;
+  user-select: none; 
+  width: 350px;
+  height: 70px;
+  margin: 10px;
+  display: block;
+  border-radius: 16px;
+  padding: 20px;
+  outline: none;
+  background: $greyscale_inputBG;
+  border: solid transparent 3px;
+  transition: .3s all;
+  &[open]{
+    background: $greyscale_bg;
+    height: auto;
+    border: solid $greyscale_title-active 3px;
+    &>summary>div{
+      transform: rotate(0deg);
+    }
+  }
+  &>summary{
+    @extend %Typography-text-LM;
+    width: 350px;
+    height: 70px;
+    // background: red;
+    top: -20px;
+    position: relative;
+    color: $greyscale_title-active;
+    cursor: pointer;
+    outline: none;
+    padding: 20px;
+    left: -20px;
+    display: block;
+    &>p{
+      display: inline-block;
+      transition: .3s all;
+      width: 200px;
+      height: 100%;
+      vertical-align: text-bottom;
+    }
+    &>div{
+      display: inline-block;
+      width: 24px;
+      position: relative;
+      left: 80px;
+      height: 24px;
+      transform: rotate(45deg);
+      transition: .3s all;
+    }
+    &::-webkit-details-marker {
+      width: 0px;
+      height: 0px;
+      background: transparent;
+      display:none
+    }
+    &::marker {
+      width: 0px;
+      height: 0px;
+      background: transparent;
+      display:none
+    }
+  }
+  &>div{
+    @extend %Typography-text-TM;
+    color: $greyscale_body;
+    // margin-top: 4px;
+    padding: 2px 20px;
+    left: -20px;
+    top: -20px;
+    outline: none;
+    width: 350px;
+    position: relative;
+    background: transparent;
+    transition: .5s all;
+  }
+}
+
+@media (max-width: $mediaWidth1){
+
+  .accordion{
+    width: 270px;
+    &>summary{
+      width: 270px;
+      &>div{
+        left: 5px;
+      }
+    }
+    &>div{
+      width: 270px;
+    }
+  }
+
+}

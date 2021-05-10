@@ -1,75 +1,86 @@
-import React from 'react';
-import { Link } from 'react-router-dom';
-import { connect } from 'react-redux';
+import React, { useState, useEffect } from 'react';
+// import { connect } from 'react-redux';
+// import { Link } from 'react-router-dom';
+import Icon from './display/Icon';
+import Card from './display/Card';
 
 import '../assets/styles/components/Header.scss';
-const App = (props)=> {
-  const { pag, user } = props;
+const App = ({ title, icon, children })=> {
+
+  const [focusHeader, setFocusHeader] = useState(true);
+  let observer;
+  useEffect(()=>{
+    observer = new IntersectionObserver((entry, observer)=>{
+      if (entry[0].isIntersecting) {
+        setFocusHeader(true);
+      } else {
+        setFocusHeader(false);
+      }
+    });
+    observer.observe(document.querySelector('.header'));
+  }, [observer]);
+
   return (
-    <header className='header'>
-      <div className='header__content'>
-        <div className='header__title'>
-          <Link to='/'>
-            <h1 className='header__title' >Bingoloteando</h1>
-          </Link>
+    <>
+      {
+        focusHeader ?
+          <>
+            <div className='contentLibre-off'>
+              <div className='forwardIcon'>
+                <Icon type='forward' width='24' height='24'/>
+              </div>
+              <h1>Bingoloteando</h1>
+              {
+                icon ?
+                  <div className='lastIcon'>
+                    <Icon type={icon} width='24' height='24'/>
+                  </div> : false
+              }
+            </div>
+          </> :
+          <>
+            <div className='contentLibre'>
+              <div className='forwardIcon'>
+                <Icon type='forward' width='24' height='24'/>
+              </div>
+              <h1>Bingoloteando</h1>
+              {
+                icon ?
+                  <div className='lastIcon'>
+                    <Icon type={icon} width='24' height='24'/>
+                  </div> : false
+              }
+            </div>
+          </>
+      }
+      <header >
+        <div className='header'>
+          <div className='banner'> </div>
+          <div className='content'>
+            <div className='forwardIcon'>
+              <Icon type='forward' width='24' height='24'/>
+            </div>
+            <h1>Bingoloteando</h1>
+            {
+              icon ?
+                <div className='lastIcon'>
+                  <Icon type={icon} width='24' height='24'/>
+                </div> : false
+            }
+          </div>
+          <div className='info'>
+            <h1>{title}</h1>
+            <Card>
+              {
+                children
+              }
+            </Card>
+          </div>
         </div>
-        <nav className='header__nav'>
-          <ul>
-            <li>
-              <Link to='/'>
-                {
-                  pag === '/' ? <button tabIndex='-1' className='header__pag-active'>Inicio</button> : <button tabIndex='-1' className='header__pag'>Inicio</button>
-                }
-              </Link>
-            </li>
-            <li>
-              <Link to='/play'>
-                {
-                  pag === '/play' ? <button tabIndex='-1' className='header__pag-active'>Jugar</button> : <button tabIndex='-1' className='header__pag'>Jugar</button>
-                }
-              </Link>
-            </li>
-            <li>
-              <Link to='/catalogo'>
-                {
-                  pag === '/catalogo' ? <button tabIndex='-1' className='header__pag-active'>Comprar</button> : <button tabIndex='-1' className='header__pag'>Comprar</button>
-                }
-              </Link>
-            </li>
-          </ul>
-        </nav>
-        <div className='header__buttonGroup'>
-          { !user.userName ?
-            <>
-              <h1 key='1'>{user.userName}</h1>
-            </> :
-            <ul>
-              <li>
-                <Link to='/sign-in'>
-                  <button tabIndex='-1' className='header__buttonItem-signIn'>
-                    Ingresar
-                  </button>
-                </Link>
-              </li>
-              <li>
-                <Link to='/sign-up'>
-                  <button tabIndex='-1' className='header__buttonItem-signUp'>
-                    Crear una cuenta
-                  </button>
-                </Link>
-              </li>
-            </ul> }
-        </div>
-      </div>
-    </header>
+      </header>
+    </>
   );
 
 };
 
-const mapStateToProps = (state) => {
-  return {
-    user: state.user,
-  };
-};
-
-export default connect(mapStateToProps)(App);
+export default App;

@@ -54,6 +54,19 @@ async function addCanvasUrl(id, canvasUrl){
 
 }
 
+async function addComment(id, message){
+  try {
+    let editOrden = await store.put(table, {user: id}, {message})
+
+    return editOrden
+
+  } catch (err) {
+    
+    throw new Error(err)
+
+  }
+}
+
 async function getCanvasOrden(id){
 
   try {
@@ -148,25 +161,29 @@ async function cancelOrden(id){
 
 }
 
-async function terminarOrden(id){
+async function terminarOrden(id, pagado){
   
   try {
     
 
     //cambiar el estado 
-    let editOrden = await store.put(table, {user: id}, {
-      estado: 0, 
-    })
+    let orden = await store.get(table, {user: id})
     //crea los cartones
-    editOrden[0].compra.map(async (e)=>{
+    orden[0].compra.map(async (e)=>{
       for(let i=1; i<= e.cantidad; i++){
         await cartonesService.createCarton(id, e.serie)
       }
     })
 
-    //deleted orden
+    //mover la orden
+    let newOrdenEnd = await store.post('ordenesTerminadas', {
+      compra: orden.compra,
+      pago: orden.totalPago,
+      pagado,
+      user: id,
+    })
     await store.delt(table, {user: id})
-    if(editOrden[0].canvasUrl){
+    if(orden[0].canvasUrl){
       canvasServices.deleteCanvasUrl(id)
     }
     //manda el correo con los pdfs
@@ -174,8 +191,8 @@ async function terminarOrden(id){
     await correoService.correoConfirmation(user.email, await cartonesService.getCarton({ user: id}))
 
     //retornar
-    return editOrden
-
+    return newOrdenEnd
+ 
   } catch (err) {
    
     throw new Error(err)
@@ -193,4 +210,5 @@ module.exports = {
   editOrden,
   cancelOrden,
   terminarOrden,
+  addComment,
 }

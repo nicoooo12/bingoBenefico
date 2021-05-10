@@ -1,0 +1,97 @@
+@import '../../Index.scss';
+
+.buttonGroup{
+  width: 185px;
+  height: 64px;
+  margin: 10px;
+  display: flex;
+  justify-content: space-around;
+  align-items: center;
+  padding: 0 15px;
+}
+.buttonGroup>span{
+  @extend %Typography-text-DSB;
+  -webkit-user-select: none;
+  -moz-user-select: none;
+  -ms-user-select: none;
+  user-select: none; 
+}
+
+.buttonGroup__buttonComprar{
+  @extend %btn-primary;
+  @extend %Typography-text-LXS;
+  font-size: 13px;
+  position: absolute;
+  width: 200px;
+  height: 56px;
+  left: 32px;
+}
+
+.buttonGroup__buttonAction{
+  width: 40px;
+  height: 40px;
+  border-radius: 22px;
+  margin: 0;
+  outline: none;
+  @extend %Typography-text-TM;
+  background-color: $greyscale_inputBG;
+  &:hover{
+    background-color: $greyscale_bg;
+    border: 2px solid $greyscale_line;
+  }
+  &:focus{
+    // background-color: $greyscale_bg;
+    border: 2px solid $primary_default;
+    color: $primary_default;
+    transition: .1s;
+    box-shadow : 0 0 0 6px $primary_light;
+  }
+  &:active{
+    // background-color: $greyscale_line;
+    border: 2px solid $primary_default;
+    color: $primary_default;
+    box-shadow : none;
+  }
+}
+
+// @media (max-width: $mediaWidth1){
+//   .buttonGroup__buttonComprar{
+//     font-size: 12px;
+//     left: 10px;
+//   }
+//   .buttonGroup__buttonComprar{
+//     margin: 0;
+//     margin-left: 10px;
+//   }
+// }
+
+// @media (max-width: $mediaWidth2){
+//   .buttonGroup__buttonComprar{
+//     margin-left: 5px;
+//     width: 130px;
+//     padding: 0.4rem .001rem;
+//   }
+// }
+
+%btn-primary{
+  // width: 200px;
+  // height: 64px;
+  border-radius: 40px;
+  color: $greyscale_off-white;
+  background: $primary_default;
+  outline: none;
+  &:hover{
+    background: $primary_dark;
+  }
+  &:focus{
+    box-shadow : 0 0 0 8px $primary_light;
+  }
+  &:active{
+    background: $primary_default;
+  }
+  &:disabled{
+    background: $primary_default;
+    opacity: 0.5;
+    box-shadow: 0px 4px 4px rgba(0, 0, 0, 0.25);
+  }
+}

@@ -1,0 +1,214 @@
+@import '../../Index.scss';
+
+.input{
+  @extend %input-text;
+  position: relative;
+  margin: 10px;
+  width: 325px;
+  // height: 64px;
+  @extend %Typography-text-TS;
+}
+
+
+// .input-text,
+// .input-text-success,
+// .input-text-error{
+//   position: relative;
+//   width: 100%;
+//   margin: 10px;
+//   @extend %Typography-text-TS;
+// }
+%input-text {
+  
+  &>input {
+    display: block;
+    width: 325px;
+    height: 64px;
+    background: $greyscale_inputBG;
+    border-radius: 16px;
+    color: $greyscale_placeholder;
+    padding: 20px;
+    outline: none;
+
+    padding-right: 70px;
+
+    &::placeholder{
+      color: transparent;
+    }
+    &:active,
+    &:focus{
+      border: 2px solid $primary_default;
+      background: $greyscale_off-white;
+
+    }
+    &:not(:placeholder-shown){
+      border: 2px solid $primary_default;
+      font-size: 16px;
+      // background: transparent;
+      color: $greyscale_title-active;
+      padding-top: 36px;
+    }
+    &:not(:placeholder-shown)~label{
+      font-size: 14px;
+      top: 6px;
+      left: 20px;
+      color: $greyscale_label;
+    }
+    &:not(:placeholder-shown)~div{
+      display: block  
+    }
+  }
+
+  &>label{
+    @extend %Typography-text-TS;
+    display: block;
+    color: $greyscale_placeholder;
+    position: absolute;
+    top: 20px;
+    left: 22px;
+    -moz-user-select: none; 
+    -webkit-user-select: none;
+    -ms-user-select: none;
+    user-select: none; 
+    transition: .15s ease-in-out;
+  }
+
+  &>div{
+    // color: $primary_default;
+    @extend %Typography-text-TS;
+    display: none;
+    color: $greyscale_placeholder;
+    background: transparent;
+    position: absolute;
+    top: 0px;
+    margin: 0;
+    left: 200px;
+    -moz-user-select: none; 
+    -webkit-user-select: none;
+    -ms-user-select: none;
+    user-select: none; 
+    transition: .30s ease-in-out;
+    width: 72px;
+    height: 64px;
+    &>button{
+      width: 24px;
+      height: 24px;
+      margin: 0;
+      position: relative;
+      top:24px;
+      left: 22px;
+      background: transparent;
+      outline: none;
+      &>svg{
+        top: 0px;
+        position: relative;
+      }
+    }
+  }
+
+}
+%input-text-error > input{
+  display: block;
+  width: 325px;
+  height: 64px;
+  background: $error_light;
+  border-radius: 16px;
+  color: $greyscale_title-active;
+  padding: 20px;
+  outline: none;
+  &::placeholder{
+    color: transparent;
+  }
+  &:active,
+   &:focus{
+    border: 2px solid $error_default;
+    background: $greyscale_off-white;
+
+  }
+  &:not(:placeholder-shown){
+    border: 2px solid $error_default;
+    font-size: 16px;
+    // background: transparent;
+    color: $greyscale_title-active;
+    padding-top: 36px;
+  }
+  &:not(:placeholder-shown)~label{
+    font-size: 14px;
+    top: 6px;
+    left: 20px;
+    color: $error_dark;
+  }
+  &~label{
+    color: $error_dark;
+  }
+}
+%input-text-success > input{
+  display: block;
+  width: 325px;
+  height: 64px;
+  background: $success_light;
+  border-radius: 16px;
+  color: $greyscale_title-active;
+  padding: 20px;
+  outline: none;
+  &::placeholder{
+    color: transparent;
+  }
+  &:active,
+   &:focus{
+    border: 2px solid $success_default  ;
+    background: $greyscale_off-white;
+
+  }
+  &:not(:placeholder-shown){
+    border: 2px solid $success_default;
+    font-size: 16px;
+    // background: transparent;
+    color: $greyscale_title-active;
+    padding-top: 36px;
+  }
+  &:not(:placeholder-shown)~label{
+    font-size: 14px;
+    top: 6px;
+    left: 20px;
+    color: $success_dark;
+  }
+  &~label{
+    color: $success_dark;
+  }
+}
+
+%input-text > label,
+%input-text-success > label,
+%input-text-error > label{
+  @extend %Typography-text-TS;
+  display: block;
+  color: $greyscale_placeholder;
+  position: absolute;
+  top: 20px;
+  left: 22px;
+  -moz-user-select: none; 
+  -webkit-user-select: none;
+  -ms-user-select: none;
+  user-select: none; 
+  transition: .15s ease-in-out;
+}
+%input-text > p{
+  color: $greyscale_placeholder;
+  font-size: 12px;
+  line-height: 20px;
+  letter-spacing: 0.75px;
+  font-weight: 400;
+  position: relative;
+  margin: 5px 2px 5px 5px;
+}
+
+@media (max-width: $mediaWidth1){
+
+.input{
+  &>input{
+    width: 270px;
+  }
+}
+
+}

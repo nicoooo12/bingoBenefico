@@ -1,9 +1,11 @@
 import React from 'react';
-import Header from '../components/Header.jsx';
+// import { connect } from 'react-redux';
+
+import Header from '../components/Header';
 import Footer from '../components/Footer';
 
 // import '../assets/styles/App.scss';
-const App = ()=> {
+const App = (props)=> {
 
   return (
     <>
@@ -13,5 +15,6 @@ const App = ()=> {
     </>
   );
 };
+
 
 export default App;

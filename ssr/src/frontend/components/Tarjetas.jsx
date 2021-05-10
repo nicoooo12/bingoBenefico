@@ -1,5 +1,5 @@
 import React from 'react';
-import Button from './ButtonGroup';
+import Button from '../components/forms/IncrementStepper';
 import Badges from './Badges';
 
 import '../assets/styles/components/Tarjetas.scss';

@@ -1,0 +1,174 @@
+@import '../../Index.scss';
+
+.button{
+  margin: 10px;
+  cursor: pointer;
+  -webkit-user-select: none;
+  -moz-user-select: none;
+  -ms-user-select: none;
+  user-select: none; 
+  
+
+  &[sizeButton="large"]{
+    @extend %Typography-text-LM;
+    width: 200px;
+    height: 64px;
+  }
+  &[sizeButton="medium"]{
+    @extend %Typography-text-LM;
+    width: 200px;
+    height: 56px;
+  }
+  &[sizeButton="small"]{
+    @extend %Typography-text-LS;
+    width: 120px;
+    height: 40px;
+  }
+
+
+
+  &[typeButton="primary"]{
+    @extend %btn-primary;
+  }
+  &[typeButton="secondary"]{
+    @extend %btn-secondary;
+  }
+  &[typeButton="subtle"]{
+    @extend %btn-subtle;
+  }
+  &[typeButton="text"]{
+    @extend %btn-text;
+  }
+
+}
+%btn-primary{
+  // width: 200px;
+  // height: 64px;
+  border-radius: 40px;
+  color: $greyscale_off-white;
+  background: $primary_default;
+  outline: none;
+  &:hover{
+    background: $primary_dark;
+  }
+  &:focus{
+    box-shadow : 0 0 0 8px $primary_light;
+  }
+  &:active{
+    background: $primary_default;
+  }
+  &:disabled{
+    background: $primary_default;
+    opacity: 0.5;
+    box-shadow: 0px 4px 4px rgba(0, 0, 0, 0.25);
+  }
+}
+%btn-secondary{
+  // width: 200px;
+  // height: 64px;
+  border-radius: 40px;
+  color: $primary_default;
+  border: solid 2px $primary_default;
+  background: rgba(0, 0, 0, 0);
+  outline: none;
+  &:hover{
+    color: $primary_dark;
+    background: rgba(0, 0, 0, 0.05);
+  }
+  &:focus{
+    box-shadow : 0 0 0 8px $greyscale_inputBG;
+  }
+  &:disabled{
+    opacity: 0.5;
+  }
+}
+%btn-subtle{
+  border-radius: 40px;
+  color: $primary_default;
+  border: solid 2px $greyscale_line;
+  background: rgba(0, 0, 0, 0);
+  outline: none;
+  &:hover{
+    color: $primary_dark;
+  }
+  &:focus{
+    border-radius: 40px;
+    outline: none;
+    box-shadow : 0 0 0 8px $greyscale_inputBG;
+    color: $primary_default;
+    border: solid 2px $greyscale_line;
+    background: rgba(0, 0, 0, 0);
+  }
+  &:active{
+    border-radius: 40px;
+    color: $primary_default;
+    border: solid 2px $greyscale_line;
+    background: rgba(0, 0, 0, 0);
+  }
+  &:disabled{
+    opacity: 0.5;
+    color: $primary_default;
+    border: solid 2px $greyscale_line;
+    background: rgba(0, 0, 0, 0);
+    border-radius: 40px;
+  }
+}
+%btn-text{
+  outline: none;  
+  border-radius: 40px;
+  background: rgba(0, 0, 0, 0);
+  color: $primary_default;
+  &:hover{
+    border-radius: 40px;
+    color: $primary_dark;
+    background: rgba(0, 0, 0, 0);
+  }
+  &:focus{
+    border-radius: 40px;
+    color: $primary_default;
+    outline: none;
+    background: $greyscale_inputBG;
+  }
+  &:active{
+    border-radius: 40px;
+    background: rgba(0, 0, 0, 0);
+    color: $primary_default;
+  }
+  &:disabled{
+    opacity: 0.5;
+    color: $primary_default;
+    background: rgba(0, 0, 0, 0);
+    border-radius: 40px;
+  }
+}  
+.loading-spinner{
+  display: inline-block;
+  width: 1rem;
+  height: 1rem;
+  vertical-align: text-bottom;
+  border: .25em solid currentColor;
+  border-right-color: transparent;
+  border-radius: 50%;
+  -webkit-animation: .75s linear infinite spinner-border;
+  animation: .75s linear infinite spinner-border;
+}           
+
+@keyframes spinner-border{
+  100% {
+    transform: rotate(
+  360deg
+  );
+  }
+}
+
+@keyframes loading{
+  0%{
+    content: '.';
+  }
+  50%{
+    content: '..';
+  }
+  100%{
+    content: '...';
+  }
+}
