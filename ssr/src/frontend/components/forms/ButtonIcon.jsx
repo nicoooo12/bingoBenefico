@@ -1,7 +1,7 @@
 import React from 'react';
 import Icon from '../display/Icon';
 import '../../assets/styles/components/forms/ButtonIcon.scss';
-const App = ({ size, type, typebutton, state, onClick })=> {
+const App = ({ size, type, typebutton, state, onClick, icon = 'forward' })=> {
 
   return (
     <button
@@ -12,7 +12,7 @@ const App = ({ size, type, typebutton, state, onClick })=> {
       sizebutton={size ? size : 'large'}
     >
       {
-        state === 'loading' ? <div className='loading-spinner' /> : <Icon type='forward' height='24' width='24'/>
+        state === 'loading' ? <div className='loading-spinner' /> : <Icon type={icon} height='24' width='24'/>
       }
     </button>
   );

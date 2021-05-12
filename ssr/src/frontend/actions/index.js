@@ -1,42 +1,36 @@
-export const addItemToCarrito = (payload) => {
-  console.log(payload);
-  return {
-    type: 'ADD_ITEM_TO_CARRITO',
-    payload,
-  };
-};
+import axios from 'axios';
 
-export const setFavorite = (payload) => ({
-  type: 'SET_FAVORITE',
+export const addItemToCarrito = (payload) =>({
+  type: 'ADD_ITEM_TO_CARRITO',
   payload,
 });
 
-export const deleteFavorite = (payload) => ({
-  type: 'DELETE_FAVORITE',
+export const removeItemToCarrito = (payload) => ({
+  type: 'REMOVE_ITEM_TO_CARRITO',
   payload,
 });
 
-export const loginRequest = (payload) => ({
-  type: 'LOGIN_REQUEST',
+export const activeCarrito = (payload) => ({
+  type: 'ACTIVE_CARRITO',
   payload,
 });
 
-export const logoutRequest = (payload) => ({
-  type: 'LOGOUT_REQUEST',
+export const desactiveCarrito = (payload) => ({
+  type: 'DESACTIVE_CARRITO',
   payload,
 });
 
-export const registerRequest = (payload) => ({
-  type: 'REGISTER_REQUEST',
+export const statusNextCarrito = (payload) => ({
+  type: 'STATUS_NEXT_CARRITO',
   payload,
 });
 
-export const getVideoSource = (payload) => ({
-  type: 'GET_VIDEO_SOURCE',
+export const setStatusCarrito = (payload) => ({
+  type: 'SET_STATUS_CARRITO',
   payload,
 });
 
-export const register = (payload, urlRedirect) => {
+export const createOrden = (payload, urlRedirect) => {
   return (dispatch) => {
     axios.post('/auth', payload)
       .then(({ data }) => {
@@ -45,5 +39,31 @@ export const register = (payload, urlRedirect) => {
       .then(() => {
         window.location.href = urlRedirect;
       });
+  };
+};
+
+export const singUp = (payload, fnCallBack) => {
+  return (dispatch) => {
+    axios.post('/auth/sign-up', payload)// {email, name, password}
+      .then(({ data }) => {
+        dispatch(registerRequest(data));
+      })
+      .then(() => {
+        fnCallBack();
+      })
+      .catch((error) => dispatch(setError(error)));
+  };
+};
+
+export const singIn = (payload, fnCallBack) => {
+  return (dispatch) => {
+    axios.post('/auth/sign-in', payload)// {email, password}
+      .then(({ data }) => {
+        dispatch(registerRequest(data));
+      })
+      .then(() => {
+        fnCallBack();
+      })
+      .catch((error) => dispatch(setError(error)));
   };
 };

@@ -1,0 +1,30 @@
+@import '../../Index.scss';
+
+.pagination{
+  display: flex;
+  align-content: center;
+  align-items: center;
+  justify-content: space-around;
+  &>.items{
+    display: flex;
+  }
+  transition: .5s;
+}
+
+.pag{
+  width: 25px;
+  height: 8px;
+  background: $greyscale_inputBG;
+  border-radius: 20px;
+  transition: .5s;
+  margin: 3px;
+}
+
+.pag-active{
+  transition: .5s;
+  width: 40px;
+  height: 10px;
+  background: $greyscale_placeholder;
+  border-radius: 20px;
+  margin: 3px;
+}

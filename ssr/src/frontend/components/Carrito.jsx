@@ -1,102 +1,100 @@
 import React from 'react';
 import { connect } from 'react-redux';
-
-import Buttons from './ButtonGroup';
+// import { desactiveCarrito } from '../';
+import { Link } from 'react-router-dom';
+import Icon from './display/Icon';
+import IncrementStepper from './forms/IncrementStepper';
+import Button from './forms/Button';
 import '../assets/styles/components/Carrito.scss';
-const App = ({ carrito, active, ...props })=> {
+import { addItemToCarrito, removeItemToCarrito, desactiveCarrito } from '../actions';
+
+const App = ({ carrito, addItemToCarrito, removeItemToCarrito, desactiveCarrito })=> {
 
   let totalCarrito = 0;
   let totalPrecio = 0;
-  carrito.forEach((element) => {
+  carrito.data.forEach((element) => {
     totalCarrito += (element.cantidad);
     totalPrecio += (element.precio * element.cantidad);
   });
 
-  const click = (e)=>{
-    if (
-      !e.path.filter((e)=> e === document.getElementsByClassName('carrito__factura')[0])[0] &&
-      !e.path.filter((e)=> e === document.getElementsByClassName('carrito__button')[0])[0]
-    ) {
-      document.addEventListener('click', click);props.desactive();
+  const addCarritoHandle = (id, cantidad)=>{
+    addItemToCarrito({ serie: id.serie, title: id.title, precio: id.precio });
+  };
+
+  const subtractCarritoHandle = (id, cantidad)=>{
+    removeItemToCarrito({ serie: id.serie, title: id.title, precio: id.precio });
+    if (cantidad <= 0) {
+      desactiveCarrito();
     }
   };
 
   return (
-    <>
-      <div className='carrito'>
-        <button className='carrito__button' onClick={()=>{document.addEventListener('click', click); props.activefn();}}>
-          <svg xmlns='http://www.w3.org/2000/svg' width='16' height='16' fill='currentColor' className='bi bi-cart-fill' viewBox='0 0 16 16'>
-            <path d='M0 1.5A.5.5 0 0 1 .5 1H2a.5.5 0 0 1 .485.379L2.89 3H14.5a.5.5 0 0 1 .491.592l-1.5 8A.5.5 0 0 1 13 12H4a.5.5 0 0 1-.491-.408L2.01 3.607 1.61 2H.5a.5.5 0 0 1-.5-.5zM5 12a2 2 0 1 0 0 4 2 2 0 0 0 0-4zm7 0a2 2 0 1 0 0 4 2 2 0 0 0 0-4zm-7 1a1 1 0 1 1 0 2 1 1 0 0 1 0-2zm7 0a1 1 0 1 1 0 2 1 1 0 0 1 0-2z'/>
-          </svg>
-          &nbsp;
-          {totalCarrito}
-        </button>
-        { active && (
-          <div className='carrito__factura'>
-            <div className='carrito__header'>
-              <h1>Carrito de compras</h1>
-              <button onClick={()=>{document.addEventListener('click', click);props.desactive();}}>
-                <svg xmlns='http://www.w3.org/2000/svg' width='40' height='40' fill='currentColor' className='bi bi-x' viewBox='0 0 16 16'>
-                  <path d='M4.646 4.646a.5.5 0 0 1 .708 0L8 7.293l2.646-2.647a.5.5 0 0 1 .708.708L8.707 8l2.647 2.646a.5.5 0 0 1-.708.708L8 8.707l-2.646 2.647a.5.5 0 0 1-.708-.708L7.293 8 4.646 5.354a.5.5 0 0 1 0-.708z'/>
-                </svg>
-              </button>
-            </div>
-            <div className='carrito__tableContent'>
-              <table className='carrito__table'>
-                <thead>
-                  <tr>
-                    <th className='th__title'>Articulo</th>
-                    <th className='th__button'>Cantidad</th>
-                    <th className='th__precio'>Precio</th>
-                  </tr>
-                </thead>
-                <tbody>
-                  {carrito.map((e, index)=>{
-                    return (
-                      <tr key={index}>
-                        <td className='td__title'>{e.title}</td>
-                        <td className='td__button'>
-                          <Buttons title={e.title} serie={e.serie} precio={e.precio} />
-                        </td>
-                        <td className='td__precio'>${e.precio}</td>
-                      </tr>
-                    );
-                  })}
-                </tbody>
-                <tfoot>
-                  <tr>
-                    <td className='td__title'>Total</td>
-                    <td className='td__button'>{totalCarrito}</td>
-                    <td className='td__precio'>${totalPrecio}</td>
-                  </tr>
-                </tfoot>
-              </table>
-              <button className='carrito__btnPagar' onClick={()=>{document.addEventListener('click', click);props.desactive();}} >Pagar ${totalPrecio}</button>
-            </div>
-          </div>
-        )}
+    <div className='carrito'>
+      <div className='carrito__head'>
+        <h1>Carrito de compras</h1>
+        <div className='icon' onClick={desactiveCarrito} >
+          <Icon width='30' height='30' />
+        </div>
       </div>
-    </>
+      <div className='carrito__body'>
+        <table className='carrito__table'>
+          <thead>
+            <tr>
+              <th className='th__title'>Articulo</th>
+              <th className='th__button'>Cantidad</th>
+              <th className='th__precio'>Precio</th>
+            </tr>
+          </thead>
+          <tbody>
+            {carrito.data.map((e, index)=>{
+              return (
+                <tr key={index}>
+                  <td className='td__title'>{e.title}</td>
+                  <td className='td__button'>
+                    {
+                      !carrito.state >= 1 ?
+                        <IncrementStepper text={false} setStartCount={e.cantidad} key={index} idHandler={{ serie: e.serie, title: e.title, precio: e.precio }} handlerAdd={addCarritoHandle} handlerSubtract={subtractCarritoHandle}/> :
+                        <p>{e.cantidad}</p>
+                    }
+                  </td>
+                  <td className='td__precio'>${e.precio}</td>
+                </tr>
+              );
+            })}
+          </tbody>
+          <tfoot>
+            <tr>
+              <td className='td__title'>Total</td>
+              <td className='td__button'>{totalCarrito} unidades</td>
+              <td className='td__precio'>${totalPrecio}</td>
+            </tr>
+          </tfoot>
+        </table>
+      </div>
+      <div className='carrito__footer'>
+        <Link to='/compra' >
+          {
+            carrito.state >= 1 ?
+              <Button>Continuar pagando ${totalPrecio}</Button> :
+              <Button>Pagar ${totalPrecio}</Button>
+          }
+        </Link>
+      </div>
+    </div>
   );
 
 };
 
-const mapDispatchToProps = (dispatch)=>{
+const mapStateToProps = (state) => {
   return {
-    activefn: () => {
-      dispatch({ type: 'ACTIVE_CARRITO' });
-    },
-    desactive: () => {
-      dispatch({ type: 'DESACTIVE_CARRITO' });
-    },
+    carrito: state.carrito,
   };
 };
 
-const mapStateToProps = (state) => {
-  return {
-    carrito: state.carrito.data,
-    active: state.carrito.active,
-  };
+const mapDispatchToProps = {
+  addItemToCarrito,
+  removeItemToCarrito,
+  desactiveCarrito,
 };
 
 export default connect(mapStateToProps, mapDispatchToProps)(App);

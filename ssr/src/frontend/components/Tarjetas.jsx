@@ -1,9 +1,20 @@
 import React from 'react';
-import Button from '../components/forms/IncrementStepper';
-import Badges from './Badges';
+import { connect } from 'react-redux';
+import Button from './forms/IncrementStepper';
+import Badges from './display/Badges';
+
+import { addItemToCarrito, removeItemToCarrito } from '../actions';
 
 import '../assets/styles/components/Tarjetas.scss';
-const App = ({ title, subTitle, precio, serie, premios })=> {
+const App = ({ title, subTitle, precio, serie, premios, addItemToCarrito, removeItemToCarrito, carrito })=> {
+
+  const addCarritoHandle = (serie, cantidad)=>{
+    addItemToCarrito({ serie, title, precio: precio });
+  };
+
+  const subtractCarritoHandle = (serie, cantidad)=>{
+    removeItemToCarrito({ serie, title, precio: precio });
+  };
 
   return (
     <div className='tarjeta'>
@@ -16,7 +27,7 @@ const App = ({ title, subTitle, precio, serie, premios })=> {
         </div>
         <p className='tarjeta__subTitle'>{subTitle}</p>
         <div className='tarjeta__componentsGroup'>
-          <Button title={title} precio={precio} serie={serie} />
+          <Button disabledButton={!!carrito.state >= 1} idHandler={serie} setStartCount={carrito.data.filter((e)=>{return e.serie === serie;})[0] ? carrito.data.filter((e)=>{return e.serie === serie;})[0].cantidad : 0} handlerAdd={addCarritoHandle} handlerSubtract={subtractCarritoHandle} />
           <Badges>{'$' + precio + ' CLP'}</Badges>
         </div>
       </div>
@@ -25,4 +36,16 @@ const App = ({ title, subTitle, precio, serie, premios })=> {
 
 };
 
-export default App;
+const mapStateToProps = (state)=>{
+
+  return {
+    carrito: state.carrito,
+  };
+
+};
+const mapDispatchToProps = {
+  addItemToCarrito,
+  removeItemToCarrito,
+};
+
+export default connect(mapStateToProps, mapDispatchToProps)(App);

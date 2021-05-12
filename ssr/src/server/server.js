@@ -77,6 +77,7 @@ const renderApp = (req, res) => {
 };
 
 require('./router/auth')(app);
+require('./router/api')(app);
 app.get('*', renderApp);
 
 app.listen(config.port, () => {

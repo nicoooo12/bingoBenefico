@@ -22,14 +22,17 @@
   @extend %Typography-text-LXS;
   font-size: 13px;
   position: absolute;
-  width: 200px;
+  width: 170px;
   height: 56px;
   left: 32px;
 }
 
 .buttonGroup__buttonAction{
-  width: 40px;
-  height: 40px;
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  width: 35px;
+  height: 35px;
   border-radius: 22px;
   margin: 0;
   outline: none;
@@ -54,25 +57,6 @@
   }
 }
 
-// @media (max-width: $mediaWidth1){
-//   .buttonGroup__buttonComprar{
-//     font-size: 12px;
-//     left: 10px;
-//   }
-//   .buttonGroup__buttonComprar{
-//     margin: 0;
-//     margin-left: 10px;
-//   }
-// }
-
-// @media (max-width: $mediaWidth2){
-//   .buttonGroup__buttonComprar{
-//     margin-left: 5px;
-//     width: 130px;
-//     padding: 0.4rem .001rem;
-//   }
-// }
-
 %btn-primary{
   // width: 200px;
   // height: 64px;
@@ -93,5 +77,29 @@
     background: $primary_default;
     opacity: 0.5;
     box-shadow: 0px 4px 4px rgba(0, 0, 0, 0.25);
+  }
+}
+
+@media (max-width: $mediaWidthMobileM){
+  .buttonGroup__buttonComprar{
+    font-size: 12px;
+    left: 10px;
+  }
+  .buttonGroup__buttonComprar{
+    margin: 0;
+    margin-left: 10px;
+  }
+}
+
+@media (max-width: $mediaWidthMobileS){
+  .buttonGroup{
+    padding: 0;
+    left: -32px;
+    position: relative;
+  }
+  .buttonGroup__buttonComprar{
+    margin-left: 5px;
+    width: 150px;
+    padding: 0.4rem .001rem;
   }
 }

@@ -1,0 +1,10 @@
+@import '../Index.scss';
+
+.compras{
+  width: 100%;
+  &>header{
+    position: absolute;
+    top: 0px;
+  }
+
+}

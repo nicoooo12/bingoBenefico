@@ -1,11 +1,11 @@
 import React, { useState, useEffect } from 'react';
 // import { connect } from 'react-redux';
-// import { Link } from 'react-router-dom';
+import { Link } from 'react-router-dom';
 import Icon from './display/Icon';
 import Card from './display/Card';
 
 import '../assets/styles/components/Header.scss';
-const App = ({ title, icon, children })=> {
+const App = ({ title, icon, children, to })=> {
 
   const [focusHeader, setFocusHeader] = useState(true);
   let observer;
@@ -26,29 +26,33 @@ const App = ({ title, icon, children })=> {
         focusHeader ?
           <>
             <div className='contentLibre-off'>
-              <div className='forwardIcon'>
-                <Icon type='forward' width='24' height='24'/>
-              </div>
+              {/* <Link to={to} >
+                <div className='forwardIcon'>
+                  <Icon type='forward' width='24' height='24'/>
+                </div>
+              </Link> */}
               <h1>Bingoloteando</h1>
               {
                 icon ?
                   <div className='lastIcon'>
                     <Icon type={icon} width='24' height='24'/>
-                  </div> : false
+                  </div> : <div> </div>
               }
             </div>
           </> :
           <>
             <div className='contentLibre'>
-              <div className='forwardIcon'>
-                <Icon type='forward' width='24' height='24'/>
-              </div>
+              <Link to={to} >
+                <div className='forwardIcon'>
+                  <Icon type='forward' width='24' height='24'/>
+                </div>
+              </Link>
               <h1>Bingoloteando</h1>
               {
                 icon ?
                   <div className='lastIcon'>
                     <Icon type={icon} width='24' height='24'/>
-                  </div> : false
+                  </div> : <div> </div>
               }
             </div>
           </>
@@ -57,15 +61,17 @@ const App = ({ title, icon, children })=> {
         <div className='header'>
           <div className='banner'> </div>
           <div className='content'>
-            <div className='forwardIcon'>
-              <Icon type='forward' width='24' height='24'/>
-            </div>
+            <Link to={to} >
+              <div className='forwardIcon'>
+                <Icon type='forward' width='24' height='24'/>
+              </div>
+            </Link>
             <h1>Bingoloteando</h1>
             {
               icon ?
                 <div className='lastIcon'>
                   <Icon type={icon} width='24' height='24'/>
-                </div> : false
+                </div> : <div> </div>
             }
           </div>
           <div className='info'>

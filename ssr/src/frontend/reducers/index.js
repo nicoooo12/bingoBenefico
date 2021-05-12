@@ -10,7 +10,8 @@ const reducer = (state, action) => {
               return { ...e, cantidad: state.carrito.data[o].cantidad + 1 };
             }
             return e;
-          }), (state.carrito.data.filter((e)=>e.serie === action.payload.serie)[0] ? undefined : { ...action.payload, cantidad: 1 })].filter((e)=>e !== undefined) : [{ ...action.payload, cantidad: 1 }],
+          }), (state.carrito.data.filter((e)=>e.serie === action.payload.serie)[0] ? undefined : { ...action.payload, cantidad: 1 })].filter((e)=>e !== undefined) :
+            [{ ...action.payload, cantidad: 1 }],
         },
       };
     case 'REMOVE_ITEM_TO_CARRITO':
@@ -38,6 +39,18 @@ const reducer = (state, action) => {
       return {
         ...state,
         carrito: { ...state.carrito, active: false },
+      };
+
+    case 'STATUS_NEXT_CARRITO':
+      return {
+        ...state,
+        carrito: { ...state.carrito, state: state.carrito.state + 1 },
+      };
+
+    case 'SET_STATUS_CARRITO':
+      return {
+        ...state,
+        carrito: { ...state.carrito, state: action.payload },
       };
 
     default:

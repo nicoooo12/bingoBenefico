@@ -1,6 +1,6 @@
 import React from 'react';
 
-import '../assets/styles/components/Badges.scss';
+import '../../assets/styles/components/display/Badges.scss';
 const App = ({ children })=> {
 
   return (

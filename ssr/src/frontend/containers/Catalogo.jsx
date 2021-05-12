@@ -1,17 +1,18 @@
 import React from 'react';
 import { connect } from 'react-redux';
 
-import Header from '../components/Header';
+import Header from '../components/Header-carrito';
 import ButtonIcon from '../components/forms/ButtonIcon';
 // import Footer from '../components/Footer';
 import MainContent from '../components/MainContent';
 import Title from '../components/Title';
 // import Section from '../components/Section';
 import Tarjeta from '../components/Tarjetas';
+import Carrito from '../components/Carrito';
 // import Carrito from '../components/Carrito';
 // import { Link } from 'react-router-dom';
 
-const App = ({ catalogos })=> {
+const App = ({ catalogos, carrito })=> {
 
   const clickHandler = ()=>{
     document.querySelector('#react').scrollTo(0, document.querySelector('header').offsetHeight);
@@ -27,21 +28,25 @@ const App = ({ catalogos })=> {
         </div>
       </Header>
       <MainContent>
-        <Title title='Catalogo'/>
         {
-          catalogos.map(
-            (item, index)=>
-              (
-                <Tarjeta
-                  key={index}
-                  title={item.title}
-                  subTitle={item.subTitle}
-                  precio={item.precio}
-                  serie={item.serie}
-                  premios={item.premios.map((e, i)=>i === 0 ? `${e.nombre} ` : `~ ${e.nombre}`)}
-                />
-              ),
-          )
+          !carrito.active ?
+            <>
+              <Title title='Catalogo'/>
+              {catalogos.map(
+                (item, index)=>
+                  (
+                    <Tarjeta
+                      key={index}
+                      title={item.title}
+                      subTitle={item.subTitle}
+                      precio={item.precio}
+                      serie={item.serie}
+                      premios={item.premios.map((e, i)=>i === 0 ? `${e.nombre} ` : `~ ${e.nombre}`)}
+                    />
+                  ),
+              )}
+            </> :
+            <Carrito />
         }
       </MainContent>
       {/* <Footer/> */}
@@ -52,6 +57,7 @@ const App = ({ catalogos })=> {
 
 const mapDispatchToProps = (state)=>{
   return {
+    carrito: state.carrito,
     catalogos: state.catalogos,
   };
 };

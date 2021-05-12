@@ -98,6 +98,7 @@ export default {
   ],
   'carrito': {
     active: false,
+    state: 0,
     data: [],
   },
 };
