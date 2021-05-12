@@ -53,6 +53,20 @@ const reducer = (state, action) => {
         carrito: { ...state.carrito, state: action.payload },
       };
 
+    case 'SET_REDIRECT':
+      return {
+        ...state,
+        redirect: action.payload,
+      };
+
+    case 'LOGIN_REQUEST':
+    case 'REGISTER_REQUEST':
+    case 'LOGOUT_REQUEST':
+      return {
+        ...state,
+        user: action.payload,
+      };
+
     default:
       return state;
   }

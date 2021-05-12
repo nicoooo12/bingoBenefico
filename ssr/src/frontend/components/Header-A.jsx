@@ -7,8 +7,8 @@ import '../assets/styles/components/Header.scss';
 const App = ({ icon, to })=> {
 
   return (
-    <>
-      <div className='contentLibre'>
+    <header>
+      <div className='contentLibreA'>
         <Link to={to} >
           <div className='forwardIcon'>
             <Icon type='forward' width='24' height='24'/>
@@ -22,7 +22,7 @@ const App = ({ icon, to })=> {
             </div> : <div> </div>
         }
       </div>
-    </>
+    </header>
   );
 
 };

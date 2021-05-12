@@ -31,15 +31,8 @@
     align-items: center;
     justify-content: center;
     align-content: center;
-    &>a{
-      display: flex;
-      align-items: center;
-      justify-content: space-around;
-      align-content: center;
-      width: 100%;
-      &>.button{
+    &>.button{
         width: 80%;
-      } 
     } 
   }
 }

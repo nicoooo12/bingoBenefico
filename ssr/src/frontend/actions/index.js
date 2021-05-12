@@ -30,6 +30,31 @@ export const setStatusCarrito = (payload) => ({
   payload,
 });
 
+export const loginRequest = (payload) => ({
+  type: 'LOGIN_REQUEST',
+  payload,
+});
+
+export const logoutRequest = (payload) => ({
+  type: 'LOGOUT_REQUEST',
+  payload,
+});
+
+export const registerRequest = (payload) => ({
+  type: 'REGISTER_REQUEST',
+  payload,
+});
+
+export const setRedirect = (payload) => ({
+  type: 'SET_REDIRECT',
+  payload,
+});
+
+export const setError = (payload) => ({
+  type: 'SET_ERROR',
+  payload,
+});
+
 export const createOrden = (payload, urlRedirect) => {
   return (dispatch) => {
     axios.post('/auth', payload)
@@ -51,19 +76,36 @@ export const singUp = (payload, fnCallBack) => {
       .then(() => {
         fnCallBack();
       })
-      .catch((error) => dispatch(setError(error)));
+      .catch((error) => {
+        console.log('[error:(]', error);
+        dispatch(setError(error));
+      });
   };
 };
 
-export const singIn = (payload, fnCallBack) => {
+export const singIn = ({ email, password }, fnCallback, fnErrorCallback) => {
   return (dispatch) => {
-    axios.post('/auth/sign-in', payload)// {email, password}
+    axios({
+      url: '/auth/sign-in',
+      method: 'post',
+      auth: {
+        username: email,
+        password,
+      },
+    })// {email, password}
       .then(({ data }) => {
+        document.cookie = `email=${data.user.email}`;
+        document.cookie = `name=${data.user.name}`;
+        document.cookie = `id=${data.user.id}`;
         dispatch(registerRequest(data));
       })
       .then(() => {
-        fnCallBack();
+        fnCallback();
       })
-      .catch((error) => dispatch(setError(error)));
+      .catch((error) => {
+        fnErrorCallback(error);
+        // console.log(error.request.status);
+        dispatch(setError(error));
+      });
   };
 };

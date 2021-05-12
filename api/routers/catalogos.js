@@ -40,14 +40,12 @@ module.exports = function (app) {
   })
 
   router.get('/', //create My orden (user.id, data)
-  passport.authenticate('jwt', { session: false }),
-  scopesValidationHandler(['read:catalogos']),
   async (req,res,next)=>{
     try {
       let newCatalogo = await catalogoService.getCatalogo({})
 
       res.json({
-        message: 'created',
+        message: 'ok',
         data: newCatalogo
       }).status(201)
 
@@ -66,7 +64,7 @@ module.exports = function (app) {
       let newCatalogo = await catalogoService.updateCatalogo({_id :req.params.id}, req.body)
 
       res.json({
-        message: 'created',
+        message: 'edited',
         data: newCatalogo
       }).status(201)
 
@@ -84,7 +82,7 @@ module.exports = function (app) {
       let newCatalogo = await catalogoService.deletedCatalogo({_id :req.params.id})
 
       res.json({
-        message: 'created',
+        message: 'ok',
         data: newCatalogo
       }).status(201)
 

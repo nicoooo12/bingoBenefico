@@ -142,6 +142,24 @@ module.exports = function (app) {
     }
   })
 
+  router.get('/terminadas/my', //read my orden (user.id)
+  passport.authenticate('jwt', { session: false }),
+  scopesValidationHandler(['read:myOrden']),
+  async (req,res, next)=>{
+    try {
+      
+      let getOrden = await ordenServices.getOrdenTerminadas(req.user._id)
+
+      res.json({
+        message:'ok',
+        data: getOrden,
+      }).status(200)
+
+    } catch (err) {
+      next(err)
+    }
+  })
+
   router.get('/:id', //read orden (id)
   passport.authenticate('jwt', { session: false }),
   scopesValidationHandler(['read:ordenId']),
@@ -150,6 +168,25 @@ module.exports = function (app) {
     try {
       
       let getOrden = await ordenServices.getOrden(req.params.id)
+
+      res.json({
+        message:'ok',
+        data: getOrden,
+      }).status(200)
+
+    } catch (err) {
+      next(err)
+    }
+  })
+
+  router.get('/terminadas/:id', //read orden (id)
+  passport.authenticate('jwt', { session: false }),
+  scopesValidationHandler(['read:ordenId']),
+  validationHandler(idsSchema, 'params'),
+  async (req,res, next)=>{
+    try {
+      
+      let getOrden = await ordenServices.getOrdenTerminadas(req.params.id)
 
       res.json({
         message:'ok',

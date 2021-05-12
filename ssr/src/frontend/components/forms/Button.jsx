@@ -1,12 +1,12 @@
 import React from 'react';
 import '../../assets/styles/components/forms/Button.scss';
-const App = ({ children, size, type, typebutton, state, onClick })=> {
+const App = ({ children, size, type = 'button', typebutton, state, onClick })=> {
 
   return (
     <button
       onClick={onClick}
       className='button'
-      type={type ? type : 'button'}
+      type={type}
       typebutton={typebutton ? typebutton : 'primary'}
       sizebutton={size ? size : 'large'}
     >

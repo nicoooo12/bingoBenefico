@@ -9,13 +9,24 @@ import { StaticRouter } from 'react-router';
 import { createStore } from 'redux';
 import { renderRoutes } from 'react-router-config';
 import reducer from '../frontend/reducers';
-import initialState from '../frontend/initialState';
+// import initialState from '../frontend/initialState';
 import serverRoutes from '../frontend/router/serverRouter';
+
+const axios = require('axios');
+const passport = require('passport');
+// const session = require('express-session');
+const cookieParser = require('cookie-parser');
 
 const app = express();
 
 app.use(express.urlencoded({ extended: true }));
 app.use(express.json());
+app.use(cookieParser());
+// app.use(session({ secret: config.sessionSecret }));
+app.use(passport.initialize());
+app.use(passport.session());
+
+// require('./utils/auth/strategies/basic');
 
 if (config.dev) {
   console.log('Development config');
@@ -63,7 +74,81 @@ const setResponse = (html, preloadedState) => {
   `);
 };
 
-const renderApp = (req, res) => {
+const renderApp = async (req, res) => {
+
+  const { token, email, name, id } = req.cookies;
+
+  let catalogo;
+  try {
+    const { data } = await axios({
+      method: 'get',
+      url: `${config.apiUrl}/api/catalogos`,
+    });
+    catalogo = data.data;
+  } catch (error) {
+
+  }
+  let cartones;
+  let user;
+  try {
+    const { dataCartones } = await axios({
+      method: 'get',
+      headers: { Authorization: `Bearer ${token}` },
+      url: `${config.apiUrl}/api/cartones/mys`,
+    });
+    cartones = dataCartones.data;
+    myOrden = dataOrden.data.estado;
+    user = {
+      name,
+      email,
+      id,
+    };
+  } catch (error) {
+    cartones = {};
+    user = {};
+  }
+
+  let myEndsOrden;
+  try {
+    const { dataOrden } = await axios({
+      method: 'get',
+      headers: { Authorization: `Bearer ${token}` },
+      url: `${config.apiUrl}/api/orden/my`,
+    });
+    myEndsOrden = dataOrden.data;
+  } catch (error) {
+    myEndsOrden = [];
+  }
+  let myInProgressOrden;
+  try {
+    const { dataOrden } = await axios({
+      method: 'get',
+      headers: { Authorization: `Bearer ${token}` },
+      url: `${config.apiUrl}/api/orden/terminadas/my`,
+    });
+    myInProgressOrden = dataOrden.data[0];
+  } catch (error) {
+    myInProgressOrden = {};
+  }
+
+  const initialState = {
+    'user': user,
+    'redirect': '',
+    'cartonesUser': cartones,
+    'ordenes': {
+      enProgreso: myInProgressOrden,
+      terminadas: myEndsOrden,
+    },
+    'catalogos': catalogo,
+    'carrito': {
+      active: false,
+      state: myInProgressOrden._id ? 1 : 0,
+      data: [],
+    },
+  };
+
+  // console.log(initialState);
+
   const store = createStore(reducer, initialState);
   const preloadedState = store.getState();
   const html = renderToString(

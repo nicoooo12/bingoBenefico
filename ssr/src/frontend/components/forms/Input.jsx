@@ -1,7 +1,7 @@
 import React from 'react';
 import Icon from '../display/Icon';
 import '../../assets/styles/components/forms/Input.scss';
-const App = ({ type, placeholder, name, text = '' })=> {
+const App = ({ type, placeholder, name, text = '', onChange, autoComplete = 'true' })=> {
 
   const Input = React.createRef(Input);
 
@@ -11,9 +11,9 @@ const App = ({ type, placeholder, name, text = '' })=> {
 
   return (
     <div className='input'>
-      <input type={type} name={name} id={placeholder} placeholder={placeholder} ref={Input}/>
+      <input autoComplete={autoComplete} type={type} name={name} onChange={onChange} id={placeholder} placeholder={placeholder} ref={Input}/>
       <div>
-        <button onClick={delHandler}>
+        <button onClick={delHandler} type='button'>
           <Icon type='close' />
         </button>
       </div>

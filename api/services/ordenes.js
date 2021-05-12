@@ -124,6 +124,24 @@ async function getOrden(id){
 
 }
 
+async function getOrdenTerminadas(id){
+
+  try {
+    
+    let getOrden = await store.get('ordenesTerminadas', {
+      user: id,
+    })
+
+    return getOrden
+
+  } catch (err) {
+    
+    throw new Error(err)
+
+  }
+
+}
+
 async function editOrden(id, data){
   try {
     let editOrden = await store.put(table, {user: id}, data)
@@ -211,4 +229,5 @@ module.exports = {
   cancelOrden,
   terminarOrden,
   addComment,
+  getOrdenTerminadas,
 }

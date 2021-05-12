@@ -12,7 +12,7 @@ import Carrito from '../components/Carrito';
 // import Carrito from '../components/Carrito';
 // import { Link } from 'react-router-dom';
 
-const App = ({ catalogos, carrito })=> {
+const App = ({ catalogos, carrito, history })=> {
 
   const clickHandler = ()=>{
     document.querySelector('#react').scrollTo(0, document.querySelector('header').offsetHeight);
@@ -37,8 +37,8 @@ const App = ({ catalogos, carrito })=> {
                   (
                     <Tarjeta
                       key={index}
-                      title={item.title}
-                      subTitle={item.subTitle}
+                      title={item.titulo}
+                      subTitle={item.subTitulo}
                       precio={item.precio}
                       serie={item.serie}
                       premios={item.premios.map((e, i)=>i === 0 ? `${e.nombre} ` : `~ ${e.nombre}`)}
@@ -46,7 +46,7 @@ const App = ({ catalogos, carrito })=> {
                   ),
               )}
             </> :
-            <Carrito />
+            <Carrito history={history}/>
         }
       </MainContent>
       {/* <Footer/> */}

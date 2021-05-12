@@ -111,6 +111,56 @@ header{
   }
 }
 
+.contentLibreA{
+  transition: .3s all;
+  top: 0px;
+  background: $greyscale_off-white;
+  z-index: 100000;
+  height: 60px;
+  width: 100%;
+  display: flex;
+  position: sticky;
+  justify-content: space-between;
+  align-items: center;
+
+
+  &>a>.forwardIcon{
+    z-index: 10000;
+    transition: 1s all;
+    color: $primary_dark;
+    position: relative;
+    // top: 20px;
+    margin-left: 10px;
+    display: inline-block;
+  }
+  &>.forwardIcon{
+    z-index: 10000;
+    color: $primary_dark;
+    position: relative;
+    // top: 20px;
+    margin-left: 10px;
+    display: inline-block;
+  }
+  &>h1{
+    transition: 1s all;
+    color: $primary_dark;
+    display: inline-block;
+    position: relative;
+    // top: 20px;
+    @extend %Typography-text-LM;
+  }
+  &>.lastIcon{
+    margin-right: 10px;
+    transition: 1s all;
+    width: 42px;
+    display: inline-block;
+    z-index: 1000000000000000000;
+    position: relative;
+    // top: 20px;
+    color: $primary_dark;
+  }
+}
+
 .header{
   width: 100%;
   margin-bottom: 40px;

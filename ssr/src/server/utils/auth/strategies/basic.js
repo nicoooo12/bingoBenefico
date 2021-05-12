@@ -11,8 +11,8 @@ passport.use(
         url: `${config.apiUrl}/api/auth/sign-in`,
         method: 'post',
         auth: {
-          password,
           username: email,
+          password,
         },
         data: {
           apiKeyToken: config.apiKeyToken,
@@ -25,6 +25,7 @@ passport.use(
 
       return cb(null, data);
     } catch (error) {
+      console.log('[[error]]', error);
       cb(error);
     }
   }));

@@ -29,7 +29,7 @@ const mySchemaOrdenes = new Schema({
   compra: Array,
   totalPago: Number,
   tipoDePago: String,
-  estado: Number, // 0: finalizado, 1: en revisión, 2: incida
+  estado: Number, // 0: finalizado, 1: en revisión, 2: iniciada
   canvasUrl: Boolean,
   user: String,
   message: String,

@@ -1,14 +1,14 @@
 import React from 'react';
 import { connect } from 'react-redux';
 // import { desactiveCarrito } from '../';
-import { Link } from 'react-router-dom';
+// import { Link } from 'react-router-dom';
 import Icon from './display/Icon';
 import IncrementStepper from './forms/IncrementStepper';
 import Button from './forms/Button';
 import '../assets/styles/components/Carrito.scss';
-import { addItemToCarrito, removeItemToCarrito, desactiveCarrito } from '../actions';
+import { addItemToCarrito, removeItemToCarrito, desactiveCarrito, setRedirect } from '../actions';
 
-const App = ({ carrito, addItemToCarrito, removeItemToCarrito, desactiveCarrito })=> {
+const App = ({ carrito, addItemToCarrito, removeItemToCarrito, desactiveCarrito, history, user, setRedirect })=> {
 
   let totalCarrito = 0;
   let totalPrecio = 0;
@@ -16,6 +16,13 @@ const App = ({ carrito, addItemToCarrito, removeItemToCarrito, desactiveCarrito 
     totalCarrito += (element.cantidad);
     totalPrecio += (element.precio * element.cantidad);
   });
+
+  const initPayHandler = ()=>{
+    if (!user.email) {
+      setRedirect('/compra');
+    }
+    history.push('/compra');
+  };
 
   const addCarritoHandle = (id, cantidad)=>{
     addItemToCarrito({ serie: id.serie, title: id.title, precio: id.precio });
@@ -72,13 +79,11 @@ const App = ({ carrito, addItemToCarrito, removeItemToCarrito, desactiveCarrito 
         </table>
       </div>
       <div className='carrito__footer'>
-        <Link to='/compra' >
-          {
-            carrito.state >= 1 ?
-              <Button>Continuar pagando ${totalPrecio}</Button> :
-              <Button>Pagar ${totalPrecio}</Button>
-          }
-        </Link>
+        {
+          carrito.state >= 1 ?
+            <Button onClick={initPayHandler} >Continuar pagando ${totalPrecio}</Button> :
+            <Button onClick={initPayHandler} >Pagar ${totalPrecio}</Button>
+        }
       </div>
     </div>
   );
@@ -88,6 +93,7 @@ const App = ({ carrito, addItemToCarrito, removeItemToCarrito, desactiveCarrito 
 const mapStateToProps = (state) => {
   return {
     carrito: state.carrito,
+    user: state.user,
   };
 };
 
@@ -95,6 +101,7 @@ const mapDispatchToProps = {
   addItemToCarrito,
   removeItemToCarrito,
   desactiveCarrito,
+  setRedirect,
 };
 
 export default connect(mapStateToProps, mapDispatchToProps)(App);
