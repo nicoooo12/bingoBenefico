@@ -44,44 +44,50 @@ const App = ({ carrito, addItemToCarrito, removeItemToCarrito, desactiveCarrito,
         </div>
       </div>
       <div className='carrito__body'>
-        <table className='carrito__table'>
-          <thead>
-            <tr>
-              <th className='th__title'>Articulo</th>
-              <th className='th__button'>Cantidad</th>
-              <th className='th__precio'>Precio</th>
-            </tr>
-          </thead>
-          <tbody>
-            {carrito.data.map((e, index)=>{
-              return (
-                <tr key={index}>
-                  <td className='td__title'>{e.title}</td>
-                  <td className='td__button'>
-                    {
-                      !carrito.state >= 1 ?
-                        <IncrementStepper text={false} setStartCount={e.cantidad} key={index} idHandler={{ serie: e.serie, title: e.title, precio: e.precio }} handlerAdd={addCarritoHandle} handlerSubtract={subtractCarritoHandle}/> :
-                        <p>{e.cantidad}</p>
-                    }
-                  </td>
-                  <td className='td__precio'>${e.precio}</td>
+        {
+          carrito.data[0] ?
+            <table className='carrito__table'>
+              <thead>
+                <tr>
+                  <th className='th__title'>Articulo</th>
+                  <th className='th__button'>Cantidad</th>
+                  <th className='th__precio'>Precio</th>
                 </tr>
-              );
-            })}
-          </tbody>
-          <tfoot>
-            <tr>
-              <td className='td__title'>Total</td>
-              <td className='td__button'>{totalCarrito} unidades</td>
-              <td className='td__precio'>${totalPrecio}</td>
-            </tr>
-          </tfoot>
-        </table>
+              </thead>
+              <tbody>
+                {carrito.data.map((e, index)=>{
+                  return (
+                    <tr key={index}>
+                      <td className='td__title'>{e.title}</td>
+                      <td className='td__button'>
+                        {
+                          !carrito.state >= 1 ?
+                            <IncrementStepper text={false} setStartCount={e.cantidad} key={index} idHandler={{ serie: e.serie, title: e.title, precio: e.precio }} handlerAdd={addCarritoHandle} handlerSubtract={subtractCarritoHandle}/> :
+                            <p>{e.cantidad}</p>
+                        }
+                      </td>
+                      <td className='td__precio'>${e.precio}</td>
+                    </tr>
+                  );
+                })}
+              </tbody>
+              <tfoot>
+                <tr>
+                  <td className='td__title'>Total</td>
+                  <td className='td__button'>{totalCarrito} unidades</td>
+                  <td className='td__precio'>${totalPrecio}</td>
+                </tr>
+              </tfoot>
+            </table> :
+            <>
+              <h1>Compra en progreso!</h1>
+            </>
+        }
       </div>
       <div className='carrito__footer'>
         {
           carrito.state >= 1 ?
-            <Button onClick={initPayHandler} >Continuar pagando ${totalPrecio}</Button> :
+            <Button onClick={initPayHandler} >Continuar pagando {carrito.data[0] ? `$${totalPrecio}` : ''}</Button> :
             <Button onClick={initPayHandler} >Pagar ${totalPrecio}</Button>
         }
       </div>

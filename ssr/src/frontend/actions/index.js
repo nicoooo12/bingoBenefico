@@ -97,7 +97,7 @@ export const singIn = ({ email, password }, fnCallback, fnErrorCallback) => {
         document.cookie = `email=${data.user.email}`;
         document.cookie = `name=${data.user.name}`;
         document.cookie = `id=${data.user.id}`;
-        dispatch(registerRequest(data));
+        dispatch(registerRequest(data.user));
       })
       .then(() => {
         fnCallback();

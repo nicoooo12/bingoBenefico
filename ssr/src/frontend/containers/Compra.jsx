@@ -3,19 +3,19 @@ import { connect } from 'react-redux';
 
 import Header from '../components/Header';
 import Pageination from '../components/forms/Pageination';
-import { statusNextCarrito, setStatusCarrito } from '../actions';
+import { statusNextCarrito, setStatusCarrito, setRedirect } from '../actions';
 import Button from '../components/forms/Button';
-// import Footer from '../components/Footer';
+import Footer from '../components/Footer';
 // import MainContent from '../components/MainContent';
 // import Title from '../components/Title';
-// import Section from '../components/Section';
+// import Auth from './SignIn';
 // import Tarjeta from '../components/Tarjetas';
 // import Carrito from '../components/Carrito';
 // import Carrito from '../components/Carrito';
 // import { Link } from 'react-router-dom';
 import '../assets/styles/containers/Compra.scss';
 
-const App = ({ catalogos, carrito, setStatusCarrito, statusNextCarrito })=> {
+const App = ({ isLogged, history, catalogos, carrito, setStatusCarrito, statusNextCarrito, setRedirect })=> {
 
   const nextHandler = (num)=>{
     if (num || num === 0) {
@@ -29,8 +29,12 @@ const App = ({ catalogos, carrito, setStatusCarrito, statusNextCarrito })=> {
     statusNextCarrito();
   };
 
+  const handleOnLoad = ()=>{
+    setRedirect('');
+  };
+
   let contentHeader;
-  console.log(carrito);
+  // console.log(carrito);
   switch (carrito.state) {
     case 0:
       contentHeader = (<>
@@ -41,8 +45,45 @@ const App = ({ catalogos, carrito, setStatusCarrito, statusNextCarrito })=> {
       break;
     case 1:
       contentHeader = (<>
-        <h1>Datos bancarios.</h1>
-        <p>Para realizar el pago deberá realizar una transferencia electrónica (Datos de la transacción se presentarán a continuación) y posteriormente mandarnos un comprobante de esta transacción. Sus cartones sólo serán liberados una vez que nos envíe este comprobante.</p>
+        <h1>Datos<br/>bancarios.</h1>
+        <p>
+          <table className='bank__table'>
+            <thead>
+              {/* <tr>
+                <th className='th__start'>Correo </th>
+                <th className='th__end'>example@example.com</th>
+              </tr> */}
+            </thead>
+            <tbody>
+              <tr>
+                <td className='td__start'>Numero de cuenta:</td>
+                <td className='td__end'>12-34567-89</td>
+              </tr>
+              <tr>
+                <td className='td__start'>Rut:</td>
+                <td className='td__end'>12.345.678-9</td>
+              </tr>
+              <tr>
+                <td className='td__start'>Titular:</td>
+                <td className='td__end'>Example name</td>
+              </tr>
+              <tr>
+                <td className='td__start'>Banco:</td>
+                <td className='td__end'>Bank name</td>
+              </tr>
+              {/* <tr>
+                <td className='td__start'>Comentario en la transferencia (Poner en el espacio de comentario)</td>
+                <td className='td__end'>Pago de cartones Bingoloteando, [Nombre] pago $[monto]</td>
+              </tr> */}
+            </tbody>
+            <tfoot>
+              <tr>
+                <td className='td__start'>Monto a Pagar: </td>
+                <td className='td__end'>$10000</td>
+              </tr>
+            </tfoot>
+          </table>
+        </p>
         <Pageination content={['Datos bancarios.', 'Subir Comprobante.']} btn={true} pag={0} nextHandler={nextHandler} />
       </>);
       break;
@@ -62,12 +103,19 @@ const App = ({ catalogos, carrito, setStatusCarrito, statusNextCarrito })=> {
   };
 
   return (
-    <div className='compras'>
-      <Header title='Pagar' to='catalogo' >
-        {contentHeader}
-      </Header>
-      {/* <Footer/> */}
-    </div>
+    <>
+      {
+        isLogged ?
+          <div className='compras' onLoad={handleOnLoad}>
+            <Header title='Pagar' to='catalogo' >
+              {contentHeader}
+            </Header>
+            <Footer/>
+          </div> :
+          <></>
+          // <Auth history={history} />
+      }
+    </>
   );
 
 };
@@ -82,6 +130,7 @@ const mapStateToProps = (state)=>{
 const mapDispatchToProps = {
   statusNextCarrito,
   setStatusCarrito,
+  setRedirect,
 };
 
 export default connect(mapStateToProps, mapDispatchToProps)(App);

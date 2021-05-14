@@ -104,6 +104,15 @@ function authApi(app) {
     }
   })
   
+  router.get('/isauth',
+  passport.authenticate('jwt', { session: false}),
+  (req,res,next)=>{
+    res.json({
+      message:'ok',
+    }).status(200)
+  }
+  )
+
 }
 
 module.exports = authApi;

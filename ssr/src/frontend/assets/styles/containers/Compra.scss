@@ -6,5 +6,50 @@
     position: absolute;
     top: 0px;
   }
+}
 
+.bank__table{
+  margin: 10px 0;
+  caption-side: bottom;
+  border-collapse: collapse;
+  width: 100%;
+  &>thead{
+    width: 100%;
+    vertical-align: bottom;
+    border-bottom: solid 2px $greyscale_inputBG;
+    &>tr>th{
+      padding: .5rem .5rem;
+      &.th__end{
+        text-align: end;
+      }
+      &.th__start{
+        text-align: start;
+      }
+    }
+  }
+  &>tbody{
+    vertical-align: inherit;
+    &>tr>td{
+      padding: .5rem .5rem;
+      &.td__end{
+        text-align: end;
+      }
+      &.td__start{
+        text-align: start;
+      }
+    }
+  }
+  &>tfoot{
+    margin-top: 10px;
+    border-top: solid 3px $greyscale_inputBG;
+    &>tr>td{
+      padding: .5rem .5rem;
+      &.td__end{
+        text-align: end;
+      }
+      &.td__start{
+        text-align: start;
+      }
+    }  
+  }
 }

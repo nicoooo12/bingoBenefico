@@ -1,0 +1,63 @@
+@import '../Index.scss';
+
+.carrusel{
+  margin: 20px 0 0 0;
+  display: flex;
+  display: flex;
+  width: 100%;
+  flex-direction: column;
+  align-items: center;
+  width: 100%;
+ 
+  &>.carrusel__img{
+    width: 95%;
+    border-radius: 20px;
+    height: 250px;
+    overflow: hidden;
+
+    &>div{
+      transition: all 1s;
+      display: flex;
+      flex-direction: row;
+      position: relative;
+      &>.carrusel__Img-item{
+        height: 250px;
+        display: flex;
+        justify-content: center;
+        &>img{
+          height: 250px;
+        }
+      }
+    }
+
+  }
+
+  &>.carrusel__foot{
+
+    &>h1{
+      @extend %Typography-text-DSB;
+    }
+    &>div{
+      transition: all 1s;
+
+      display: flex;
+      align-items: center;
+      justify-content: space-between;
+      margin: 10px 0 0 0;
+      &>p{
+      transition: all 1s;
+        
+        @extend %Typography-text-TM;
+        width: 50%;
+      }
+    }
+    background: $greyscale_off-white;
+    // height: 150px;
+    width: 90%;
+    position: relative;
+    top: -50px;
+    padding: 20px;
+    border-radius: 20px;
+  }
+
+}

@@ -4,23 +4,17 @@ import { Link } from 'react-router-dom';
 import Icon from './display/Icon';
 
 import '../assets/styles/components/Header.scss';
-const App = ({ icon, to })=> {
+const App = ()=> {
 
   return (
-    <header>
+    <header className='headerA'>
       <div className='contentLibreA'>
-        <Link to={to} >
-          <div className='forwardIcon'>
-            <Icon type='forward' width='24' height='24'/>
-          </div>
+        <Link to='/' >
+          <h1>Bingoloteando</h1>
         </Link>
-        <h1>Bingoloteando</h1>
-        {
-          icon ?
-            <div className='lastIcon'>
-              <Icon type={icon} width='24' height='24'/>
-            </div> : <div> </div>
-        }
+        <div className='lastIcon'>
+          <Icon type='list' width='24' height='24'/>
+        </div>
       </div>
     </header>
   );

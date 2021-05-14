@@ -19,7 +19,7 @@ footer{
   height: 100%;
 }
 .footer__title{
-  @extend .Typography-text-DSB;
+  @extend %Typography-text-DSB;
   align-self: flex-start;
   margin-top: 50px;
 }
@@ -29,12 +29,13 @@ footer{
     list-style: none;
   }
   &>ul>li>a{
-    @extend .Typography-text-LS;
+    @extend %Typography-text-LS;
   }
   &>ul>li>a>button{
     margin: 0;
-    color: $greyscale_body;
-    @extend .btn-text;
+    color: $greyscale_body !important;
+    font-weight: bold;
+    @extend %btn-text;
     &:hover{
       color: $greyscale_label;
     }
@@ -47,13 +48,42 @@ footer{
   text-decoration: underline 15px;
 }
 
-@media (max-width: $mediaWidth1){
+%btn-text{
+  outline: none;  
+  border-radius: 40px;
+  background: rgba(0, 0, 0, 0);
+  color: $primary_default;
+  &:hover{
+    border-radius: 40px;
+    color: $primary_dark;
+    background: rgba(0, 0, 0, 0);
+  }
+  &:focus{
+    border-radius: 40px;
+    color: $primary_default;
+    outline: none;
+    background: $greyscale_inputBG;
+  }
+  &:active{
+    border-radius: 40px;
+    background: rgba(0, 0, 0, 0);
+    color: $primary_default;
+  }
+  &:disabled{
+    opacity: 0.5;
+    color: $primary_default;
+    background: rgba(0, 0, 0, 0);
+    border-radius: 40px;
+  }
+}  
+
+@media (max-width: $mediaWidthMobileM){
   .footer__title{
     font-size: 22px ;
   }
 }
 
-@media (max-width: $mediaWidth2){
+@media (max-width: $mediaWidthMobileS){
   .footer__title{
     font-size: 16px ;
   }

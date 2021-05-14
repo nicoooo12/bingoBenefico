@@ -13,6 +13,8 @@ import MainContent from '../components/MainContent';
 
 const App = ({ singIn, history, redirect, setRedirect })=> {
 
+  console.log(redirect);
+
   const [form, setValues] = useState({
     email: '',
     name: '',
@@ -26,12 +28,14 @@ const App = ({ singIn, history, redirect, setRedirect })=> {
       [event.target.name]: event.target.value,
     });
   };
+  console.log(history);
 
   const handleSubmit = (event) => {
     event.preventDefault();
     singIn(form, ()=>{
       if (redirect) {
         history.push(redirect);
+        setRedirect('');
       } else {
         history.push('/');
       }

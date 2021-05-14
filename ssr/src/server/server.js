@@ -12,6 +12,7 @@ import reducer from '../frontend/reducers';
 // import initialState from '../frontend/initialState';
 import serverRoutes from '../frontend/router/serverRouter';
 
+const { v4: uuidv4 } = require('uuid');
 const axios = require('axios');
 const passport = require('passport');
 // const session = require('express-session');
@@ -42,33 +43,32 @@ if (config.dev) {
   app.use(webpackDevMiddleware(compiler, serverConfig));
   app.use(webpackHotMiddleware(compiler));
 } else {
-  // app.use(express.static(`${__dirname}/../../dist`));
+  app.use(express.static(`${__dirname}/../../dist`));
   app.use(helmet());
   app.use(helmet.permittedCrossDomainPolicies());
   app.disable('x-powered-by');
 }
 
-const setResponse = (html, preloadedState) => {
+const setResponse = (html, preloadedState, nonce) => {
   return (`
   <!DOCTYPE html>
   <html lang="es-Es">
   <head>
     <meta charset="UTF-8">
-    <meta name="theme-color" content="#2A00A2">
-    <meta http-equiv="X-UA-Compatible" content="IE=edge">
-    <meta name="viewport" content="width=device-width, initial-scale=1">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <meta http-equiv="X-UA-Compatible" content="ie=edge">
+    <meta charset="utf-8" />
     <link rel="stylesheet" href="main.css">
     <link rel="preconnect" href="https://fonts.gstatic.com">
     <link href="https://fonts.googleapis.com/css2?family=Poppins:wght@400;600;700&display=swap" rel="stylesheet">
     <title>Bingoloteando</title>
   </head>
   <body>
-    
     <div id="react">${html}</div>
-    <script>
+    <script id="preloadedState" nonce=${nonce}>
       window.__PRELOADED_STATE__ = ${JSON.stringify(preloadedState).replace(/</g, '\\u003c')}
     </script>
-    <script src="bundle.js"></script>
+    <script src="bundle.js" type="text/javascript"></script>
   </body>
   </html>
   `);
@@ -89,7 +89,6 @@ const renderApp = async (req, res) => {
 
   }
   let cartones;
-  let user;
   try {
     const { dataCartones } = await axios({
       method: 'get',
@@ -105,6 +104,22 @@ const renderApp = async (req, res) => {
     };
   } catch (error) {
     cartones = {};
+  }
+
+  let user;
+  try {
+    await axios({
+      method: 'get',
+      headers: { Authorization: `Bearer ${token}` },
+      url: `${config.apiUrl}/api/auth/isauth`,
+    });
+
+    user = {
+      name,
+      email,
+      id,
+    };
+  } catch (error) {
     user = {};
   }
 
@@ -147,18 +162,21 @@ const renderApp = async (req, res) => {
     },
   };
 
-  // console.log(initialState);
+  const nonceGenerator = uuidv4();
+  res.set('Content-Security-Policy', `script-src 'self' 'nonce-${nonceGenerator}';`);
 
+  // console.log(initialState);
+  const isLogged = (initialState.user.id);
   const store = createStore(reducer, initialState);
   const preloadedState = store.getState();
   const html = renderToString(
     <Provider store={store}>
       <StaticRouter location={req.url} context={{}}>
-        {renderRoutes(serverRoutes)}
+        {renderRoutes(serverRoutes(isLogged))}
       </StaticRouter>
     </Provider>,
   );
-  res.send(setResponse(html, preloadedState));
+  res.send(setResponse(html, preloadedState, nonceGenerator));
 };
 
 require('./router/auth')(app);
