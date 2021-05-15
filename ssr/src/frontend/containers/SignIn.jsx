@@ -2,18 +2,20 @@ import React, { useState } from 'react';
 import { connect } from 'react-redux';
 
 import { singIn, setRedirect } from '../actions';
-import Header from '../components/Header-A';
+import Header from '../components/Header-B';
 import Title from '../components/Title';
 // import Content from '../components/Content';
 // import Section from '../components/Section';
 import Input from '../components/forms/Input';
 import Button from '../components/forms/Button';
-import MainContent from '../components/MainContent';
+// import MainContent from '../components/MainContent';
 // import Footer from '../components/Footer';
 
-const App = ({ singIn, history, redirect, setRedirect })=> {
+import '../assets/styles/containers/signIn-up.scss';
 
-  console.log(redirect);
+const App = ({ singIn, history, redirect, setRedirect, notRedirect })=> {
+
+  // console.log(redirect);
 
   const [form, setValues] = useState({
     email: '',
@@ -28,16 +30,17 @@ const App = ({ singIn, history, redirect, setRedirect })=> {
       [event.target.name]: event.target.value,
     });
   };
-  console.log(history);
+  // console.log(history);
 
   const handleSubmit = (event) => {
     event.preventDefault();
     singIn(form, ()=>{
-      if (redirect) {
-        history.push(redirect);
-        setRedirect('');
-      } else {
-        history.push('/');
+      if (!notRedirect) {
+        if (redirect) {
+          history.push(redirect);
+        } else {
+          history.push('/');
+        }
       }
     }, (err)=>{
       // console.log(err.request.status);
@@ -55,17 +58,17 @@ const App = ({ singIn, history, redirect, setRedirect })=> {
   return (
     <>
       <Header/>
-      <MainContent>
-        <Title title='Ingresar' />
-        <br/>
-        <form onSubmit={handleSubmit}>
-          {errComponent}
-          <Input type='text' placeholder='Email' name='email' onChange={updateInput}/>
-          <Input type='password' autoComplete='false' placeholder='Contraseña' name='password' onChange={updateInput} current-password />
-          <Button type='submit' >Iniciar sesión</Button>
-        </form>
-        <br/>
-      </MainContent>
+      <Title title='Ingresar' />
+      <form onSubmit={handleSubmit} className='form'>
+        {errComponent}
+        <Input type='text' placeholder='Email' name='email' onChange={updateInput}/>
+        <Input type='password' autoComplete='false' placeholder='Contraseña' name='password' onChange={updateInput} current-password />
+        <p>
+          No tienes cuenta ? Crear una <Button onClick={()=>{history.push('/sign-up');}} typebutton='text' >Aquí</Button>
+        </p>
+        <Button type='submit' >Iniciar sesión</Button>
+      </form>
+      <br/>
       {/* <Footer/> */}
     </>
   );

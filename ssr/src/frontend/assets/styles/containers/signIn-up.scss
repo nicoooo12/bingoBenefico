@@ -1,0 +1,24 @@
+@import '../Index.scss';
+
+.form {
+  // top: -15px;
+  width: 100%;
+  height: 500px;
+  position: relative;
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  &>.input{
+    width: auto;
+  }
+  &>h1{
+    transition: all 2s;
+    text-align: center;
+    background: $error_bg;
+    border-radius: 15px;
+    padding: 10px;
+    width: 80%;
+    border: 3px solid $error_default;
+    @extend %Typography-text-TS;
+  }
+}

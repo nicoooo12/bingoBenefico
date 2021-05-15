@@ -1,8 +1,9 @@
 @import '../Index.scss';
 
 .title{
-  margin-left: 30px;  
-  margin-bottom: 30px;
+  // margin-left: 30px;  
+  // margin-bottom: 30px;
+  // margin-top: 30px;
   height: 65px;
   display: flex;
   align-items: center;
@@ -19,7 +20,7 @@
     top:0;
     z-index:1;
     justify-content: center;
-    margin: 0px;
+    margin: 30px;
     width: 100%;
     place-content: start;
   }

@@ -50,8 +50,12 @@ module.exports = function (app) {
         data: user,
       });
 
-      res.status(201).json({ message: 'user created' });
+      res.json({ message: 'user created' }).status(201);
     } catch (error) {
+      console.log('[err-server]', error.response.data);
+      if (error.response.status === 400) {
+        next(boom.badRequest(error.response.data.message));
+      }
       next(error);
     }
   });
@@ -81,26 +85,5 @@ module.exports = function (app) {
       res.status(statusCode);
       res.json(withErrorStack(payload, err.stack));
     });
-  // app.post('/user-movies', async function (req, res, next) {
-  //   try {
-  //     const { body: userMovie } = req;
-  //     const { token } = req.cookies;
-
-  //     const { data, status } = await axios({
-  //       url: `${config.apiUrl}/api/user-movies`,
-  //       headers: { Authorization: `Bearer ${token}` },
-  //       method: 'post',
-  //       data: userMovie,
-  //     });
-
-  //     if (status !== 201) {
-  //       return next(boom.badImplementation());
-  //     }
-
-  //     res.status(201).json(data);
-  //   } catch (error) {
-  //     next(error);
-  //   }
-  // });
 
 };

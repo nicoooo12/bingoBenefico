@@ -1,17 +1,26 @@
-import React from 'react';
+import React, { useState } from 'react';
 import '../../assets/styles/components/forms/Button.scss';
-const App = ({ children, size, type = 'button', typebutton, state, onClick })=> {
+
+const App = ({ children, size, type = 'button', typebutton, state = '', onClick, disabled = false })=> {
+
+  const [login, setLogin] = useState(state);
+
+  const onClickHandle = ()=>{
+    setLogin('loading');
+    onClick();
+  };
 
   return (
     <button
-      onClick={onClick}
+      onClick={onClickHandle}
       className='button'
       type={type}
+      disabled={disabled}
       typebutton={typebutton ? typebutton : 'primary'}
       sizebutton={size ? size : 'large'}
     >
       {
-        state === 'loading' ? <div className='loading-spinner' /> : children
+        login === 'loading' ? <div className='loading-spinner' /> : children
       }
     </button>
   );

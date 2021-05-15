@@ -33,7 +33,7 @@ const routers = (isLogged)=>{
     {
       exact: true,
       path: '/compra',
-      component: isLogged ? Compra : SignIn,
+      component: Compra,
     },
     // {
     //   exact: true,

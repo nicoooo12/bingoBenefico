@@ -114,7 +114,9 @@
   }
 }
 %btn-text{
-  outline: none;  
+  outline: none;
+  width: auto !important;
+  height: auto !important;
   border-radius: 40px;
   background: rgba(0, 0, 0, 0);
   color: $primary_default;
@@ -128,6 +130,7 @@
     color: $primary_default;
     outline: none;
     background: $greyscale_inputBG;
+    border: 10px $greyscale_inputBG solid;
   }
   &:active{
     border-radius: 40px;

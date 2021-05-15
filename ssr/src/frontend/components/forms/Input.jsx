@@ -13,7 +13,7 @@ const App = ({ type, placeholder, name, text = '', onChange, autoComplete = 'tru
     <div className='input'>
       <input autoComplete={autoComplete} type={type} name={name} onChange={onChange} id={placeholder} placeholder={placeholder} ref={Input}/>
       <div>
-        <button onClick={delHandler} type='button'>
+        <button onClick={delHandler} type='button' tabIndex='-1'>
           <Icon type='close' />
         </button>
       </div>

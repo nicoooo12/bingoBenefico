@@ -10,6 +10,7 @@ header{
   top: 0px;
 }
 
+
 .disNone{
   display: none;
 }
@@ -125,6 +126,36 @@ header{
     justify-content: space-between;
     align-items: center;
 
+  &>a>h1{
+    transition: 1s all;
+    color: $primary_dark;
+    display: inline-block;
+    position: relative;
+    margin-left: 10px;
+    // top: 20px;
+    @extend %Typography-text-LL;
+  }
+  &>.lastIcon{
+    // margin-right: 10px;
+    transition: 1s all;
+    width: 42px;
+    display: inline-block;
+    z-index: 1000000000000000000;
+    position: relative;
+    // top: 20px;
+    color: $primary_dark;
+  }
+}
+
+.contentLibreB{
+  transition: .3s all;
+  background: $primary_dark-mode;
+  height: 60px;
+    width: 100%;
+    display: flex;
+    // justify-content: center;
+    justify-content: space-around;
+    align-items: center;
   &>a>h1{
     transition: 1s all;
     color: $primary_dark;

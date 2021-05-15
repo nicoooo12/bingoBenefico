@@ -90,18 +90,13 @@ const renderApp = async (req, res) => {
   }
   let cartones;
   try {
-    const { dataCartones } = await axios({
+    const { data: dataCartones } = await axios({
       method: 'get',
       headers: { Authorization: `Bearer ${token}` },
       url: `${config.apiUrl}/api/cartones/mys`,
     });
     cartones = dataCartones.data;
-    myOrden = dataOrden.data.estado;
-    user = {
-      name,
-      email,
-      id,
-    };
+    // myOrden = dataOrden.data.estado;
   } catch (error) {
     cartones = {};
   }
@@ -125,10 +120,10 @@ const renderApp = async (req, res) => {
 
   let myEndsOrden;
   try {
-    const { dataOrden } = await axios({
+    const { data: dataOrden } = await axios({
       method: 'get',
       headers: { Authorization: `Bearer ${token}` },
-      url: `${config.apiUrl}/api/orden/my`,
+      url: `${config.apiUrl}/api/orden/terminadas/my`,
     });
     myEndsOrden = dataOrden.data;
   } catch (error) {
@@ -136,12 +131,12 @@ const renderApp = async (req, res) => {
   }
   let myInProgressOrden;
   try {
-    const { dataOrden } = await axios({
+    const { data: dataOrden } = await axios({
       method: 'get',
       headers: { Authorization: `Bearer ${token}` },
-      url: `${config.apiUrl}/api/orden/terminadas/my`,
+      url: `${config.apiUrl}/api/orden/my`,
     });
-    myInProgressOrden = dataOrden.data[0];
+    myInProgressOrden = dataOrden.data[0] ? dataOrden.data[0] : {};
   } catch (error) {
     myInProgressOrden = {};
   }
@@ -157,7 +152,7 @@ const renderApp = async (req, res) => {
     'catalogos': catalogo,
     'carrito': {
       active: false,
-      state: myInProgressOrden._id ? 1 : 0,
+      state: (myInProgressOrden.user ? 1 : 0),
       data: [],
     },
   };

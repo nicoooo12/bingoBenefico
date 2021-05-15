@@ -50,34 +50,31 @@ export const setRedirect = (payload) => ({
   payload,
 });
 
+export const updateStateReducer = (payload) => ({
+  type: 'UPDATE_STATE',
+  payload,
+});
+
 export const setError = (payload) => ({
   type: 'SET_ERROR',
   payload,
 });
 
-export const createOrden = (payload, urlRedirect) => {
+export const singUp = (payload, fnCallBack, fnErrorCallback) => {
   return (dispatch) => {
-    axios.post('/auth', payload)
-      .then(({ data }) => {
-        dispatch(registerRequest(data));
-      })
-      .then(() => {
-        window.location.href = urlRedirect;
-      });
-  };
-};
-
-export const singUp = (payload, fnCallBack) => {
-  return (dispatch) => {
+    console.log('[sigUp]', typeof fnCallBack, typeof fnErrorCallback);
     axios.post('/auth/sign-up', payload)// {email, name, password}
       .then(({ data }) => {
-        dispatch(registerRequest(data));
-      })
-      .then(() => {
-        fnCallBack();
+        dispatch(singIn({ email: payload.email, password: payload.password },
+          ()=>{
+            fnCallBack();
+          },
+          (err)=>{
+            fnErrorCallback(err);
+          }));
       })
       .catch((error) => {
-        console.log('[error:(]', error);
+        fnErrorCallback(error);
         dispatch(setError(error));
       });
   };
@@ -85,6 +82,7 @@ export const singUp = (payload, fnCallBack) => {
 
 export const singIn = ({ email, password }, fnCallback, fnErrorCallback) => {
   return (dispatch) => {
+    console.log(typeof fnCallback, typeof fnErrorCallback);
     axios({
       url: '/auth/sign-in',
       method: 'post',
@@ -98,6 +96,7 @@ export const singIn = ({ email, password }, fnCallback, fnErrorCallback) => {
         document.cookie = `name=${data.user.name}`;
         document.cookie = `id=${data.user.id}`;
         dispatch(registerRequest(data.user));
+        dispatch(updateState());
       })
       .then(() => {
         fnCallback();
@@ -105,6 +104,70 @@ export const singIn = ({ email, password }, fnCallback, fnErrorCallback) => {
       .catch((error) => {
         fnErrorCallback(error);
         // console.log(error.request.status);
+        dispatch(setError(error));
+      });
+  };
+};
+
+export const createOrden = (compra, totalPago) => {
+  return (dispatch) => {
+    console.log(compra, totalPago);
+    axios({
+      url: '/api/createOrden',
+      method: 'post',
+      data: {
+        'compra': compra,
+        // [{
+        //   'serie': 1,
+        //   'cantidad': 1,
+        // }],
+        'totalPago': totalPago,
+        'tipoDePago': 'transferencia',
+      },
+    })// {email, password}
+      .then(({ data }) => {
+        console.log('[create orden]', data.data);
+        dispatch(updateStateReducer(data.data));
+      })
+      .catch((error) => {
+        console.log(error);
+        dispatch(setError(error));
+      });
+  };
+};
+
+export const createCanvasOrden = (data, fnCallBack) => {
+  return (dispatch) => {
+    axios({
+      url: '/api/createCanvas',
+      method: 'post',
+      data: { data: data },
+    })
+      .then(({ data }) => {
+        console.log('[CreateCanvas]', data.data);
+        dispatch(updateStateReducer(data.data));
+        fnCallBack();
+      })
+      .catch((error) => {
+        console.log(error);
+        dispatch(setError(error));
+      });
+  };
+};
+
+export const updateState = () => {
+  return (dispatch) => {
+    axios({
+      url: '/api/getState',
+      method: 'post',
+    })// {email, password}
+      .then(({ data }) => {
+        console.log('[updateState]', data.data);
+        // dispatch(registerRequest(data.user));
+        dispatch(updateStateReducer(data.data));
+      })
+      .catch((error) => {
+        console.log(error);
         dispatch(setError(error));
       });
   };
