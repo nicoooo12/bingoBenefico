@@ -179,11 +179,11 @@ async function cancelOrden(id){
 
 }
 
-async function terminarOrden(id, pagado){
+async function terminarOrden(id, pagado, correo = false, comment){
   
   try {
     
-
+    // console.log('[comment]', comment);
     //cambiar el estado 
     let orden = await store.get(table, {user: id})
     //crea los cartones
@@ -195,9 +195,10 @@ async function terminarOrden(id, pagado){
 
     //mover la orden
     let newOrdenEnd = await store.post('ordenesTerminadas', {
-      compra: orden.compra,
-      pago: orden.totalPago,
+      compra: orden[0].compra,
+      pago: orden[0].totalPago,
       pagado,
+      comment,
       user: id,
     })
     await store.delt(table, {user: id})
@@ -205,8 +206,10 @@ async function terminarOrden(id, pagado){
       canvasServices.deleteCanvasUrl(id)
     }
     //manda el correo con los pdfs
-    let [user] = await store.get('users', {_id : id})
-    await correoService.correoConfirmation(user.email, await cartonesService.getCarton({ user: id}))
+    if (correo){
+      let [user] = await store.get('users', {_id : id})
+      await correoService.correoConfirmation(user.email, await cartonesService.getCarton({ user: id}))
+    }
 
     //retornar
     return newOrdenEnd

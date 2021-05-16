@@ -19,6 +19,22 @@ const passport = require('passport');
 const cookieParser = require('cookie-parser');
 
 const app = express();
+const server = require('http').createServer(app);
+const { Server } = require('socket.io');
+const { instrument } = require('@socket.io/admin-ui');
+const io = new Server(server, {
+  cors: {
+    origin: ['https://admin.socket.io'],
+  },
+});
+
+instrument(io, {
+  auth: {
+    type: 'basic',
+    username: config.socketUser,
+    password: config.socketPassword,
+  },
+});
 
 app.use(express.urlencoded({ extended: true }));
 app.use(express.json());
@@ -98,7 +114,7 @@ const renderApp = async (req, res) => {
     cartones = dataCartones.data;
     // myOrden = dataOrden.data.estado;
   } catch (error) {
-    cartones = {};
+    cartones = [];
   }
 
   let user;
@@ -144,12 +160,21 @@ const renderApp = async (req, res) => {
   const initialState = {
     'user': user,
     'redirect': '',
-    'cartonesUser': cartones,
+    'cartonesUser': cartones[0] ? cartones.map((e)=>{
+      return {
+        ...e,
+        play: [[false, false, false, false, false], [false, false, false, false, false], [false, false, false, false, false], [false, false, false, false, false], [false, false, false, false, false]],
+      };
+    }) : [],
     'ordenes': {
       enProgreso: myInProgressOrden,
       terminadas: myEndsOrden,
     },
     'catalogos': catalogo,
+    'play': {
+      estado: 0,
+      serieJuego: 0,
+    },
     'carrito': {
       active: false,
       state: (myInProgressOrden.user ? 1 : 0),
@@ -176,8 +201,8 @@ const renderApp = async (req, res) => {
 
 require('./router/auth')(app);
 require('./router/api')(app);
+require('./sockets')(io);
 app.get('*', renderApp);
-
-app.listen(config.port, () => {
+server.listen(config.port, () => {
   console.log(`Server listening on port ${config.port} in ${config.dev ? 'development' : 'production'} mode`);
 });

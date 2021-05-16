@@ -1,4 +1,7 @@
 import axios from 'axios';
+// import { io } from 'socket.io-client';
+
+// const socket = io();
 
 export const addItemToCarrito = (payload) =>({
   type: 'ADD_ITEM_TO_CARRITO',
@@ -50,6 +53,11 @@ export const setRedirect = (payload) => ({
   payload,
 });
 
+export const changeColorPlay = (payload) => ({
+  type: 'SET_REDIRECT',
+  payload,
+});
+
 export const updateStateReducer = (payload) => ({
   type: 'UPDATE_STATE',
   payload,
@@ -82,7 +90,6 @@ export const singUp = (payload, fnCallBack, fnErrorCallback) => {
 
 export const singIn = ({ email, password }, fnCallback, fnErrorCallback) => {
   return (dispatch) => {
-    console.log(typeof fnCallback, typeof fnErrorCallback);
     axios({
       url: '/auth/sign-in',
       method: 'post',
@@ -97,9 +104,7 @@ export const singIn = ({ email, password }, fnCallback, fnErrorCallback) => {
         document.cookie = `id=${data.user.id}`;
         dispatch(registerRequest(data.user));
         dispatch(updateState());
-      })
-      .then(() => {
-        fnCallback();
+        fnCallback(data.user);
       })
       .catch((error) => {
         fnErrorCallback(error);
@@ -136,7 +141,7 @@ export const createOrden = (compra, totalPago) => {
   };
 };
 
-export const createCanvasOrden = (data, fnCallBack) => {
+export const createCanvasOrden = (data, fnCallBack, fnErrorCallback) => {
   return (dispatch) => {
     axios({
       url: '/api/createCanvas',
@@ -145,11 +150,12 @@ export const createCanvasOrden = (data, fnCallBack) => {
     })
       .then(({ data }) => {
         console.log('[CreateCanvas]', data.data);
-        dispatch(updateStateReducer(data.data));
+        console.log(data);
+        dispatch(updateState());
         fnCallBack();
       })
       .catch((error) => {
-        console.log(error);
+        fnErrorCallback(error);
         dispatch(setError(error));
       });
   };

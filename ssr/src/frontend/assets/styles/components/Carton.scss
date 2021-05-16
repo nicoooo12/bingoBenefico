@@ -20,19 +20,19 @@
 }
 
 .carton__title{
-  @extend .Typography-text-DS;
+  @extend %Typography-text-DS;
   margin-bottom: 20px;
 }
 
-.carton__buttonPrint{
-  @extend .btn-secondary;
-  display: flex;
-  align-items: center;
-  text-align: center;
-  &>svg{
-    margin-right: 8px;
-  }
-}
+// .carton__buttonPrint{
+//   @extend %btn-secondary;
+//   display: flex;
+//   align-items: center;
+//   text-align: center;
+//   &>svg{
+//     margin-right: 8px;
+//   }
+// }
 
 .carton__foot{
   width: 100%;
@@ -59,7 +59,7 @@
       padding: .5rem .5rem;
       background-color: $primary_default;
       color: $greyscale_off-white;
-      @extend .Typography-text-LL;
+      @extend %Typography-text-LL;
 
     }
   }
@@ -70,7 +70,7 @@
       border-width: 0 1px;
       text-align: center;
       border: 2px solid $primary_default;
-      @extend .Typography-text-TL;
+      @extend %Typography-text-TL;
     }
   }
 }

@@ -13,7 +13,7 @@ import Button from '../components/forms/Button';
 
 import '../assets/styles/containers/signIn-up.scss';
 
-const App = ({ singIn, history, redirect, setRedirect, notRedirect })=> {
+const App = ({ singIn, history, redirect, setRedirect, notRedirect, socket })=> {
 
   // console.log(redirect);
 
@@ -34,7 +34,8 @@ const App = ({ singIn, history, redirect, setRedirect, notRedirect })=> {
 
   const handleSubmit = (event) => {
     event.preventDefault();
-    singIn(form, ()=>{
+    singIn(form, (user)=>{
+      socket.emit('holaMundo', user.id);
       if (!notRedirect) {
         if (redirect) {
           history.push(redirect);

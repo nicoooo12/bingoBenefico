@@ -40,6 +40,7 @@ const mySchemaOrdenesTerminadas = new Schema({
   pago: Number,
   pagado: Number,
   user: String,
+  comment: String,
 })
 
 const mySchemaEstados = new Schema({

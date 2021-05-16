@@ -1,0 +1,51 @@
+@import '../Index.scss';
+
+.play{
+  width: 100%;
+
+  &>.headerMain{
+    position: absolute;
+    top:0;
+  }
+
+  &>.carton{
+    margin: 40px 0;
+    width: 100%;
+
+    &>.carton__content{
+
+
+      &>.hidden-data{
+        width: 100%;
+        overflow: scroll;
+        &>.data{
+          display: flex;
+          width: calc(100% * 3);
+          flex-direction: row;
+          flex-wrap: nowrap;
+          position: relative;
+          &>.item{
+            position: relative;
+            width: 100%;
+            margin: 0 10px;
+          }
+        }
+      }
+    
+
+
+      &>.foot{
+        display: flex;
+        justify-content: center;
+        &>.button{
+          margin: 10px 0 0 0;
+        }
+      }
+
+      &>h1{
+        margin: 0 0 20px 20px;
+      }
+      margin: 20px 10px 45px 10px;
+    }
+  }
+}

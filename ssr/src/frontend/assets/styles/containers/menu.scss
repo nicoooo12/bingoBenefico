@@ -1,0 +1,69 @@
+@import '../Index.scss';
+
+.menu{
+  width: 100%;
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+
+  &>h1{
+    margin: 30px;
+    @extend %Typography-text-DL
+  }
+
+  &>ul{
+
+    margin: 20px 0 60px 0;
+    list-style: none;
+    &>li{
+      width: 250px;
+      margin: 10px;
+      color: $greyscale_placeholder;
+      display: flex;
+      flex-direction: row;
+      justify-content: space-between;
+      align-items: center;
+      text-align: center;
+      &>div>.buttonIcon{
+        border-radius: 15px !important;
+      }
+      &>div>a>.buttonIcon{
+        border-radius: 15px !important;
+      }
+      @extend %Typography-text-LM;
+    }
+  }
+
+}
+
+%btn-subtle{
+  border-radius: 40px;
+  color: $primary_default;
+  border: solid 2px $greyscale_line;
+  background: rgba(0, 0, 0, 0);
+  outline: none;
+  &:hover{
+    color: $primary_dark;
+  }
+  &:focus{
+    border-radius: 40px;
+    outline: none;
+    box-shadow : 0 0 0 8px $greyscale_inputBG;
+    color: $primary_default;
+    border: solid 2px $greyscale_line;
+    background: rgba(0, 0, 0, 0);
+  }
+  &:active{
+    border-radius: 40px;
+    color: $primary_default;
+    border: solid 2px $greyscale_line;
+    background: rgba(0, 0, 0, 0);
+  }
+  &:disabled{
+    opacity: 0.5;
+    color: $primary_default;
+    border: solid 2px $greyscale_line;
+    background: rgba(0, 0, 0, 0);
+    border-radius: 40px;
+  }
+}

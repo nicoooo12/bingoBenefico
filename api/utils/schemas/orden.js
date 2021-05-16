@@ -51,9 +51,20 @@ const addCommentSchema = Joi.object({
     .required(),
 })
 
+const endSchema = Joi.object({
+  pagado: Joi
+    .number()
+    .required(),
+  correo: Joi
+    .boolean(),
+  comment: Joi
+    .string()
+})
+
 module.exports = {
   createOrdenSchema,
   addCanvasUrlSchema,
   editOrdenSchema,
-  addCommentSchema
+  addCommentSchema,
+  endSchema
 };

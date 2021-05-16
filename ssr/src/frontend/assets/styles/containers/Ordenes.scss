@@ -1,0 +1,34 @@
+@import '../Index.scss';
+
+
+.card{
+  margin-bottom: 40px;
+  &>h1{
+    text-align: center;
+    @extend %Typography-text-DSB;
+    margin-bottom: 30px;
+  }
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  &>table{
+    width: 90%;
+    &>tfoot>tr>td>a>.button{
+      margin: 0;
+      left: 10px;
+      position: relative;
+    }
+  }
+  .comentario{
+    border-radius: 20px;
+    background: $greyscale_line;
+    padding: 20px;
+    &>h2{
+      @extend %Typography-text-LM;
+      text-align: left;
+    }
+    &>p{
+      text-align: left;
+    }
+  }
+}

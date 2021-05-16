@@ -4,12 +4,15 @@ import { connect } from 'react-redux';
 import Header from '../components/Header-A';
 import Footer from '../components/Footer';
 import Carrusel from '../components/Carrusel';
+import ButtonIcon from '../components/forms/ButtonIcon';
 import RegisterPanel from '../components/RegisterPanel';
+import { updateState } from '../actions';
+import { Link } from 'react-router-dom';
 
 import Img1 from '../assets/images/1.png';
 
-// import '../assets/styles/App.scss';
-const App = ({ user })=> {
+import '../assets/styles/containers/menu.scss';
+const App = ({ user, updateState })=> {
 
   const [menu, setMenu] = useState(false);
 
@@ -21,19 +24,106 @@ const App = ({ user })=> {
     }
   };
 
+  const logoutHandler = ()=>{
+    console.log('oli');
+    document.cookie = 'email=';
+    document.cookie = 'name=';
+    document.cookie = 'id=';
+    document.cookie = 'token=';
+    updateState();
+    setMenu(false);
+  };
+
   return (
     <>
-      <Header pag='/' menu={menuHandler}/>
+      <Header pag='/' p={()=>{setMenu(false);}} menu={menuHandler}/>
       {
         menu ?
-          <div>
+          <div className='menu'>
             <h1>Menu</h1>
             <ul>
-              <li>Cuenta</li>
-              <li>Reglas del bingo</li>
-              <li>Mis cartones</li>
-              <li>Comprar</li>
-              <li>Salir de mi cuenta</li>
+              {
+                user.id ?
+                  <>
+                    {/* <li>
+                      Cuenta
+                      <div style={{ transform: 'rotate(180deg)' }}>
+                        <Link to='/cuenta'>
+                          <ButtonIcon size='small' typebutton='subtle' />
+                        </Link>
+                      </div>
+                    </li> */}
+                    <li>
+                      Jugar
+                      <div style={{ transform: 'rotate(180deg)' }}>
+                        <Link to='/play'>
+                          <ButtonIcon size='small' typebutton='subtle' />
+                        </Link>
+                      </div>
+                    </li>
+                    <li>
+                      Comprar
+                      <div style={{ transform: 'rotate(180deg)' }}>
+                        <Link to='/catalogo'>
+                          <ButtonIcon size='small' typebutton='subtle' />
+                        </Link>
+                      </div></li>
+                    <li>
+                      Mis cartones
+                      <div style={{ transform: 'rotate(180deg)' }}>
+                        <Link to='/cartones'>
+                          <ButtonIcon size='small' typebutton='subtle' />
+                        </Link>
+                      </div>
+                    </li>
+                    <li>
+                      Mis ordenes
+                      <div style={{ transform: 'rotate(180deg)' }}>
+                        <Link to='/ordenes'>
+                          <ButtonIcon size='small' typebutton='subtle' />
+                        </Link>
+                      </div>
+                    </li>
+                    <li>
+                      Ayuda
+                      <div style={{ transform: 'rotate(180deg)' }}>
+                        <Link to='/help'>
+                          <ButtonIcon size='small' typebutton='subtle' />
+                        </Link>
+                      </div></li>
+                    <li>
+                      Salir de mi cuenta
+                      <div style={{ transform: 'rotate(180deg)' }}>
+                        <ButtonIcon size='small' typebutton='subtle' onClick={logoutHandler} />
+                      </div>
+                    </li>
+                  </> :
+                  <>
+                    <li>
+                      Ingresar
+                      <div style={{ transform: 'rotate(180deg)' }}>
+                        <Link to='/sign-in'>
+                          <ButtonIcon size='small' typebutton='subtle' />
+                        </Link>
+                      </div>
+                    </li>
+                    <li>
+                      Registrarme
+                      <div style={{ transform: 'rotate(180deg)' }}>
+                        <Link to='/sign-up'>
+                          <ButtonIcon size='small' typebutton='subtle' />
+                        </Link>
+                      </div>
+                    </li>
+                    <li>
+                      Ayuda
+                      <div style={{ transform: 'rotate(180deg)' }}>
+                        <Link to='/help'>
+                          <ButtonIcon size='small' typebutton='subtle' />
+                        </Link>
+                      </div></li>
+                  </>
+              }
             </ul>
           </div> :
           <>
@@ -60,4 +150,8 @@ const mapSateToProps = (state)=>{
   };
 };
 
-export default connect(mapSateToProps)(App);
+const mapDispatchToProps = {
+  updateState,
+};
+
+export default connect(mapSateToProps, mapDispatchToProps)(App);

@@ -18,7 +18,7 @@ module.exports = function (app) {
       });
       cartones = dataCartones.data;
     } catch (error) {
-      console.log(error);
+      // console.log(error);
       cartones = {};
     }
 
@@ -45,7 +45,7 @@ module.exports = function (app) {
       const { data: dataOrden } = await axios({
         method: 'get',
         headers: { Authorization: `Bearer ${token}` },
-        url: `${config.apiUrl}/api/orden/my`,
+        url: `${config.apiUrl}/api/orden/terminadas/my`,
       });
       myEndsOrden = dataOrden.data;
     } catch (error) {
@@ -54,10 +54,10 @@ module.exports = function (app) {
     }
     let myInProgressOrden;
     try {
-      const { dataOrden } = await axios({
+      const { data: dataOrden } = await axios({
         method: 'get',
         headers: { Authorization: `Bearer ${token}` },
-        url: `${config.apiUrl}/api/orden/terminadas/my`,
+        url: `${config.apiUrl}/api/orden/my`,
       });
       myInProgressOrden = dataOrden.data[0];
     } catch (error) {
@@ -83,7 +83,7 @@ module.exports = function (app) {
   router.post('/createOrden', async (req, res, next)=>{
     const { token } = req.cookies;
 
-    console.log(req.body);
+    // console.log(req.body);
 
     try {
       const { data: dataOrden } = await axios({
@@ -98,7 +98,7 @@ module.exports = function (app) {
       }).status(200);
 
     } catch (error) {
-      console.log(error.request.data);
+      // console.log(error.request.data);
       next(error);
     }
 
@@ -107,7 +107,7 @@ module.exports = function (app) {
   router.post('/createCanvas', async (req, res, next)=>{
     const { token } = req.cookies;
 
-    console.log(req.body);
+    // console.log(req.body);
 
     try {
       const { data: dataOrden } = await axios({
@@ -122,7 +122,7 @@ module.exports = function (app) {
       }).status(200);
 
     } catch (error) {
-      console.log(error.request.data);
+      // console.log(error.request.data);
       next(error);
     }
 

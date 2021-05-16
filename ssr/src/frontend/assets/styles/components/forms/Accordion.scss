@@ -6,7 +6,7 @@
   -ms-user-select: none;
   user-select: none; 
   width: 350px;
-  height: 70px;
+  height: 80px;
   margin: 10px;
   display: block;
   border-radius: 16px;
@@ -25,29 +25,32 @@
   }
   &>summary{
     @extend %Typography-text-LM;
-    width: 350px;
-    height: 70px;
+    height: 80px;
+    align-items: center;
+    width: 100%;
+    display: flex;
+    justify-content: space-between;
     // background: red;
-    top: -20px;
+    top: -24px;
     position: relative;
     color: $greyscale_title-active;
     cursor: pointer;
     outline: none;
-    padding: 20px;
-    left: -20px;
-    display: block;
+    padding: 10px;
     &>p{
-      display: inline-block;
+      margin-right: 10px;
+      display: flex;
+      align-items: center;
       transition: .3s all;
-      width: 200px;
+      // width: 200px;
       height: 100%;
       vertical-align: text-bottom;
     }
     &>div{
       display: inline-block;
       width: 24px;
-      position: relative;
-      left: 80px;
+      // position: relative;
+      // left: 80px;
       height: 24px;
       transform: rotate(45deg);
       transition: .3s all;
@@ -73,26 +76,10 @@
     left: -20px;
     top: -20px;
     outline: none;
-    width: 350px;
+    // width: 350px;
+    width: 100%;
     position: relative;
     background: transparent;
     transition: .5s all;
   }
-}
-
-@media (max-width: $mediaWidth1){
-
-  .accordion{
-    width: 270px;
-    &>summary{
-      width: 270px;
-      &>div{
-        left: 5px;
-      }
-    }
-    &>div{
-      width: 270px;
-    }
-  }
-
 }

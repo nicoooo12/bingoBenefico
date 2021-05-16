@@ -6,4 +6,6 @@ module.exports = {
   apiUrl: process.env.API_URL,
   apiKeyToken: process.env.API_KEY_TOKEN,
   sessionSecret: process.env.SESSION_SECRET,
+  socketUser: process.env.USER_SOCKET,
+  socketPassword: process.env.PASSWORD_SOCKET,
 };

@@ -44,7 +44,10 @@ const App = ({ misOrdenes, history, createCanvasOrden, createOrden, user, carrit
 
   const endHandler = ()=>{
     createCanvasOrden(data, ()=>{
-      history.push('/');
+      // console.log('redirect!');
+      history.push('/ordenes');
+    }, (err)=>{
+      console.log(err);
     });
   };
 
@@ -198,7 +201,7 @@ const App = ({ misOrdenes, history, createCanvasOrden, createOrden, user, carrit
     default:
       contentHeader = (<>
         <h1>Error.</h1>
-        <p>hola mnd</p>
+        <p> </p>
       </>);
       break;
   };

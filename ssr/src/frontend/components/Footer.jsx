@@ -12,7 +12,7 @@ const App = ()=> {
         <div className='footer__list'>
           <ul>
             <li>
-              <Link to='/'>
+              <Link to='/help'>
                 <button tabIndex='-1'>
                   Ayuda
                 </button>

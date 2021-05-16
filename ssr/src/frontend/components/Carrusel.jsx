@@ -43,7 +43,7 @@ const App = ({ image })=> {
   };
 
   if (!active & ((typeof document !== 'undefined'))) {
-    console.log('iwi');
+    // console.log('iwi');
     setActive(true);
     setTimeout(handleNextCarrusel, 4000);
   }

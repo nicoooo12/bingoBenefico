@@ -57,7 +57,7 @@ const App = ({ title, icon, children, to })=> {
             </div>
           </>
       }
-      <header >
+      <header className='headerMain'>
         <div className='header'>
           <div className='banner'> </div>
           <div className='content'>

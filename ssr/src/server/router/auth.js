@@ -52,7 +52,7 @@ module.exports = function (app) {
 
       res.json({ message: 'user created' }).status(201);
     } catch (error) {
-      console.log('[err-server]', error.response.data);
+      // console.log('[err-server]', error.response.data);
       if (error.response.status === 400) {
         next(boom.badRequest(error.response.data.message));
       }

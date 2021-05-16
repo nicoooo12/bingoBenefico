@@ -10,6 +10,7 @@ const {
   addCanvasUrlSchema,
   editOrdenSchema,
   addCommentSchema,
+  endSchema
 } = require('../utils/schemas/orden')
 const idsSchema = require('../utils/schemas/id')
 
@@ -339,9 +340,11 @@ module.exports = function (app) {
   passport.authenticate('jwt', { session: false }),
   scopesValidationHandler(['end:orden']),
   validationHandler(idsSchema, 'params'),
+  validationHandler(endSchema),
   async (req,res,next)=>{
     try {
-      let editOrden = await ordenServices.terminarOrden(req.params.id)
+      console.log(req.body.comment);
+      let editOrden = await ordenServices.terminarOrden(req.params.id, req.body.pagado, req.body.correo, req.body.comment)
 
       res.json({
         message:'finished successfully',
